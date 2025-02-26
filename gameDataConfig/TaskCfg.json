@@ -1,0 +1,723 @@
+[
+  {
+    "showmsg": "Checked in for 1 day!",
+    "taskName": "累计签到",
+    "describe": "Checked in for 1 day",
+    "taskType": 2,
+    "value1": 1,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 10001,
+    "Unlockvalue": 0,
+    "taskReward": 50001,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Checked in for 2 day!",
+    "taskName": "累计签到",
+    "describe": "Checked in for 2 days",
+    "taskType": 2,
+    "value1": 2,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 10002,
+    "Unlockvalue": 0,
+    "taskReward": 50001,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Checked in for 3 day!",
+    "taskName": "累计签到",
+    "describe": "Checked in for 3 days",
+    "taskType": 2,
+    "value1": 3,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 10003,
+    "Unlockvalue": 0,
+    "taskReward": 50006,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Checked in for 5 day!",
+    "taskName": "累计签到",
+    "describe": "Checked in for 5 days",
+    "taskType": 2,
+    "value1": 5,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 10004,
+    "Unlockvalue": 0,
+    "taskReward": 50001,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Checked in for 7 day!",
+    "taskName": "累计签到",
+    "describe": "Checked in for 7 days",
+    "taskType": 2,
+    "value1": 7,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 10005,
+    "Unlockvalue": 0,
+    "taskReward": 50006,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "First Message Feline! You've officially sent your first message to kitty!",
+    "taskName": "累计对话",
+    "describe": "Send 1 message to the cat",
+    "taskType": 6,
+    "value1": 1,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 40001,
+    "Unlockvalue": 0,
+    "taskReward": 50001,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "You've officially sent 10 messages to kitty and keep the conversation meowing!",
+    "taskName": "累计对话",
+    "describe": "Send 10 messages to the cat",
+    "taskType": 6,
+    "value1": 10,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 40002,
+    "Unlockvalue": 0,
+    "taskReward": 50002,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "You've officially sent 20 messages to kitty!",
+    "taskName": "累计对话",
+    "describe": "Send 20 messages to the cat",
+    "taskType": 6,
+    "value1": 20,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 40003,
+    "Unlockvalue": 0,
+    "taskReward": 50002,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "You've officially sent 50 messages to kitty!",
+    "taskName": "累计对话",
+    "describe": "Send 50 messages to the cat",
+    "taskType": 6,
+    "value1": 50,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 40004,
+    "Unlockvalue": 0,
+    "taskReward": 50002,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Dive into the divine!You've officially sent 100 messages to kitty!",
+    "taskName": "累计对话",
+    "describe": "Send 100 messages to the cat",
+    "taskType": 6,
+    "value1": 100,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 40005,
+    "Unlockvalue": 0,
+    "taskReward": 50005,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected two cats into your academy! Keep up the meow-mentum!",
+    "taskName": "收集猫咪",
+    "describe": "Collect 2 cats",
+    "taskType": 3,
+    "value1": 2,
+    "Unlock": 0,
+    "value2": [
+      ""
+    ],
+    "position": 2,
+    "id": 20001,
+    "Unlockvalue": 0,
+    "taskReward": 50002,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 4 NT kitties!",
+    "taskName": "收集NT猫咪",
+    "describe": "Collect all 4 NT cats",
+    "taskType": 3,
+    "value1": 4,
+    "Unlock": 0,
+    "value2": [
+      "entj",
+      "entp",
+      "intj",
+      "intp"
+    ],
+    "position": 2,
+    "id": 20002,
+    "Unlockvalue": 0,
+    "taskReward": 50003,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 4 NF kitties!",
+    "taskName": "收集NF猫咪",
+    "describe": "Collect all 4 NF cats",
+    "taskType": 3,
+    "value1": 4,
+    "Unlock": 0,
+    "value2": [
+      "enfj",
+      "enfp",
+      "infj",
+      "infp"
+    ],
+    "position": 2,
+    "id": 20003,
+    "Unlockvalue": 0,
+    "taskReward": 50003,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 4 SJ kitties!",
+    "taskName": "收集SJ猫咪",
+    "describe": "Collect all 4 SJ cats",
+    "taskType": 3,
+    "value1": 4,
+    "Unlock": 0,
+    "value2": [
+      "esfj",
+      "estj",
+      "istj",
+      "isfj"
+    ],
+    "position": 2,
+    "id": 20004,
+    "Unlockvalue": 0,
+    "taskReward": 50003,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 4 SP kitties!",
+    "taskName": "收集SP猫咪",
+    "describe": "Collect all 4 SP cats",
+    "taskType": 3,
+    "value1": 4,
+    "Unlock": 0,
+    "value2": [
+      "esfp",
+      "estp",
+      "isfp",
+      "istp"
+    ],
+    "position": 2,
+    "id": 20005,
+    "Unlockvalue": 0,
+    "taskReward": 50003,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 8 I kitties!",
+    "taskName": "收集E猫咪",
+    "describe": "Collect all 8 I cats",
+    "taskType": 3,
+    "value1": 8,
+    "Unlock": 0,
+    "value2": [
+      "entj",
+      "entp",
+      "enfj",
+      "enfp",
+      "esfj",
+      "estj",
+      "esfp",
+      "estp"
+    ],
+    "position": 2,
+    "id": 20006,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected the 8 E kitties!",
+    "taskName": "收集I猫咪",
+    "describe": "Collect all 8 E cats",
+    "taskType": 3,
+    "value1": 8,
+    "Unlock": 0,
+    "value2": [
+      "intj",
+      "intp",
+      "infj",
+      "infp",
+      "istj",
+      "isfj",
+      "isfp",
+      "istp"
+    ],
+    "position": 2,
+    "id": 20007,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Collected all 16 MBTI kitties!",
+    "taskName": "收集全16种猫咪",
+    "describe": "Collect all 16 MBTI cats",
+    "taskType": 3,
+    "value1": 16,
+    "Unlock": 0,
+    "value2": [
+      "intj",
+      "intp",
+      "infj",
+      "infp",
+      "istj",
+      "isfj",
+      "isfp",
+      "istp",
+      "entj",
+      "entp",
+      "enfj",
+      "enfp",
+      "esfj",
+      "estj",
+      "esfp",
+      "estp"
+    ],
+    "position": 2,
+    "id": 20008,
+    "Unlockvalue": 0,
+    "taskReward": 50005,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "1 cat received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 1,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30001,
+    "Unlockvalue": 0,
+    "taskReward": 50006,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "2 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 2,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30002,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "3 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 3,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30003,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "4 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 4,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30004,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "5 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 5,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30005,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "6 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 6,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30006,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "7 cat received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 7,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30007,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "8 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 8,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30008,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "9 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 9,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30009,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "10 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 10,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30010,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "11 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 11,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30011,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "12 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 12,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30012,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "13 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 13,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30013,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "14 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 14,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30014,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "15 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 15,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30015,
+    "Unlockvalue": 0,
+    "taskReward": 50004,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  },
+  {
+    "showmsg": "Your kitty received Pawsome Purrmission pass! Paws up for the smarty-paws!",
+    "taskName": "猫德满级",
+    "describe": "16 cats received Pawsome Purrmission pass",
+    "taskType": 4,
+    "value1": 16,
+    "Unlock": 0,
+    "value2": [
+      "100"
+    ],
+    "position": 2,
+    "id": 30016,
+    "Unlockvalue": 0,
+    "taskReward": 50005,
+    "value3": [
+      ""
+    ],
+    "refurbish": 3,
+    "minPosition": 1
+  }
+]

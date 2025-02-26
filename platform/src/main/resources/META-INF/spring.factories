@@ -1,0 +1,3 @@
+org.springframework.boot.SpringApplicationRunListener=com.infinity.ai.platform.application.PlatformRunListener
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.infinity.db.db.DBoptMysql

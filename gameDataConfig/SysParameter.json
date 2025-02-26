@@ -1,0 +1,14 @@
+[
+  {
+    "parameter": "SYS_DEFAULT_NPC",
+    "remark": "玩家默认的NPC配置表ID",
+    "value": "10001",
+    "id": 1
+  },
+  {
+    "parameter": "ITEM_MONEY_ID",
+    "remark": "代币(储蓄/交易）",
+    "value": "10101000",
+    "id": 2
+  }
+]

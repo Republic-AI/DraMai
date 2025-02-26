@@ -1,0 +1,86 @@
+[
+  {
+    "name_cn": "farming",
+    "effects": "",
+    "name": "耕种",
+    "preconditions": "",
+    "id": 100
+  },
+  {
+    "name_cn": "harvest",
+    "effects": "",
+    "name": "采收",
+    "preconditions": "",
+    "id": 101
+  },
+  {
+    "name_cn": "sale",
+    "effects": "",
+    "name": "销售",
+    "preconditions": "",
+    "id": 102
+  },
+  {
+    "name_cn": "buy",
+    "effects": "",
+    "name": "购买",
+    "preconditions": "",
+    "id": 103
+  },
+  {
+    "name_cn": "cook",
+    "effects": "",
+    "name": "做饭",
+    "preconditions": "",
+    "id": 104
+  },
+  {
+    "name_cn": "dinning",
+    "effects": "",
+    "name": "吃饭",
+    "preconditions": "",
+    "id": 105
+  },
+  {
+    "name_cn": "sleep",
+    "effects": "",
+    "name": "睡眠",
+    "preconditions": "",
+    "id": 106
+  },
+  {
+    "name_cn": "feeding",
+    "effects": "",
+    "name": "投喂",
+    "preconditions": "",
+    "id": 107
+  },
+  {
+    "name_cn": "slaughter",
+    "effects": "",
+    "name": "屠宰",
+    "preconditions": "",
+    "id": 108
+  },
+  {
+    "name_cn": "make",
+    "effects": "",
+    "name": "制作",
+    "preconditions": "",
+    "id": 109
+  },
+  {
+    "name_cn": "speak",
+    "effects": "",
+    "name": "说话",
+    "preconditions": "",
+    "id": 110
+  },
+  {
+    "name_cn": "getup",
+    "effects": "",
+    "name": "起床",
+    "preconditions": "",
+    "id": 111
+  }
+]

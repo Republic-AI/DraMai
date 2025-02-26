@@ -1,0 +1,44 @@
+[
+  {
+    "image": "FLOKI.png",
+    "time": 5,
+    "intro": "(FLOKI): Short and sturdy, with strong limbs and a tool belt always at his side, radiating adventurous energy.",
+    "price": 0.1,
+    "id": 1
+  },
+  {
+    "image": "WIF.png",
+    "time": 5,
+    "intro": "(WIF): Medium height, slim and balanced, with a signature hat and sharp, curious eyes.",
+    "price": 0.1,
+    "id": 2
+  },
+  {
+    "image": "BONK.png",
+    "time": 5,
+    "intro": "(BONK): Short and round, fluffy, always holding a stick that’s perfect for starting machines.",
+    "price": 0.1,
+    "id": 3
+  },
+  {
+    "image": "DOGE.png",
+    "time": 5,
+    "intro": "(DOGE): Tall and steady, with soft, fluffy fur and a warm, reliable presence.",
+    "price": 0.1,
+    "id": 4
+  },
+  {
+    "image": "MOG.png",
+    "time": 5,
+    "intro": "(MOG): Tall and lean, with feline grace, a sly smile, and a long, swishing tail.",
+    "price": 0.1,
+    "id": 5
+  },
+  {
+    "image": "SHIB.png",
+    "time": 5,
+    "intro": "(SHIB): Medium height, well-proportioned and confident, with sharp, determined eyes.",
+    "price": 0.1,
+    "id": 6
+  }
+]

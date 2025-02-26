@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: telegram
+  profiles:
+    active: telegram

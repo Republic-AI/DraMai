@@ -1,0 +1,12 @@
+[
+  {
+    "itemWeight": [
+      "10101000|5|5|1"
+    ],
+    "drop_num": 0,
+    "dropType": 2,
+    "name": "金币",
+    "drop_probability": 0,
+    "id": 50001
+  }
+]

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Socket</title>
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var websocket;
+
+        function cnt() {
+            cnt0($('#ip').val(), $('#port').val());
+        }
+
+        function recnt() {
+            document.getElementById('respMessage').value = '';
+            if(websocket != null && (websocket.readyState == WebSocket.OPEN)) {
+                websocket.close();
+            }
+
+            cnt();
+        }
+
+        function cnt0(ip, port) {
+            //如果浏览器支持WebSocket
+            if (window.WebSocket) {
+                if(websocket != null && (websocket.readyState == WebSocket.OPEN)) {
+                    console.info("已经连接连接,无需重复建立连接");
+                    return;
+                }
+
+                websocket = new WebSocket("ws://" + ip + ':' + port);  //获得WebSocket对象
+
+                //当有消息过来的时候触发
+                websocket.onmessage = function (event) {
+                    var c = event.data;
+                    c = c.replace(/\\/g, "");
+                    var respMessage = document.getElementById("respMessage");
+                    respMessage.value = respMessage.value + "\n" + c;
+
+                }
+
+                //连接关闭的时候触发
+                websocket.onclose = function (event) {
+                    var respMessage = document.getElementById("respMessage");
+                    respMessage.value = respMessage.value + "\n断开连接";
+
+                }
+
+                //连接打开的时候触发
+                websocket.onopen = function (event) {
+                    var respMessage = document.getElementById("respMessage");
+                    respMessage.value = "建立连接";
+                }
+            } else {
+                alert("浏览器不支持WebSocket");
+            }
+        }
+
+        function sendMsg(msg) { //发送消息
+            if (window.WebSocket) {
+                if (websocket.readyState == WebSocket.OPEN) { //如果WebSocket是打开状态
+                    websocket.send(msg); //send()发送消息
+                }
+            } else {
+                return;
+            }
+        }
+
+        function login() {
+            var msg = {
+                requestId: 1000,
+                command: 10000,
+                type: 1,
+                loginName: $('#loginName').val(),
+                password: $('#password').val(),
+
+                data: {
+                    loginType: 1,
+                    name: $('#loginName').val(),
+                    nickName: $('#loginName').val(),
+                    password: $('#password').val(),
+                    avatar: "avator",
+                    sex: 1,
+                    timeZone: 2,
+                    clientOs: "ClientOs",
+                    userId:$('#loginName').val(),
+                    inviteCode:$('#loginName').val()
+                }
+            };
+            msg = JSON.stringify(msg);
+            sendMsg(msg);
+        }
+    </script>
+</head>
+<body>
+<center>
+    <form onsubmit="return false">
+        ip:<input id="ip" value="127.0.0.1"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port:<input id="port" value="8989"/>
+        <button onclick="cnt()">连接</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="recnt()">重新连接</button>
+        <br><br>
+        loginName:<input id="loginName" value="Z1000"> password:<input id="password" value="123">
+        <button onclick="login()">登录</button>
+        <br><br>
+        <textarea style="width: 800px; height: 150px;" name="message"></textarea>
+        <input type="button" onclick="sendMsg(this.form.message.value)" value="发送"><br>
+        <h3>信息</h3>
+        <textarea style="width: 800px; height: 440px;" id="respMessage"></textarea>
+        <input type="button" value="清空" onclick="javascript:document.getElementById('respMessage').value = ''">
+    </form>
+</center>
+</body>
+</html>

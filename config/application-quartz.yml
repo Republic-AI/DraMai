@@ -1,0 +1,7 @@
+
+logging:
+  config: classpath:logcfg-dev.xml
+
+server:
+  port: 8281
+  address: 0.0.0.0

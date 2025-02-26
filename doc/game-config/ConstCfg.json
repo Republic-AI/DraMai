@@ -1,0 +1,107 @@
+[
+  {
+    "en_str": "Logging in, please wait...",
+    "cn_str": "登录中，请稍等",
+    "id": 10001
+  },
+  {
+    "en_str": "Login not yet successful, please wait.",
+    "cn_str": "还未登录成功，请稍等",
+    "id": 10002
+  },
+  {
+    "en_str": "Daily check-in successful.",
+    "cn_str": "签到成功",
+    "id": 10004
+  },
+  {
+    "en_str": "Encountered some issues.",
+    "cn_str": "签到失败",
+    "id": 10005
+  },
+  {
+    "en_str": "The cat has been selected.",
+    "cn_str": "当前猫咪已选择",
+    "id": 10006
+  },
+  {
+    "en_str": "Cat swap successful! New kitty on the block!",
+    "cn_str": "猫咪切换成功",
+    "id": 10007
+  },
+  {
+    "en_str": "This cat has not yet been obtained.",
+    "cn_str": "还未获得此猫咪",
+    "id": 10008
+  },
+  {
+    "en_str": "Insufficient permissions, please enter manually:",
+    "cn_str": "权限不足，请手动输入:",
+    "id": 10009
+  },
+  {
+    "en_str": "Unable to send blank content.",
+    "cn_str": "无法发送空白内容",
+    "id": 10010
+  },
+  {
+    "en_str": "Whoa, you've hit the character limit! Time to trim it down a bit.",
+    "cn_str": "发送字数超过上限啦~",
+    "id": 10011
+  },
+  {
+    "en_str": "Kitty's paws are currently typing...",
+    "cn_str": "猫咪正在输入中……",
+    "id": 10012
+  },
+  {
+    "en_str": "Oops! Network hiccup detected.",
+    "cn_str": "啊哦，网络错误",
+    "id": 10013
+  },
+  {
+    "en_str": "Link copied! Share it with your buddies, and obtain a new kitty once they sign up!",
+    "cn_str": "链接复制成功，邀请给好友注册，你将获得一只新猫~",
+    "id": 10014
+  },
+  {
+    "en_str": "Loading, please be patient and wait...",
+    "cn_str": "加载中，请耐心等待...",
+    "id": 10015
+  },
+  {
+    "en_str": "Congratulations on getting the check-in",
+    "cn_str": "恭喜签到获得",
+    "id": 10016
+  },
+  {
+    "en_str": "Sharing successful",
+    "cn_str": "分享成功",
+    "id": 10017
+  },
+  {
+    "en_str": "Sharing failed",
+    "cn_str": "分享失败",
+    "id": 10018
+  },
+  {
+    "en_str": "Login verification failed",
+    "cn_str": "登录验证失败",
+    "id": 10019
+  },
+  {
+    "en_str": "Account banned",
+    "cn_str": "账号被禁用",
+    "id": 10020
+  },
+  {
+    "en_str": "The product is not within the scope of the promotion",
+    "cn_str": "商品不在活动范围内",
+    "id": 10021
+  },
+  {
+    "en_str": "Purchase failed due to insufficient gold coins",
+    "cn_str": "购买失败,金币不足",
+    "id": 10022
+  }
+]

@@ -1,0 +1,405 @@
+[
+  {
+    "name": "coin",
+    "npcId": 0,
+    "bag": 1,
+    "des": "NPC用于日常交易。通过工作赚钱，花在食物等必需品上",
+    "icon": "item_10101000",
+    "subtype": 1,
+    "id": 10101000,
+    "dropType": [
+      0
+    ],
+    "kind": 1
+  },
+  {
+    "name": "wheat",
+    "npcId": 0,
+    "bag": 1,
+    "des": "wheat",
+    "icon": "item_10101001",
+    "subtype": 1,
+    "id": 10101001,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "玉米",
+    "npcId": 0,
+    "bag": 1,
+    "des": "玉米[农夫]",
+    "icon": "item_10101002",
+    "subtype": 1,
+    "id": 10101002,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "vegetable",
+    "npcId": 0,
+    "bag": 1,
+    "des": "vegetable",
+    "icon": "item_10101003",
+    "subtype": 1,
+    "id": 10101003,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "牛奶",
+    "npcId": 0,
+    "bag": 1,
+    "des": "牛奶[牧民]",
+    "icon": "item_10101004",
+    "subtype": 1,
+    "id": 10101004,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "meat",
+    "npcId": 0,
+    "bag": 1,
+    "des": "meat",
+    "icon": "item_10101005",
+    "subtype": 1,
+    "id": 10101005,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "面包",
+    "npcId": 0,
+    "bag": 1,
+    "des": "面包[面包师]",
+    "icon": "item_10101006",
+    "subtype": 1,
+    "id": 10101006,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "糕点",
+    "npcId": 0,
+    "bag": 1,
+    "des": "糕点[面包师]",
+    "icon": "item_10101007",
+    "subtype": 1,
+    "id": 10101007,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "文档",
+    "npcId": 0,
+    "bag": 1,
+    "des": "玩家输入type获得的道具",
+    "icon": "item_10101008",
+    "subtype": 1,
+    "id": 10101008,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "fish",
+    "npcId": 0,
+    "bag": 1,
+    "des": "fish",
+    "icon": "item_10101009",
+    "subtype": 1,
+    "id": 10101009,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "coffee",
+    "npcId": 0,
+    "bag": 1,
+    "des": "coffee",
+    "icon": "item_10101010",
+    "subtype": 1,
+    "id": 10101010,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "goods",
+    "npcId": 10008,
+    "bag": 1,
+    "des": "goods",
+    "icon": "item_10101011",
+    "subtype": 1,
+    "id": 10101011,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "shoes",
+    "npcId": 10008,
+    "bag": 1,
+    "des": "shoes",
+    "icon": "item_10101012",
+    "subtype": 1,
+    "id": 10101012,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "fishingRod",
+    "npcId": 10007,
+    "bag": 1,
+    "des": "fishingRod",
+    "icon": "item_10101013",
+    "subtype": 1,
+    "id": 10101013,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "bait",
+    "npcId": 10007,
+    "bag": 1,
+    "des": "bait",
+    "icon": "item_10101014",
+    "subtype": 1,
+    "id": 10101014,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "script",
+    "npcId": 10006,
+    "bag": 1,
+    "des": "script",
+    "icon": "item_10101015",
+    "subtype": 1,
+    "id": 10101015,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "pen",
+    "npcId": 10006,
+    "bag": 1,
+    "des": "pen",
+    "icon": "item_10101016",
+    "subtype": 1,
+    "id": 10101016,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "rocket",
+    "npcId": 10009,
+    "bag": 1,
+    "des": "rocket",
+    "icon": "item_10101017",
+    "subtype": 1,
+    "id": 10101017,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "wrench",
+    "npcId": 10009,
+    "bag": 1,
+    "des": "wrench",
+    "icon": "item_10101018",
+    "subtype": 1,
+    "id": 10101018,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "cock",
+    "npcId": 10012,
+    "bag": 1,
+    "des": "cock",
+    "icon": "item_10101019",
+    "subtype": 1,
+    "id": 10101019,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "hat",
+    "npcId": 10012,
+    "bag": 1,
+    "des": "hat",
+    "icon": "item_10101020",
+    "subtype": 1,
+    "id": 10101020,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "microphone",
+    "npcId": 10014,
+    "bag": 1,
+    "des": "microphone",
+    "icon": "item_10101021",
+    "subtype": 1,
+    "id": 10101021,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "handle",
+    "npcId": 10014,
+    "bag": 1,
+    "des": "handle",
+    "icon": "item_10101022",
+    "subtype": 1,
+    "id": 10101022,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "coffeeBean",
+    "npcId": 10010,
+    "bag": 1,
+    "des": "coffeeBean",
+    "icon": "item_10101023",
+    "subtype": 1,
+    "id": 10101023,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "mushroom",
+    "npcId": 10010,
+    "bag": 1,
+    "des": "mushroom",
+    "icon": "item_10101024",
+    "subtype": 1,
+    "id": 10101024,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "glasses",
+    "npcId": 10011,
+    "bag": 1,
+    "des": "glasses",
+    "icon": "item_10101025",
+    "subtype": 1,
+    "id": 10101025,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "zoome",
+    "npcId": 10011,
+    "bag": 1,
+    "des": "zoome",
+    "icon": "item_10101026",
+    "subtype": 1,
+    "id": 10101026,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "drawingBoard",
+    "npcId": 10013,
+    "bag": 1,
+    "des": "drawingBoard",
+    "icon": "item_10101027",
+    "subtype": 1,
+    "id": 10101027,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Artbook",
+    "npcId": 10013,
+    "bag": 1,
+    "des": "Artbook",
+    "icon": "item_10101028",
+    "subtype": 1,
+    "id": 10101028,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "headphone",
+    "npcId": 10015,
+    "bag": 1,
+    "des": "headphone",
+    "icon": "item_10101029",
+    "subtype": 1,
+    "id": 10101029,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "disk",
+    "npcId": 10015,
+    "bag": 1,
+    "des": "disk",
+    "icon": "item_10101030",
+    "subtype": 1,
+    "id": 10101030,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  }
+]

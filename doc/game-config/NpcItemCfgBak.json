@@ -1,0 +1,402 @@
+[
+  {
+    "type": 1,
+    "item": 10101001,
+    "name": "农民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 1
+  },
+  {
+    "type": 1,
+    "item": 10101002,
+    "name": "农民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 2
+  },
+  {
+    "type": 1,
+    "item": 10101003,
+    "name": "农民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 3
+  },
+  {
+    "type": 2,
+    "item": 10101001,
+    "name": "农民",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 4
+  },
+  {
+    "type": 2,
+    "item": 10101002,
+    "name": "农民",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 5
+  },
+  {
+    "type": 2,
+    "item": 10101003,
+    "name": "农民",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 1,
+    "id": 6
+  },
+  {
+    "type": 2,
+    "item": 10101004,
+    "name": "农民",
+    "npc_type": [
+      2,
+      3
+    ],
+    "npc_type_id": 1,
+    "id": 7
+  },
+  {
+    "type": 2,
+    "item": 10101005,
+    "name": "农民",
+    "npc_type": [
+      2,
+      3
+    ],
+    "npc_type_id": 1,
+    "id": 8
+  },
+  {
+    "type": 2,
+    "item": 10101006,
+    "name": "农民",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 1,
+    "id": 9
+  },
+  {
+    "type": 2,
+    "item": 10101007,
+    "name": "农民",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 1,
+    "id": 10
+  },
+  {
+    "type": 1,
+    "item": 10101001,
+    "name": "杂货店主",
+    "npc_type": [
+      0
+    ],
+    "npc_type_id": 2,
+    "id": 11
+  },
+  {
+    "type": 1,
+    "item": 10101003,
+    "name": "杂货店主",
+    "npc_type": [
+      0
+    ],
+    "npc_type_id": 2,
+    "id": 12
+  },
+  {
+    "type": 1,
+    "item": 10101004,
+    "name": "杂货店主",
+    "npc_type": [
+      0
+    ],
+    "npc_type_id": 2,
+    "id": 13
+  },
+  {
+    "type": 1,
+    "item": 10101005,
+    "name": "杂货店主",
+    "npc_type": [
+      0
+    ],
+    "npc_type_id": 2,
+    "id": 14
+  },
+  {
+    "type": 2,
+    "item": 10101001,
+    "name": "杂货店主",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 2,
+    "id": 15
+  },
+  {
+    "type": 2,
+    "item": 10101002,
+    "name": "杂货店主",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 2,
+    "id": 16
+  },
+  {
+    "type": 2,
+    "item": 10101003,
+    "name": "杂货店主",
+    "npc_type": [
+      1,
+      2
+    ],
+    "npc_type_id": 2,
+    "id": 17
+  },
+  {
+    "type": 2,
+    "item": 10101004,
+    "name": "杂货店主",
+    "npc_type": [
+      2,
+      3
+    ],
+    "npc_type_id": 2,
+    "id": 18
+  },
+  {
+    "type": 2,
+    "item": 10101005,
+    "name": "杂货店主",
+    "npc_type": [
+      2,
+      3
+    ],
+    "npc_type_id": 2,
+    "id": 19
+  },
+  {
+    "type": 2,
+    "item": 10101006,
+    "name": "杂货店主",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 2,
+    "id": 20
+  },
+  {
+    "type": 2,
+    "item": 10101007,
+    "name": "杂货店主",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 2,
+    "id": 21
+  },
+  {
+    "type": 1,
+    "item": 10101004,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 22
+  },
+  {
+    "type": 1,
+    "item": 10101005,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 23
+  },
+  {
+    "type": 2,
+    "item": 10101001,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 24
+  },
+  {
+    "type": 2,
+    "item": 10101002,
+    "name": "牧民",
+    "npc_type": [
+      1
+    ],
+    "npc_type_id": 3,
+    "id": 25
+  },
+  {
+    "type": 2,
+    "item": 10101003,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 26
+  },
+  {
+    "type": 2,
+    "item": 10101004,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 27
+  },
+  {
+    "type": 2,
+    "item": 10101005,
+    "name": "牧民",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 3,
+    "id": 28
+  },
+  {
+    "type": 2,
+    "item": 10101006,
+    "name": "牧民",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 3,
+    "id": 29
+  },
+  {
+    "type": 2,
+    "item": 10101007,
+    "name": "牧民",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 3,
+    "id": 30
+  },
+  {
+    "type": 1,
+    "item": 10101006,
+    "name": "面包师",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 4,
+    "id": 31
+  },
+  {
+    "type": 1,
+    "item": 10101007,
+    "name": "面包师",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 4,
+    "id": 32
+  },
+  {
+    "type": 2,
+    "item": 10101001,
+    "name": "面包师",
+    "npc_type": [
+      1
+    ],
+    "npc_type_id": 4,
+    "id": 33
+  },
+  {
+    "type": 2,
+    "item": 10101002,
+    "name": "面包师",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 4,
+    "id": 34
+  },
+  {
+    "type": 2,
+    "item": 10101003,
+    "name": "面包师",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 4,
+    "id": 35
+  },
+  {
+    "type": 2,
+    "item": 10101004,
+    "name": "面包师",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 4,
+    "id": 36
+  },
+  {
+    "type": 2,
+    "item": 10101005,
+    "name": "面包师",
+    "npc_type": [
+      2
+    ],
+    "npc_type_id": 4,
+    "id": 37
+  },
+  {
+    "type": 2,
+    "item": 10101006,
+    "name": "面包师",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 4,
+    "id": 38
+  },
+  {
+    "type": 2,
+    "item": 10101007,
+    "name": "面包师",
+    "npc_type": [
+      4
+    ],
+    "npc_type_id": 4,
+    "id": 39
+  }
+]

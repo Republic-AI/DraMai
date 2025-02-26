@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/chat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-bases/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-bases/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-cache/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-cache/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-config/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-config/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-constant/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-constant/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-db/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-db/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-network/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-network/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-protocol/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-protocol/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-utils/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/common-utils/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dbservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dbservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/telegram/src/main/java" charset="UTF-8" />
+  </component>
+</project>

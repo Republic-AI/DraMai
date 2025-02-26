@@ -1,0 +1,72 @@
+[
+  {
+    "type": 1,
+    "name": "鲜花",
+    "icon": "item_10101000",
+    "price": 1,
+    "id": 100
+  },
+  {
+    "type": 1,
+    "name": "星星",
+    "icon": "item_10101001",
+    "price": 1,
+    "id": 101
+  },
+  {
+    "type": 1,
+    "name": "生日蛋糕",
+    "icon": "item_10101002",
+    "price": 1,
+    "id": 102
+  },
+  {
+    "type": 1,
+    "name": "鸡尾酒",
+    "icon": "item_10101003",
+    "price": 1,
+    "id": 103
+  },
+  {
+    "type": 1,
+    "name": "帽子",
+    "icon": "item_10101004",
+    "price": 1,
+    "id": 104
+  },
+  {
+    "type": 1,
+    "name": "自行车",
+    "icon": "item_10101005",
+    "price": 1,
+    "id": 105
+  },
+  {
+    "type": 1,
+    "name": "相机",
+    "icon": "item_10101006",
+    "price": 1,
+    "id": 106
+  },
+  {
+    "type": 1,
+    "name": "跑车",
+    "icon": "item_10101007",
+    "price": 1,
+    "id": 107
+  },
+  {
+    "type": 1,
+    "name": "飞机",
+    "icon": "item_10101008",
+    "price": 1,
+    "id": 108
+  },
+  {
+    "type": 1,
+    "name": "火箭",
+    "icon": "item_10101009",
+    "price": 1,
+    "id": 109
+  }
+]
