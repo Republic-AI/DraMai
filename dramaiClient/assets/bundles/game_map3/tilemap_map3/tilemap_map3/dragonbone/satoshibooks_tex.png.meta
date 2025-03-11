@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf@6c48a",
+      "displayName": "satoshibooks_tex",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf@f9941",
+      "displayName": "satoshibooks_tex",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -2,
+        "offsetY": 14,
+        "trimX": 1,
+        "trimY": 1,
+        "width": 122,
+        "height": 98,
+        "rawWidth": 128,
+        "rawHeight": 128,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -61,
+            -49,
+            0,
+            61,
+            -49,
+            0,
+            -61,
+            49,
+            0,
+            61,
+            49,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            1,
+            127,
+            123,
+            127,
+            1,
+            29,
+            123,
+            29
+          ],
+          "nuv": [
+            0.0078125,
+            0.2265625,
+            0.9609375,
+            0.2265625,
+            0.0078125,
+            0.9921875,
+            0.9609375,
+            0.9921875
+          ],
+          "minPos": [
+            -61,
+            -49,
+            0
+          ],
+          "maxPos": [
+            61,
+            49,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": true,
+    "redirect": "e4e9c8a0-5b7d-4fe9-ab09-d4226fe198bf@6c48a"
+  }
+}

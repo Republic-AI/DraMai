@@ -1,0 +1,51 @@
+[
+   {
+      "id": 1,
+      "date": "Day 1",
+      "imgName": "imgNews_1.png",
+      "newsTitle": "Satoshi Returns!",
+      "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
+    },
+    {
+      "id": 2,
+      "date": "Day 2",
+      "imgName": "imgNews_2.png",
+      "newsTitle": "Trump meets Satoshi to make Bitcoin U.S. currency!",
+      "newsContent": "Washington, April 27, 2025 — President Trump invites Bitcoin creator Satoshi Nakamoto to discuss making Bitcoin the U.S. official currency."
+    },
+    {
+      "id": 3,
+      "date": "Day 3",
+      "imgName": "imgNews_3.png",
+      "newsTitle": "From Tokens to Minds: Satoshi’s New Vision",
+      "newsContent": "Satoshi unveils Living Data: a world where data becomes heroes, animals, and plants, reshaping technology into a living, magical ecosystem."
+    },
+    {
+      "id": 4,
+      "date": "Day 4",
+      "imgName": "imgNew_4.png",
+      "newsTitle": "Elon Musk Arrived",
+      "newsContent": "Satoshi invites Elon Musk to this town, a place where experiments for his Mars mission will quietly unfold. But it seems Musk has other plans..."
+    },
+    {
+      "id": 5,
+      "date": "Day 5",
+      "imgName": "imgNew_5.png",
+      "newsTitle": "Pippin's Rainbow",
+      "newsContent": "Pepe wandered deep into the forest and discovered something magical…A rainbow? No. It was a cup of coffee. \nWelcome to Pippin’s Café—where coffee is not just a drink, it’s an experience. Come taste the rainbow!"
+    },
+    {
+      "id": 6,
+      "date": "Day 6",
+      "imgName": "imgNew_6.png",
+      "newsTitle": "Detector Eliza",
+      "newsContent": "A fake AI is hiding in the Republic! Eliza, invited by Satoshi, is on a mission to uncover the truth! She’ll be interviewing everyone—could there be a conspiracy behind this?"
+    },
+    {
+      "id": 7,
+      "date": "Day 7",
+      "imgName": "imgNew_7.png",
+      "newsTitle": "Morpheus's Dream, AI's Dream",
+      "newsContent": "Who is the fake AI? Eliza is lost in chaos until Morpheus appears, claiming he can draw AI dreams to expose the fake. Who’s the imposter?"
+    }
+]

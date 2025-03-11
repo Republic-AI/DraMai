@@ -1,0 +1,49 @@
+[
+  {
+    "ID": 1,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "BONK.png",
+    "Intro": "(BONK): Short and round, fluffy, always holding a stick that’s perfect for starting machines."
+  },
+
+  {
+    "ID": 2,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "DOGE.png",
+    "Intro": "(DOGE): Tall and steady, with soft, fluffy fur and a warm, reliable presence."
+  },
+
+  {
+    "ID": 3,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "FLOKI.png",
+    "Intro": "(FLOKI): Short and sturdy, with strong limbs and a tool belt always at his side, radiating adventurous energy."
+  },
+
+  {
+    "ID": 4,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "MOG.png",
+    "Intro": "(MOG): Tall and lean, with feline grace, a sly smile, and a long, swishing tail."
+  },
+
+  {
+    "ID": 5,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "SHIB.png",
+    "Intro": "(SHIB): Medium height, well-proportioned and confident, with sharp, determined eyes."
+  },
+
+  {
+    "ID": 6,
+    "Time": "5mins",
+    "Price": "0.1SOL",
+    "Image": "WIF.png",
+    "Intro": "(WIF): Medium height, slim and balanced, with a signature hat and sharp, curious eyes."
+  }
+]

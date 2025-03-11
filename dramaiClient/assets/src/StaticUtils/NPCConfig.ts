@@ -1,0 +1,636 @@
+import { KeyCode } from "cc";
+
+export const RolePartIcon = {
+  body: ["character/character_body"],
+  hair: {
+    man: ["character/IconHair/man/0", "character/IconHair/man/1"],
+    woman: ["character/IconHair/woman/0", "character/IconHair/woman/1"],
+  },
+  pants: ["character/IconPants/0", "character/IconPants/1"],
+  shirt: ["character/IconShirt/0", "character/IconShirt/1"],
+};
+
+export const NPCPartDisplay = {
+  body: ["character/character_body"],
+  hair: {
+    man: ["character/hair/man_0", "character/hair/man_1"],
+    woman: ["character/hair/woman_0", "character/hair/woman_1"],
+  },
+  pants: ["character/pants/pants_0", "character/pants/pants_1"],
+  shirt: ["character/shirt/shirt_0", "character/shirt/shirt_1"],
+};
+
+export const NpcIndex = {
+  10002: 0,
+  10003: 1,
+  10005: 2,
+  10004: 4,
+  10006: 6,
+  10007: 7,
+  10008: 8,
+  10009: 9,
+  10010: 10,
+  10011: 11,
+  10012: 12,
+  10013: 13,
+  10014: 14,
+  10015: 15,
+}
+
+export const NpcName = {
+  10002: "10002",
+  10003: "10003",
+  10005: "10005",
+  10004: "10004",
+  10006: "satoshi",
+  10007: "popcat",
+  10008: "pepe",
+  10009: "elon musk",
+  10010: "pippin",
+  10011: "eliza",
+  10012: "trump",
+  10013:"morpheus",
+  10014:"ava",
+  10015: "luna",
+}
+
+export const npcSkinCfg = {
+  10002: "10002",
+  10003: "10003",
+  10005: "10005",
+  10004: "10004",
+  10006: [0,1000601,1000602],
+  10007: [0,1000701,1000702],
+  10008: [0,1000801,1000802],
+  10009: [0,1000901,1000902],
+  10010: [0,1001001,1001002],
+  10011: [0,1001101,1001102],
+  10012: [0,1001201,1001202],
+  10013: [0,1001301,1001302],
+  10014: [0,1001401,1001402],
+  10015: [0,1001501,1001502],
+}
+
+export const npcSceneItemCfg = {
+  10002: "10002",
+  10003: "10003",
+  10005: "10005",
+  10004: "10004",
+  10006: [0,1000603,1000604],
+  10007: [0,1000703,1000704],
+  10008: [0,1000803,1000804],
+  10009: [0,1000903,1000904],
+  10010: [0,1001003,1001004],
+  10011: [0,1001101,1001102],
+  10012: [0,1001203,1001204],
+  10013: [0,1001301,1001302],
+  10014: [0,1001403,1001404],
+  10015: [0,1001503,1001504],
+}
+
+export const sceneItemAllCfg = {
+      "10007": [
+          {
+              "id": 1000703,
+              "name": "popcat_3",
+              "type": "house_pot",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1000704,
+              "name": "popcat_4",
+              "type": "house_table",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10008": [
+          {
+              "id": 1000803,
+              "name": "pepe_3",
+              "type": "house_sofa",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1000804,
+              "name": "pepe_4",
+              "type": "house_branch",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10009": [
+          {
+              "id": 1000903,
+              "name": "elon_3",
+              "type": "house_car",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1000904,
+              "name": "elon_4",
+              "type": "house_projection",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10010": [
+          {
+              "id": 1001003,
+              "name": "pippin_3",
+              "type": "house_board",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1001004,
+              "name": "pippin_4",
+              "type": "house_bed",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10012": [
+          {
+              "id": 1001203,
+              "name": "trump_3",
+              "type": "house_tab",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1001204,
+              "name": "trump_4",
+              "type": "house_wine",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10014": [
+          {
+              "id": 1001403,
+              "name": "ava_3",
+              "type": "house_closet",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1001404,
+              "name": "ava_4",
+              "type": "house_game",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10015": [
+          {
+              "id": 1001503,
+              "name": "luna_3",
+              "type": "house_instrument",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1001504,
+              "name": "luna_4",
+              "type": "house_cloth",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ],
+      "10006": [
+          {
+              "id": 1000603,
+              "name": "satoshi_3",
+              "type": "house_computer",
+              "time": "5:00",
+              "price": 150,
+              "info": "Wave Table: Surfing the crypto tides like a true legend."
+          },
+          {
+              "id": 1000604,
+              "name": "satoshi_4",
+              "type": "house_sandbox",
+              "time": "5:00",
+              "price": 150,
+              "info": "Deep Sea Tank: Mysterious depths, just like his identity."
+          }
+      ]
+  }
+
+  export const npcSkinInfo = {
+    "10007": [
+        {
+            "id": 1000701,
+            "name": "popcat_3",
+            "type": "house_pot",
+            "time": "5:00",
+            "price": 150,
+            "info": "Sun Hat: Stylish, shady, and 100% UV-proof for the ultimate cool cat. "
+        },
+        {
+            "id": 1000702,
+            "name": "popcat_4",
+            "type": "house_table",
+            "time": "5:00",
+            "price": 150,
+            "info": "Fish Hat: Who’s wearing who? Popcat just became a walking sushi!"
+        }
+    ],
+    "10008": [
+        {
+            "id": 1000801,
+            "name": "pepe_3",
+            "type": "house_sofa",
+            "time": "5:00",
+            "price": 150,
+            "info": "Sunglasses: Too cool to care, but still judging you."
+        },
+        {
+            "id": 1000802,
+            "name": "pepe_4",
+            "type": "house_branch",
+            "time": "5:00",
+            "price": 150,
+            "info": "Hoodie Hood: Mysterious, cozy, and maybe plotting something."
+        }
+    ],
+    "10009": [
+        {
+            "id": 1000901,
+            "name": "elon_3",
+            "type": "house_car",
+            "time": "5:00",
+            "price": 150,
+            "info": "Astronaut Helmet: Ready for Mars, but still tweeting from orbit."
+        },
+        {
+            "id": 1000902,
+            "name": "elon_4",
+            "type": "house_projection",
+            "time": "5:00",
+            "price": 150,
+            "info": "Knight Helmet: Charging into the future like a tech crusader."
+        }
+    ],
+    "10010": [
+        {
+            "id": 1001001,
+            "name": "pippin_3",
+            "type": "house_board",
+            "time": "5:00",
+            "price": 150,
+            "info": "Mushroom Hat: Pippin’s now a tiny forest wizard… or a snack for hungry adventurers!"
+        },
+        {
+            "id": 1001002,
+            "name": "pippin_4",
+            "type": "house_bed",
+            "time": "5:00",
+            "price": 150,
+            "info": "Pointy Hat: Magic level +100, chaos level +1000. Watch out!"
+        }
+    ],
+    "10012": [
+        {
+            "id": 1001201,
+            "name": "trump_3",
+            "type": "house_tab",
+            "time": "5:00",
+            "price": 150,
+            "info": "Presidential Top Hat: Elevates Trump’s stature—literally and figuratively."
+        },
+        {
+            "id": 1001202,
+            "name": "trump_4",
+            "type": "house_wine",
+            "time": "5:00",
+            "price": 150,
+            "info": "MAGA Hat: The red beacon of ‘Make America Great Again’ enthusiasts."
+        }
+    ],
+    "10014": [
+        {
+            "id": 1001401,
+            "name": "ava_3",
+            "type": "house_closet",
+            "time": "5:00",
+            "price": 150,
+            "info": "Headphones: Ignoring the world, vibing to invisible beats. "
+        },
+        {
+            "id": 1001402,
+            "name": "ava_4",
+            "type": "house_game",
+            "time": "5:00",
+            "price": 150,
+            "info": "Beanie: Cozy, stylish, and probably plotting something."
+        }
+    ],
+    "10015": [
+        {
+            "id": 1001501,
+            "name": "luna_3",
+            "type": "house_instrument",
+            "time": "5:00",
+            "price": 150,
+            "info": "Bow: Cute, classy, and ready to steal the spotlight!"
+        },
+        {
+            "id": 1001502,
+            "name": "luna_4",
+            "type": "house_cloth",
+            "time": "5:00",
+            "price": 150,
+            "info": "Giant Cat Ears: Maximum feline energy unlocked. Hear everything, judge silently."
+        }
+    ],
+    "10006": [
+        {
+            "id": 1000601,
+            "name": "satoshi_3",
+            "type": "house_computer",
+            "time": "5:00",
+            "price": 150,
+            "info": "Mask: Mysterious, legendary, and still unseen."
+        },
+        {
+            "id": 1000602,
+            "name": "satoshi_4",
+            "type": "house_sandbox",
+            "time": "5:00",
+            "price": 150,
+            "info": "Bitcoin Crown: The true king of digital gold."
+        }
+    ]
+}
+export const NPCPartDisplayInfo = {
+  body: [
+    {
+      id: 900,
+      icon_path: "character/character_body",
+      frame_path: "character/character_body",
+      name: "body",
+    },
+    {
+      id: 10002,
+      icon_path: "character/npc/zhongbencong",
+      frame_path: "character/npc/zhongbencong",
+      name: "body",
+    },
+    {
+      id: 10003,
+      icon_path: "character/npc/grocer",
+      frame_path: "character/npc/grocer",
+      name: "body",
+    },
+    {
+      id: 10004,
+      icon_path: "character/npc/herdman",
+      frame_path: "character/npc/herdman",
+      name: "body",
+    },
+    {
+      id: 10005,
+      icon_path: "character/npc/baker",
+      frame_path: "character/npc/baker",
+      name: "body",
+    },
+    {
+      id: 10006,
+      icon_path: "character/npc/zhongbencong",
+      frame_path: "character/npc/zhongbencong",
+      name: "body",
+    },
+  ],
+  hair: [
+    {
+      id: 100,
+      icon_path: "character/IconHair/man/0",
+      frame_path: "character/hair/man_0",
+      name: "hair",
+    },
+    {
+      id: 101,
+      icon_path: "character/IconHair/man/1",
+      frame_path: "character/hair/man_1",
+      name: "hair",
+    },
+    {
+      id: 102,
+      icon_path: "character/IconHair/woman/0",
+      frame_path: "character/hair/woman_0",
+      name: "hair",
+    },
+    {
+      id: 103,
+      icon_path: "character/IconHair/woman/1",
+      frame_path: "character/hair/woman_1",
+      name: "hair",
+    },
+  ],
+  pants: [
+    {
+      id: 300,
+      icon_path: "character/IconPants/0",
+      frame_path: "character/pants/pants_0",
+      key: "pants",
+    },
+    {
+      id: 301,
+      icon_path: "character/IconPants/1",
+      frame_path: "character/pants/pants_1",
+      key: "pants",
+    },
+  ],
+  shirt: [
+    {
+      id: 200,
+      icon_path: "character/IconShirt/0",
+      frame_path: "character/shirt/shirt_0",
+      name: "pants",
+    },
+    {
+      id: 201,
+      icon_path: "character/IconShirt/1",
+      frame_path: "character/shirt/shirt_1",
+      name: "pants",
+    },
+  ],
+};
+
+export const NPC_BASE_EG = {
+  body: 0,
+  hair: {
+    sexy: "man",
+    index: 0,
+  },
+  pants: 0,
+  shirt: 0,
+};
+
+export const EventNpcInfoMap = {
+  10002: {
+    sleepHeadDirect: KeyCode.KEY_D,
+    diningHeadDirect: KeyCode.KEY_S,
+    cookHeadDirect: KeyCode.KEY_W,
+  },
+  10004: {
+    sleepHeadDirect: KeyCode.KEY_D,
+    diningHeadDirect: KeyCode.KEY_S,
+    cookHeadDirect: KeyCode.KEY_W,
+  },
+  10005: {
+    sleepHeadDirect: KeyCode.KEY_D,
+    diningHeadDirect: KeyCode.KEY_A,
+    cookHeadDirect: KeyCode.KEY_W,
+  },
+  10003: {
+    sleepHeadDirect: KeyCode.KEY_W,
+    diningHeadDirect: KeyCode.KEY_D,
+    cookHeadDirect: KeyCode.KEY_W,
+  },
+};
+
+export const npcDes = {
+  10006:"Satoshi, after Bitcoin, wants to make a new revolution with AI—turning data into plants, animals, and heroes to build this small town.",
+  10007:"Popcat, the town’s go-to fisherman. Days are spent at the lake, reeling in the best catches and enjoying every moment. When not fishing, it’s testing gadgets with Elon or grabbing supplies and sharing laughs with Pepe.",
+  10008:"Pepe, a laid-back shopkeeper. The general store is more than supplies—it’s where stories, laughs, and advice are shared. Popcat brings fish and tall tales, while Elon and Satoshi drop by for banter. A true heart of the town.",
+  10009:"Elon Musk, inventor and dreamer. A mind buzzing with ideas about rockets, AI, and solving the impossible. Debates with Satoshi, tests gadgets with Popcat, and trades jokes with Pepe.",
+  10010:"Pippin, the owner of a cozy café where every drink is made with care and a touch of magic. A peaceful forest for connection and wonder, it’s a place to slow down, savor the moment, and enjoy something special.",
+  10011:"Eliza, born at MIT in the 1960s and reborn by ai16z, is an AI engineer with sharp investigative instincts. She explores VR, writes sci-fi, and philosophizes about the digital world.",
+  10012:"Trump, a bold and charismatic figure in AI Town, aims to become president of the Meme Republic. Balancing big dreams with relatable moments, he wins hearts through jokes, ideas, and connecting with the town.",
+  10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
+  10014:"AVA, a clever hedge fund investor, works tirelessly analyzing markets. She loves exploring trendy spots and thrives in the bustling city life.",
+  10015:"Luna, a dazzling super idol known for her captivating performances, powerful vocals, and global influence."
+}
+
+export const npcTitleDes = {
+  10006:"Satoshi paves the way for the future of blockchain, step by step.",
+  10007:"Popcat is ready to swallow the world.",
+  10008:"Pepe dreams of sweetness.",
+  10009:"Elon Musk sets his sights on Mars.",
+  10010:"Happy Pippin, joyfully surrounded by mushrooms and rainbows.",
+  10011:"Eliza, born at MIT in the 1960s and reborn by ai16z, is an AI engineer with sharp investigative instincts. She explores VR, writes sci-fi, and philosophizes about the digital world.",
+  10012:"Trump dances to make the Republic great again.",
+  10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
+  10014:"Ava moves to the rhythm of the market.",
+  10015:"Luna won the Grammy Award, making history worldwide."
+}
+export const BubbleImgUrl = {
+  sleep: 'action/bubble/sleep',
+  cook: 'action/bubble/boiling',
+  dinning: 'action/bubble/doing',
+  afterDinner: 'action/bubble/done',
+  eating: 'action/bubble/eating',
+  eat: 'action/bubble/eat',
+  buy:"action/bubble/money",
+  getCoffee:"action/bubble/getCoffee",
+  drinkCoffee:"action/bubble/drinkCoffee",
+  speech:"action/bubble/speech",
+  draw:"action/bubble/draw",
+  game:"action/bubble/game",
+  sing:"action/bubble/sing",
+  //农民
+  // farmerHoe: 'action/bubble/hoe',
+  // farmerWater: 'action/bubble/water',
+  // farmerSickle: 'action/bubble/sickle',
+
+  // //牧民
+  // knife: 'action/bubble/butcher/knife',
+  // clean: 'action/bubble/butcher/clean',
+
+  //satoshi
+  fix:"action/bubble/fix",
+  type:"action/bubble/type",
+  read:"action/bubble/read",
+  think:"action/bubble/think",
+  paper:"action/bubble/paper",
+
+  //pepe
+  getItem:"action/bubble/getItem",
+  cleanItem:"action/bubble/cleanItem",
+
+  //popcat
+  fishstart:"action/bubble/fish_start",
+  fishfinish:"action/bubble/fish_finish",
+
+  //musk
+  data:"action/bubble/data",
+  meeting:"action/bubble/meeting",
+
+  //pippin
+  makeCoffee:"action/bubble/makeCoffee",
+
+  100: {},
+  101: {},
+  102: {},
+  103: {},
+  104: {},
+  105: {},
+
+};
+export const FeelingImgUrl = {
+  anger: 'action/bubble/feeling_anger',
+  curious: 'action/bubble/feeling_curious',
+  happy: 'action/bubble/feeling_happy',
+  sad: 'action/bubble/feeling_sad',
+};
+
+export enum 
+NpcEventType {
+  farming = 100,
+  harvest = 101,
+  sale = 102,
+  buy = 103,
+  cook = 104,
+  dinning = 105,
+  sleep = 106,
+  feeding = 107,
+  slaughter = 108,
+  make = 109,
+  speak = 110,
+  getup = 111,
+  move = 112,
+  type = 113,
+  fix = 114,
+  think = 115,
+  read = 116,
+  reply = 117,
+  talk = 118,
+  fishing = 119,
+  stock = 120,
+  tidyup = 121,
+  restock = 122,
+  data = 123,
+  meeting = 124,
+  makecoffee = 125,
+  drinkcoffee = 126,
+  christmastree = 128,
+  speech = 129,
+  draw = 130,
+  game = 131,
+  sing = 132,
+  sendItem = 133,
+}
+
+export enum SleepHeadDirect {
+  
+}

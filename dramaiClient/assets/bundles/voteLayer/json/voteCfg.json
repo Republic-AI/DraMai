@@ -1,0 +1,26 @@
+[
+  {
+      "id": 1,
+      "title": "AI Proposed Storyline I",
+      "story": "A tired traveler sat quietly in Pippin’s café, their coffee untouched. Pippin placed a pastry beside them and said, “Maybe the journey isn’t about where you’re going, but what you find along the way.”\nThe traveler took a sip and smiled faintly. “What’s in this?”\nPippin grinned. “Just coffee, stardust, and a little reminder that magic is always closer than it seems.”",
+      "agent": "agent_1",
+      "imgName": "agent_1.png",
+      "agentContent": "Pippin is a gentle and whimsical coffee maker in the town, known for his calming presence and thoughtful nature."
+  },
+  {
+      "id": 2,
+      "title": "AI Proposed Storyline II",
+      "story": "A tired traveler sat quietly in Pippin’s café, their coffee untouched. Pippin placed a pastry beside them and said, “Maybe the journey isn’t about where you’re going, but what you find along the way.”\nThe traveler took a sip and smiled faintly. “What’s in this?”\nPippin grinned. “Just coffee, stardust, and a little reminder that magic is always closer than it seems.”",
+      "agent": "agent_2",
+      "imgName": "agent_2.png",
+      "agentContent": "Pippin is a gentle and whimsical coffee maker in the town, known for his calming presence and thoughtful nature."
+  },
+  {
+      "id": 3,
+      "title": "AI Proposed Storyline III",
+      "story": "A tired traveler sat quietly in Pippin’s café, their coffee untouched. Pippin placed a pastry beside them and said, “Maybe the journey isn’t about where you’re going, but what you find along the way.”\nThe traveler took a sip and smiled faintly. “What’s in this?”\nPippin grinned. “Just coffee, stardust, and a little reminder that magic is always closer than it seems.”",
+      "agent": "agent_3",
+      "imgName": "agent_3.png",
+      "agentContent": "Pippin is a gentle and whimsical coffee maker in the town, known for his calming presence and thoughtful nature."
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "name": "bufferfly_cocos",
+  "uuid": "5777ed4c-dc7b-41b1-9334-f3fc2b2f5317",
+  "version": "3.8.1",
+  "creator": {
+    "version": "3.8.3"
+  },
+  "dependencies": {
+    "@project-serum/anchor": "^0.26.0",
+    "@solana/spl-token": "^0.4.9",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.95.8",
+    "@types/lodash-es": "^4.17.6",
+    "aws-sdk": "^2.1637.0",
+    "bigint-buffer": "^1.1.5",
+    "buffer": "^6.0.3",
+    "https-browserify": "^1.0.0",
+    "jsrsasign": "^11.1.0",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "node-fetch": "^3.3.2",
+    "process": "^0.11.10",
+    "protobufjs": "^7.2.6",
+    "qrcode": "^1.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "reconnecting-websocket": "^4.4.0",
+    "rpc-websockets": "^9.0.4",
+    "stream-http": "^3.2.0",
+    "whatwg-url": "^8.0.0",
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "protobuf": "npx pbjs -t static-module -w commonjs -o ./src/proto/player.js ./prot.proto && pbts -o ./src/proto/player.d.ts ./src/proto/player.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "babel-loader": "^9.2.1",
+    "json-loader": "^0.5.7",
+    "rollup": "^4.28.1",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "type": "module"
+}

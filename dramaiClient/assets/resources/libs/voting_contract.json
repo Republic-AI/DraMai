@@ -1,0 +1,527 @@
+{
+  "version": "0.1.0",
+  "name": "voting_contract",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "startNewRound",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "votingPeriod",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "createPool",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pool",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "admin",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "poolId",
+          "type": "u8"
+        },
+        {
+          "name": "aiDeveloper",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "vote",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "pool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "voter",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "poolId",
+          "type": "u8"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdrawWinningPool",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "comparisonPool1",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "comparisonPool2",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "aiDeveloper",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refundLosingPool",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "pool",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "comparisonPool1",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "comparisonPool2",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "voter",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "getRoundInfo",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [],
+      "returns": {
+        "defined": "RoundInfo"
+      }
+    },
+    {
+      "name": "getPoolInfo",
+      "accounts": [
+        {
+          "name": "pool",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [],
+      "returns": {
+        "defined": "PoolInfo"
+      }
+    },
+    {
+      "name": "getVoterInfo",
+      "accounts": [
+        {
+          "name": "voter",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [],
+      "returns": {
+        "defined": "VoterInfo"
+      }
+    },
+    {
+      "name": "getAllPoolsInfo",
+      "accounts": [
+        {
+          "name": "state",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "defined": "PoolInfo"
+        }
+      }
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ProgramState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "publicKey"
+          },
+          {
+            "name": "votingPeriod",
+            "type": "i64"
+          },
+          {
+            "name": "startTime",
+            "type": "i64"
+          },
+          {
+            "name": "totalPools",
+            "type": "u8"
+          },
+          {
+            "name": "isActiveRound",
+            "type": "bool"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pool",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u8"
+          },
+          {
+            "name": "aiDeveloper",
+            "type": "publicKey"
+          },
+          {
+            "name": "totalVotes",
+            "type": "u64"
+          },
+          {
+            "name": "totalFunds",
+            "type": "u64"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Voter",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "poolId",
+            "type": "u8"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "RoundInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          },
+          {
+            "name": "votingPeriod",
+            "type": "i64"
+          },
+          {
+            "name": "startTime",
+            "type": "i64"
+          },
+          {
+            "name": "admin",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PoolInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": "u8"
+          },
+          {
+            "name": "aiDeveloper",
+            "type": "publicKey"
+          },
+          {
+            "name": "totalVotes",
+            "type": "u64"
+          },
+          {
+            "name": "totalFunds",
+            "type": "u64"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VoterInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "poolId",
+            "type": "u8"
+          },
+          {
+            "name": "roundNumber",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "RoundStarted",
+      "fields": [
+        {
+          "name": "roundNumber",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "startTime",
+          "type": "i64",
+          "index": false
+        },
+        {
+          "name": "votingPeriod",
+          "type": "i64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RoundCompleted",
+      "fields": [
+        {
+          "name": "roundNumber",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "winningPool",
+          "type": "u8",
+          "index": false
+        },
+        {
+          "name": "totalFunds",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RefundProcessed",
+      "fields": [
+        {
+          "name": "roundNumber",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "poolId",
+          "type": "u8",
+          "index": false
+        },
+        {
+          "name": "voter",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidPoolId",
+      "msg": "Invalid pool ID"
+    },
+    {
+      "code": 6001,
+      "name": "VotingEnded",
+      "msg": "Voting period has ended"
+    },
+    {
+      "code": 6002,
+      "name": "VotingNotEnded",
+      "msg": "Voting period has not ended"
+    },
+    {
+      "code": 6003,
+      "name": "UnauthorizedWithdrawal",
+      "msg": "Unauthorized withdrawal attempt"
+    },
+    {
+      "code": 6004,
+      "name": "NotLosingPool",
+      "msg": "Not a losing pool"
+    },
+    {
+      "code": 6005,
+      "name": "NotWinningPool",
+      "msg": "Not the winning pool"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidVoter",
+      "msg": "Invalid voter"
+    },
+    {
+      "code": 6007,
+      "name": "NoActiveRound",
+      "msg": "No active voting round"
+    },
+    {
+      "code": 6008,
+      "name": "RoundAlreadyActive",
+      "msg": "Round already active"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidRound",
+      "msg": "Invalid round"
+    }
+  ]
+}

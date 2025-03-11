@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e@6c48a",
+      "displayName": "house_wine_1001204",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e@f9941",
+      "displayName": "house_wine_1001204",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 12,
+        "trimY": 8,
+        "width": 40,
+        "height": 48,
+        "rawWidth": 64,
+        "rawHeight": 64,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -20,
+            -24,
+            0,
+            20,
+            -24,
+            0,
+            -20,
+            24,
+            0,
+            20,
+            24,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            12,
+            56,
+            52,
+            56,
+            12,
+            8,
+            52,
+            8
+          ],
+          "nuv": [
+            0.1875,
+            0.125,
+            0.8125,
+            0.125,
+            0.1875,
+            0.875,
+            0.8125,
+            0.875
+          ],
+          "minPos": [
+            -20,
+            -24,
+            0
+          ],
+          "maxPos": [
+            20,
+            24,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "hasAlpha": true,
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "dcbbdc53-d439-41f3-b5dc-f409b0839a1e@6c48a"
+  }
+}
