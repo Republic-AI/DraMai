@@ -39,10 +39,10 @@ export class NetworkCtrl {
             //this._url = "wss://www.infinitytest.cc:8989"
             //this._url = "ws://44.200.143.84:8989"; //linux
             //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            //this._url = "ws://192.168.0.100:8686"; //张航本地
+            this._url = "ws://192.168.0.100:8686"; //张航本地
             //this._url = "ws://54.159.82.155:8686"
             //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            this._url = "wss://dramai.world/api/ws"
+            //this._url = "wss://dramai.world/api/ws"
             //this._url = "wss://memerepublic.ai/api/ws"
             GlobalConfig.instance.isDebug = true;
             GlobalConfig.instance.testTools = true

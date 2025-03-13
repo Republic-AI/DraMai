@@ -1,10 +1,12 @@
-import { _decorator, Camera, Component, director, instantiate, Node, Prefab, tween } from 'cc';
+import { _decorator, Camera, Component, director, instantiate, Node, Prefab, ScrollView, tween } from 'cc';
 import { network } from '../../../src/model/RequestData';
 import { observer, socket } from '../../../src/game/App';
 import { EventType } from '../../../src/EventType';
 import { GlobalConfig } from '../../../src/game/config/GlobalConfig';
 import { optionPrefab } from './optionPrefab';
 import { sceneItem } from './sceneItem';
+import { twitterModeType_1 } from './twitterModeType_1';
+import { twitterModeType_2 } from './twitterModeType_2';
 const { ccclass, property } = _decorator;
 
 @ccclass('lobbyScene')
@@ -27,14 +29,39 @@ export class lobbyScene extends Component {
     @property(Camera)
     mainCamera:Camera = null;
 
+    @property(ScrollView)
+    sceneItemView:ScrollView = null;
+
+    @property(ScrollView)
+    twitterView:ScrollView = null;
+
+    @property(Node)
+    twitterViewContent:Node = null;
+
     @property(Node)
     maskNode:Node = null;
+
+    @property(Prefab)
+    twitterModeType_1:Prefab = null;
+
+    @property(Prefab)
+    twitterModeType_2:Prefab = null;
+
+    @property(Node)
+    status_1:Node = null;
+    
+    @property(Node)
+    status_2:Node = null;
+
     _orignOrthoHeight = null;
+    _chooseSceneId = 1;
+    _pageStatus = null
     protected onLoad(): void {
         director.addPersistRootNode(this.worldNode);
         observer.on(EventType.GETLOBBYINFO,this.getLobbyInfo,this);
         observer.on(EventType.REQUESTENTERSCENE,this.enterScene,this);
         observer.on("ChooseBtnScene",this.onChooseClick,this);
+        observer.on(EventType.INITTWITTERVIEW,this.initTwitterView,this);
     }
     
     _lobbyRoomInfo = null;
@@ -51,13 +78,31 @@ export class lobbyScene extends Component {
         observer.off(EventType.GETLOBBYINFO,this.getLobbyInfo,this);
         observer.off(EventType.REQUESTENTERSCENE,this.enterScene,this);
         observer.off("ChooseBtnScene",this.onChooseClick,this);
+        observer.off(EventType.INITTWITTERVIEW,this.initTwitterView,this);
     }
 
     _initData(){
-
+        this._pageStatus = 1;
         let json = new network.GetAllNPCRequest();
         json.command = 10109;
         json.type = 1;
+        socket.sendWebSocketBinary(json);
+
+        this.twitterView.node.active = false;
+        this.sceneItemView.node.active = true;
+
+        this.initRequestTwitter()
+
+    }
+
+    initRequestTwitter(){
+        let json = new network.GetAllNPCRequest();
+        json.command = 10112;
+        json.type = 1;
+        json["data"] = {};
+        json["data"]["roomId"] = 0;
+        json["data"]["page"] = 0;
+        json["data"]["size"] = 999;
         socket.sendWebSocketBinary(json);
     }
 
@@ -80,19 +125,24 @@ export class lobbyScene extends Component {
                     option.onBtnClick();
                 }
                 else{
-                    option.setUnChooseStatus;
+                    option.setUnChooseStatus();
                 }
             })
+            this.optionBtnLayout.setPosition(800,0,0);
         }
     }
 
     onBtnTest1(){
         // let json = new network.GetAllNPCRequest();
-        // json.command = 10012;
+        // json.command = 10112;
         // json.type = 1;
         // json["data"] = {};
         // json["data"]["roomId"] = 1;
+        // json["data"]["page"] = 0;
+        // json["data"]["size"] = 999;
         // socket.sendWebSocketBinary(json);
+
+
     }
 
     enterScene(data){
@@ -102,6 +152,7 @@ export class lobbyScene extends Component {
 
     onChooseClick(data){
         console.log("chooseClick" + data.data);
+        this._chooseSceneId = data.data;
         this.node.getComponentsInChildren(sceneItem).forEach(itemScript=>{
             if(itemScript._sceneId == Number(data.data)){
                 itemScript.node.active = true;
@@ -110,7 +161,24 @@ export class lobbyScene extends Component {
                 itemScript.node.active = false;
             }
         })
-
+        this.twitterViewContent.children.forEach(node=>{
+            if(node.getComponent(twitterModeType_1)){
+                if(node.getComponent(twitterModeType_1)._roomId == Number(data.data)){
+                    node.active = true;
+                }
+                else{
+                    node.active = false;
+                }
+            }
+            else if(node.getComponent(twitterModeType_2)){
+                if(node.getComponent(twitterModeType_2)._roomId == Number(data.data)){
+                    node.active = true;
+                }
+                else{
+                    node.active = false;
+                }
+            }
+        })
     }
 
     showMaskNode(){
@@ -119,6 +187,80 @@ export class lobbyScene extends Component {
             this.maskNode.active = false;
         }).start();
     }
+
+    initTwitterView(){
+        if(this.twitterViewContent.children.length == 0){
+            GlobalConfig.instance.twitterData.forEach(twitInfo=>{
+                if(twitInfo.tweetType == 2){
+                    let twitterNode = instantiate(this.twitterModeType_1);
+                    this.twitterViewContent.addChild(twitterNode);
+                    twitterNode.getComponent(twitterModeType_1).initData(twitInfo)
+                }
+                else{
+                    let twitterNode = instantiate(this.twitterModeType_2);
+                    this.twitterViewContent.addChild(twitterNode);
+                    twitterNode.getComponent(twitterModeType_2).initData(twitInfo)
+                }
+            })
+
+            this.twitterViewContent.children.forEach(node=>{
+                if(node.getComponent(twitterModeType_1)){
+                    if(node.getComponent(twitterModeType_1)._roomId == Number(this._chooseSceneId)){
+                        node.active = true;
+                    }
+                    else{
+                        node.active = false;
+                    }
+                }
+                else if(node.getComponent(twitterModeType_2)){
+                    if(node.getComponent(twitterModeType_2)._roomId == Number(this._chooseSceneId)){
+                        node.active = true;
+                    }
+                    else{
+                        node.active = false;
+                    }
+                }
+            })
+        }
+    }
+
+    onBtnChangeStatus(){
+        if(this._pageStatus == 1){
+            this._pageStatus = 2;
+        }
+        else{
+            this._pageStatus = 1;
+        }
+        this.status_1.active = this._pageStatus == 1 ? true : false;
+        this.status_2.active = this._pageStatus == 2 ? true : false;
+        if(this._pageStatus == 2){
+            this.sceneItemView.node.active = false;
+            this.twitterView.node.active = true;
+            this.twitterViewContent.children.forEach(node=>{
+                if(node.getComponent(twitterModeType_1)){
+                    if(node.getComponent(twitterModeType_1)._roomId == Number(this._chooseSceneId)){
+                        node.active = true;
+                    }
+                    else{
+                        node.active = false;
+                    }
+                }
+                else if(node.getComponent(twitterModeType_2)){
+                    if(node.getComponent(twitterModeType_2)._roomId == Number(this._chooseSceneId)){
+                        node.active = true;
+                    }
+                    else{
+                        node.active = false;
+                    }
+                }
+            })
+        }
+        else{
+            this.sceneItemView.node.active = true;
+            this.twitterView.node.active = false;
+        }
+    }
+
 }
 
 

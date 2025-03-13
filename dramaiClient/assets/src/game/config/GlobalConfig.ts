@@ -37,6 +37,7 @@ export class GlobalConfig {
     nowSceneData = null;
     chooseNpc = null;
     chooseScene = null;
+    twitterData = [];
     static get instance() {
         if (this._instance) {
             return this._instance;

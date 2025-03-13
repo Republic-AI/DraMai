@@ -122,6 +122,30 @@ export class SocketDataManager extends Component {
         if(repData.command == 10111){
             observer.post(EventType.CHANGESCENEITEM,repData)
         }
+        if(repData.command == 10112){
+            console.log("twitterData====" + JSON.stringify(repData["data"]));
+            GlobalConfig.instance.twitterData = repData["data"].tweetVoList;
+            observer.post(EventType.INITTWITTERVIEW)
+        }
+        if(repData.command == 10113){
+            console.log("twitterData====" + JSON.stringify(repData["data"]));
+            GlobalConfig.instance.twitterData.forEach(twitterInfo=>{
+                if(twitterInfo.id == repData["data"].tweetId){
+                    if(repData["data"].type == 2){
+                        if(!twitterInfo.tweetCommentVoList){
+                            twitterInfo.tweetCommentVoList = [];
+                        }
+                        if(!repData["data"].replyId){
+                            twitterInfo.tweetCommentVoList.push(repData["data"])
+                        }
+                        else{
+                            
+                        }
+                    }
+                }
+            })
+            observer.post(EventType.UPDATETWITTER,repData["data"]);
+        }
     }
 }
 

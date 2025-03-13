@@ -142,4 +142,8 @@ export const EventType = {
 
     //弹出换装请求变更弹窗
     POPCHANGESKIN:"POPCHANGESKIN",
+    //初始化twitter按钮
+    INITTWITTERVIEW:"INITTWITTERVIEW",
+    //更新TWITTER信息
+    UPDATETWITTER:"UPDATETWITTER"
 }

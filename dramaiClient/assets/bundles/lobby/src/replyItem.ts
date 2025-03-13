@@ -11,6 +11,10 @@ export class replyItem extends Component {
 
     @property(Label)
     lblContent:Label = null;
+
+    _data = null;
+    _twitterId = null;
+    _replyId = null;
     start() {
 
     }
@@ -20,7 +24,13 @@ export class replyItem extends Component {
     }
 
     onBtnReply(){
-        
+
+    }
+
+    initData(twitterId,replyId,data){
+        this._twitterId = twitterId;
+        this._replyId = replyId;
+        this._data = data;
     }
 }
 
