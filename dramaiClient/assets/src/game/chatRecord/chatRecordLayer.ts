@@ -4,6 +4,7 @@ import { modelMgr, observer, socket } from "../../game/App";
 import { EventType } from '../../EventType';
 import { chatRecordItem } from './chatRecordItem';
 import { chatStartItem } from './chatStartItem';
+import { GlobalConfig } from '../config/GlobalConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('chatRecordLayer')
@@ -56,6 +57,7 @@ export class chatRecordLayer extends Component {
         json.command = 10025;
         json.type = 1;
         json["data"] = {
+            roomId:GlobalConfig.instance.chooseScene,
             type:2,
             page:0,
             pageSize:5
@@ -74,6 +76,7 @@ export class chatRecordLayer extends Component {
             json.command = 10025;
             json.type = 1;
             json["data"] = {
+                roomId:GlobalConfig.instance.chooseScene,
                 type:1,
                 page:0,
                 pageSize:15
@@ -153,6 +156,7 @@ export class chatRecordLayer extends Component {
             if(Math.floor(num_1) == num_1){
                 pageIndex = num_1
                 json["data"] = {
+                    roomId:GlobalConfig.instance.chooseScene,
                     type:2,
                     page:pageIndex,
                     pageSize:5
@@ -197,6 +201,7 @@ export class chatRecordLayer extends Component {
             if(Math.floor(num_1) == num_1){
                 pageIndex = num_1
                 json["data"] = {
+                    roomId:GlobalConfig.instance.chooseScene,
                     type:1,
                     page:pageIndex,
                     pageSize:15

@@ -1,4 +1,11 @@
-import { _decorator, Component, Label, Node, Prefab, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Component, director, EditBox, instantiate, Label, Node, Prefab, ProgressBar, resources, Sprite, SpriteFrame } from 'cc';
+import { observer, socket } from '../../../src/game/App';
+import { EventType } from '../../../src/EventType';
+import { network } from '../../../src/model/RequestData';
+import { GlobalConfig } from '../../../src/game/config/GlobalConfig';
+import { lobbyScene } from './lobbyScene';
+import { NpcName } from '../../../src/StaticUtils/NPCConfig';
+import { commitItem } from './commitItem';
 const { ccclass, property } = _decorator;
 
 @ccclass('twitterModeType_2')
@@ -51,8 +58,17 @@ export class twitterModeType_2 extends Component {
     _data = null;
     _roomId = null;
     _twitterId = null;
-    start() {
+    protected onLoad(): void {
+        observer.on(EventType.UPDATETWITTER,this.updateTwitter,this);
+    }
 
+    protected onDestroy(): void {
+        observer.off(EventType.UPDATETWITTER,this.updateTwitter,this);
+    }
+    start() {
+        this.editNode.active = false;
+        this.btnShowHideNode.active = false;
+        this.commitLayout.active = false;
     }
 
     update(deltaTime: number) {
@@ -60,32 +76,238 @@ export class twitterModeType_2 extends Component {
     }
 
     onBtnReply(){
-
+        this.editNode.active = true;
+        this.btnShowHideNode.active = true;
+        this.commitLayout.active = true;
     }
 
     onBtnZan(){
-        
+        if(!this._data.like){
+            let json = new network.GetAllNPCRequest();
+            json.command = 10113;
+            json["data"] = {}
+            json["data"].type = 1;
+            json["data"].content = "";
+            json["data"].replyId = null;
+            json["data"].tweetId = this._twitterId;
+            json["data"].chooseIndex = 0;
+            socket.sendWebSocketBinary(json);
+        }
     }
 
     onBtnExpand(){
-
+        this.commitLayout.children.forEach(node=>{
+            node.active = true;
+        })
     }
 
     onBtnFold(){
-
+        this.commitLayout.children.forEach((node,index)=>{
+                node.active = false;
+        })
     }
 
     onBtnHeadEnterScene(){
-
-    }
-
-    onBtnChooseVoteIndex(target,CutomeData){
-
+        let json = new network.GetAllNPCRequest();
+        json.command = 10012;
+        json.type = 1;
+        json["data"] = {};
+        json["data"]["roomId"] = this._roomId;
+        GlobalConfig.instance.chooseNpc = this._data.npcId;
+        GlobalConfig.instance.chooseScene = this._roomId
+        socket.sendWebSocketBinary(json);
+        director.getScene().getComponentInChildren(lobbyScene).showMaskNode();
     }
 
     initData(data){
         this._roomId = data.roomId;
+        // console.log("roomId=====" + this._roomId);
+        // console.log("data=====" + JSON.stringify(data))
+        // console.log("chooseList=====" + JSON.stringify(data.chooseList))
+        // console.log("isCHoose=====" + JSON.stringify(data.choose));
         this._data = data;
+        this._twitterId = data.id;
+        this.lblContent.string = data.content;
+        if(data.choose){
+            this.chooseStatus_2.active = true;
+            this.chooseStatus_1.active = false;
+            this._data.rateList.forEach((chooseInfo,index)=>{
+                let strIndex = index + 1;
+                this.chooseStatus_2.getChildByName("choose_" + strIndex).active = true;
+                this.chooseStatus_2.getChildByName("choose_" + strIndex).getComponentInChildren(Label).string = chooseInfo + "%";
+                let percent = chooseInfo / 100;
+                this.chooseStatus_2.getChildByName("choose_" + strIndex).getComponent(ProgressBar).progress = percent;
+
+            })
+        }
+        else{   
+            this.chooseStatus_2.active = false;
+            this.chooseStatus_1.active = true; 
+            this._data.chooseList.forEach((chooseInfo,index)=>{
+                let strIndex = index + 1;
+                this.chooseStatus_1.getChildByName("choose_" + strIndex).active = true;
+                this.chooseStatus_1.getChildByName("choose_" + strIndex).getComponentInChildren(Label).string = chooseInfo;
+            })
+        }
+        this.lblReplyNum.string = data.commentCount;
+        this.lblZanNum.string = data.likeCount;
+        if(data.like){
+            this.btnZan.spriteFrame = this.btnZan_2;
+        }
+        else{
+
+        }
+
+        let durTime = Math.floor(data.createTime/1000);
+
+        if(durTime >= 86400){
+            let str = "d";
+            let time = Math.floor(durTime / 86400);
+            this.lblTime.string = time + str;
+        }
+        else if(durTime > 3600){
+            let str = "h";
+            let time = Math.floor(durTime / 3600);
+            this.lblTime.string = time + str;
+        }
+        else if(durTime > 60){
+            let str = "m";
+            let time = Math.floor(durTime / 60);
+            this.lblTime.string = time + str;
+        }
+        else{
+            let str = "s";
+            let time = durTime;
+            this.lblTime.string = time + str;
+        }
+
+        if(data.npcId){
+            resources.load("gameUI/image/headDir_" + data.npcId + "/spriteFrame",SpriteFrame,(error,spr:SpriteFrame)=>{
+                this.imgNpcHead.spriteFrame = spr;
+            })
+            this.lblNpcName.string = NpcName[data.npcId];
+        }
+        if(data.tweetCommentVoList){
+            data.tweetCommentVoList.forEach((commentInfo,index)=>{
+                let commentItemNode = instantiate(this.commitItem);
+                commentItemNode.getComponent(commitItem).initData(commentInfo,this._twitterId);
+                this.commitLayout.addChild(commentItemNode);
+                if(index > 2){
+                    commentItemNode.active = false;
+                }
+            })
+        }
+        //{"id":6,"content":"Hey Pippin!  How's the coffee business?  Need any supplies?","imgUrl":"https://dramai.world/img/img_1.png","tweetCommentVoList":[],"commentCount":0,"likeCount":0,"like":false,"createTime":8616500,"tweetType":2},
+
+    }
+    onBtnSend(){
+        let editComonent = this.editNode.getComponentInChildren(EditBox);
+        if(editComonent.string.length < 1){
+            return;
+        }
+        let isOnlySpace = true;
+        for (let i = 0 ; i < editComonent.string.length -1; i++) {
+            if (editComonent.string[i] != ' ') {
+                isOnlySpace = false;
+                break;
+            }
+        
+        }
+        if(isOnlySpace){
+            return;
+        } 
+        let json = new network.GetAllNPCRequest();
+        json.command = 10113;
+        json["data"] = {}
+        json["data"].type = 2;
+        json["data"].content = editComonent.string;
+        json["data"].replyId = null;
+        json["data"].tweetId = this._twitterId;
+        json["data"].chooseIndex = 0;
+        socket.sendWebSocketBinary(json);
+        editComonent.string = "";
+        // if(this.chatEditBox.node.active){
+        //     let SceneNpcID = director.getScene().getComponentInChildren(GameScene).getNpcID();
+        //     let json = new network.RequestSendChatData();
+        //     json.command = 10016;
+        //     json.data.npcId = SceneNpcID;
+        //     json.data.sender =  GlobalConfig.instance.LoginData.data.player.playerId;
+        //     json.data.context = this.chatEditBox.string;
+        //     socket.sendWebSocketBinary(json);
+        //     this.chatEditBox.string = "";
+        // }
+        // if(this.playerEditBox.node.active){
+        //     let json = new network.GetAllNPCRequest();
+        //     json.command = 10026;
+        //     json["data"] = {
+        //         content:this.playerEditBox.string,
+        //     }
+        //     socket.sendWebSocketBinary(json);
+        //     this.playerEditBox.string = "";
+        // }
+    }
+
+    updateTwitter(data){
+        let updateData = data.data;
+        if(updateData.tweetId == this._twitterId){
+            console.log("updateTwitterData=====" + JSON.stringify(data.data));
+            if(updateData.type == 2){
+                //回复twitter
+                if(!updateData.replyId){
+                    let commentItemNode = instantiate(this.commitItem);
+                    commentItemNode.getComponent(commitItem).initData(updateData,this._twitterId);
+                    this.commitLayout.addChild(commentItemNode);
+                }
+                else{
+                    //回复用户
+                    this.commitLayout.getComponentsInChildren(commitItem).forEach(commitScript=>{
+                        if(commitScript._data.id == updateData.replyId){
+                            commitScript.addReplyItem(updateData);
+                        }
+                    })
+                }
+                let nowReplyNum = Number(this.lblReplyNum.string) + 1;
+                this.lblReplyNum.string = nowReplyNum.toString();
+            }
+            if(updateData.type == 1){
+                let nowZanNum = Number(this.lblZanNum.string) + 1;
+                this.lblZanNum.string = nowZanNum.toString();
+                if(updateData.userNo == GlobalConfig.instance.LoginData.data.player.playerId){
+                    this._data.like = true;
+                    this.btnZan.spriteFrame = this.btnZan_2;
+                }
+            }
+            if(updateData.type == 3){
+                if(updateData.userNo == GlobalConfig.instance.LoginData.data.player.playerId){
+                    this._data.choose = true;
+                    this.chooseStatus_2.active = true;
+                    this.chooseStatus_1.active = false;
+                    updateData.rateList.forEach((chooseInfo,index)=>{
+                        let strIndex = index + 1;
+                        this.chooseStatus_2.getChildByName("choose_" + strIndex).active = true;
+                        this.chooseStatus_2.getChildByName("choose_" + strIndex).getComponentInChildren(Label).string = chooseInfo + "%";
+                        let percent = chooseInfo / 100;
+                        this.chooseStatus_2.getChildByName("choose_" + strIndex).getComponent(ProgressBar).progress = percent;
+        
+                    })
+                }
+            }
+
+        }
+    }
+
+    onBtnVote(eventTarget,chooseIndex){
+        if(!this._data.choose){
+            let json = new network.GetAllNPCRequest();
+            json.command = 10113;
+            json["data"] = {}
+            json["data"].type = 3;
+            json["data"].content = "";
+            json["data"].replyId = null;
+            json["data"].tweetId = this._twitterId;
+            json["data"].chooseIndex = Number(chooseIndex);
+            socket.sendWebSocketBinary(json);
+        }
     }
 }
 

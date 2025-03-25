@@ -18,7 +18,7 @@ export class fixPrefab extends Component {
     _frameIndex = 0;
 
     _fixPosition = v3(18,90,0);
-    _idlePosition = v3(18,95,0);
+    _idlePosition = v3(356,1150,0);
     _status = null;
     start() {
         //this.setIdleStatus()

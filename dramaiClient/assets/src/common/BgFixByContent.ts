@@ -28,7 +28,7 @@ export class BgFixByContent extends Component {
         })
         let targetWidth = 0
         this.widthContent.forEach(content=>{
-            let contetnSizeLimit = content.contentSize.width > 400 ? 400 : content.contentSize.width
+            let contetnSizeLimit = content.contentSize.width > 525 ? 525 : content.contentSize.width
             targetWidth = contetnSizeLimit + targetWidth;
         })
         this.node.getComponent(UITransform).setContentSize(Number(targetWidth) + Number(this.offsetWidth),targetHeight + Number(this.offsetHeight));

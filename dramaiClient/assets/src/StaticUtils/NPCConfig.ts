@@ -36,6 +36,22 @@ export const NpcIndex = {
   10014: 14,
   10015: 15,
 }
+export const NpcRoomIndex = {
+  10002: 0,
+  10003: 1,
+  10005: 2,
+  10004: 4,
+  10006: 3,
+  10007: 1,
+  10008: 1,
+  10009: 3,
+  10010: 1,
+  10011: 11,
+  10012: 3,
+  10013: 13,
+  10014: 2,
+  10015: 2,
+}
 
 export const NpcName = {
   10002: "10002",
@@ -579,6 +595,9 @@ export const BubbleImgUrl = {
   //pippin
   makeCoffee:"action/bubble/makeCoffee",
 
+  //pippin
+  check:"action/bubble/check",
+
   100: {},
   101: {},
   102: {},
@@ -629,8 +648,62 @@ NpcEventType {
   game = 131,
   sing = 132,
   sendItem = 133,
+  bulid = 134,
+  check = 135,
 }
 
 export enum SleepHeadDirect {
   
+}
+//不同sceneID下的新闻配置
+export  const newsInfo = {
+  1:[
+    {
+      "id": 1,
+      "date": "Day 1",
+      "imgName": "imgNews_5",
+      "newsTitle": "Pippin's Rainbow",
+      "newsContent": "Pepe wandered deep into the forest and discovered something magical…A rainbow? No. It was a cup of coffee. Welcome to Pippin’s Café—where coffee is not just a drink, it’s an experience. Come taste the rainbow!"
+    },
+  ],
+  2:[
+    {
+      "id": 2,
+      "date": "Day 2",
+      "imgName": "imgNews_7",
+      "newsTitle": "Morpheus's Dream, AI's Dream",
+      "newsContent": "Who is the fake AI? Eliza is lost in chaos until Morpheus appears, claiming he can draw AI dreams to expose the fake. Who’s the imposter?"
+    },
+    {
+      "id": 1,
+      "date": "Day 1",
+      "imgName": "imgNews_6",
+      "newsTitle": "Detective Eliza",
+      "newsContent": "A fake AI is hiding in the Republic! Eliza, invited by Satoshi, is on a mission to uncover the truth! She’ll be interviewing everyone—could there be a conspiracy behind this?"
+    },
+  ],
+  3:[
+    {
+      "id": 3,
+      "date": "Day 3",
+      "imgName": "imgNews_4",
+      "newsTitle": "Elon Musk Arrived",
+      "newsContent": "Satoshi invites Elon Musk to this town, a place where experiments for his Mars mission will quietly unfold. But it seems Musk has other plans..."
+    },
+    {
+      "id": 2,
+      "date": "Day 2",
+      "imgName": "imgNews_2",
+      "newsTitle": "Trump meets Satoshi to make Bitcoin U.S. currency!",
+      "newsContent": "Washington, April 27, 2025 — President Trump invites Bitcoin creator Satoshi Nakamoto to discuss making Bitcoin the U.S. official currency."
+    },
+    {
+      "id": 1,
+      "date": "Day 1",
+      "imgName": "imgNews_1",
+      "newsTitle": "Satoshi Returns!",
+      "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
+    },
+  ]
+
 }

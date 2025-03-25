@@ -1,9 +1,11 @@
-import { _decorator, assetManager, Component, EditBox, ImageAsset, instantiate, Label, Node, Prefab, resources, Sprite, SpriteFrame, Texture2D } from 'cc';
+import { _decorator, assetManager, Component, director, EditBox, ImageAsset, instantiate, Label, Node, Prefab, resources, Sprite, SpriteFrame, Texture2D } from 'cc';
 import { NpcName } from '../../../src/StaticUtils/NPCConfig';
 import { network } from '../../../src/model/RequestData';
 import { observer, socket } from '../../../src/game/App';
 import { commitItem } from './commitItem';
 import { EventType } from '../../../src/EventType';
+import { GlobalConfig } from '../../../src/game/config/GlobalConfig';
+import { lobbyScene } from './lobbyScene';
 const { ccclass, property } = _decorator;
 
 @ccclass('twitterModeType_1')
@@ -87,6 +89,7 @@ export class twitterModeType_1 extends Component {
             json["data"].content = "";
             json["data"].replyId = null;
             json["data"].tweetId = this._twitterId;
+            json["data"].chooseIndex = 0;
             socket.sendWebSocketBinary(json);
         }
     }
@@ -99,14 +102,20 @@ export class twitterModeType_1 extends Component {
 
     onBtnFold(){
         this.commitLayout.children.forEach((node,index)=>{
-            if(index > 2){
                 node.active = false;
-            }
         })
     }
 
     onBtnHeadEnterScene(){
-
+        let json = new network.GetAllNPCRequest();
+        json.command = 10012;
+        json.type = 1;
+        json["data"] = {};
+        json["data"]["roomId"] = this._roomId;
+        GlobalConfig.instance.chooseNpc = this._data.npcId;
+        GlobalConfig.instance.chooseScene = this._roomId
+        socket.sendWebSocketBinary(json);
+        director.getScene().getComponentInChildren(lobbyScene).showMaskNode();
     }
 
     initData(data){
@@ -139,14 +148,32 @@ export class twitterModeType_1 extends Component {
             // };
 
             
-            assetManager.loadRemote<Texture2D>(data.imgUrl, { ext: '.png' }, (err, texture) => {
+            assetManager.loadRemote<ImageAsset>(data.imgUrl, { ext: '.png' }, (err, imageAsset) => {
                 if (err) {
                     console.error("图片加载失败:", err);
                     return;
                 }
+            
+                // 确保 imageAsset 有效
+                if (!(imageAsset instanceof ImageAsset)) {
+                    console.error("imageAsset 不是 ImageAsset 类型");
+                    return;
+                }
+            
+                // 创建 Texture2D
+                const texture = new Texture2D();
+                texture.image = imageAsset;
+            
+                // 创建 SpriteFrame
                 const spriteFrame = new SpriteFrame();
                 spriteFrame.texture = texture;
-                this.imgContent.spriteFrame = spriteFrame;
+            
+                // 赋值给 Sprite
+                if (this.imgContent) {
+                    this.imgContent.spriteFrame = spriteFrame;
+                } else {
+                    console.error("this.imgContent 为空");
+                }
             });
         }
         else{
@@ -226,6 +253,7 @@ export class twitterModeType_1 extends Component {
         json["data"].content = editComonent.string;
         json["data"].replyId = null;
         json["data"].tweetId = this._twitterId;
+        json["data"].chooseIndex = 0;
         socket.sendWebSocketBinary(json);
         editComonent.string = "";
         // if(this.chatEditBox.node.active){
@@ -253,11 +281,33 @@ export class twitterModeType_1 extends Component {
         let updateData = data.data;
         if(updateData.tweetId == this._twitterId){
             console.log("updateTwitterData=====" + JSON.stringify(data.data));
-            if(updateData.type == 2 && !updateData.replyId){
-                let commentItemNode = instantiate(this.commitItem);
-                commentItemNode.getComponent(commitItem).initData(updateData,this._twitterId);
-                this.commitLayout.addChild(commentItemNode);
+            if(updateData.type == 2){
+                //回复twitter
+                if(!updateData.replyId){
+                    let commentItemNode = instantiate(this.commitItem);
+                    commentItemNode.getComponent(commitItem).initData(updateData,this._twitterId);
+                    this.commitLayout.addChild(commentItemNode);
+                }
+                else{
+                    //回复用户
+                    this.commitLayout.getComponentsInChildren(commitItem).forEach(commitScript=>{
+                        if(commitScript._data.id == updateData.replyId){
+                            commitScript.addReplyItem(updateData);
+                        }
+                    })
+                }
+                let nowReplyNum = Number(this.lblReplyNum.string) + 1;
+                this.lblReplyNum.string = nowReplyNum.toString();
             }
+            if(updateData.type == 1){
+                let nowZanNum = Number(this.lblZanNum.string) + 1;
+                this.lblZanNum.string = nowZanNum.toString();
+                if(updateData.userNo == GlobalConfig.instance.LoginData.data.player.playerId){
+                    this._data.like = true;
+                    this.btnZan.spriteFrame = this.btnZan_2;
+                }
+            }
+
         }
     }
 }

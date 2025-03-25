@@ -444,6 +444,28 @@
        "width":0,
        "x":655.666666666667,
        "y":1902.33333333333
+      }, 
+      {
+       "height":0,
+       "id":46,
+       "name":"pepeDraw_right_1",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1169,
+       "y":1199
+      }, 
+      {
+       "height":0,
+       "id":47,
+       "name":"pepeDraw_up_2",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1296,
+       "y":1231
       }]
   }
 }

@@ -1,5 +1,7 @@
 import { _decorator, assetManager, Component, instantiate, JsonAsset, Node, Prefab, SpriteFrame, tween, v3 } from 'cc';
 import { newsItem } from './newsItem';
+import { GlobalConfig } from '../config/GlobalConfig';
+import { newsInfo } from '../../StaticUtils/NPCConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('newsLayer')
@@ -22,18 +24,14 @@ export class newsLayer extends Component {
         
     }
     initData(){
-        let cfgBundle = assetManager.getBundle("newsCfg");
-        cfgBundle.load("json/NewsConfig",JsonAsset,(err,data:JsonAsset)=>{
-            console.log("data======" + JSON.stringify(data.json));
-            if(data.json[0].id == 1){
-                data.json.reverse();
-            }
-            data.json.forEach(data=>{
+        let sceneId = GlobalConfig.instance.chooseScene
+        if(newsInfo[sceneId]){
+            newsInfo[sceneId].forEach(data=>{
                 let newsItemNode = instantiate(this.newsItem);
                 newsItemNode.getComponent(newsItem).initData(data);
                 this.content.addChild(newsItemNode);
             })
-        })
+        }
     }
 
     onBtnClose(){

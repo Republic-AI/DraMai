@@ -139,12 +139,20 @@ export class SocketDataManager extends Component {
                             twitterInfo.tweetCommentVoList.push(repData["data"])
                         }
                         else{
-                            
+
                         }
                     }
                 }
             })
             observer.post(EventType.UPDATETWITTER,repData["data"]);
+        }
+        if(repData.command == 10114){
+            GlobalConfig.instance.chatRecord = repData["data"]["playerNpcChatDataMap"];
+            // for(let i in GlobalConfig.instance.chatRecord){
+            //     let chatInfoArr = GlobalConfig.instance.chatRecord[i].reverse();
+            //     GlobalConfig.instance.chatRecord[i] = chatInfoArr;
+            // }
+            observer.post(EventType.INITCHATRECORD,repData["data"]);
         }
     }
 }

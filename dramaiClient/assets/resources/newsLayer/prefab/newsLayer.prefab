@@ -139,8 +139,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1800,
-      "height": 1600
+      "width": 1080,
+      "height": 1920
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -306,8 +306,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 233,
-      "y": 370,
+      "x": 446.215,
+      "y": 704.555,
       "z": 0
     },
     "_lrot": {
@@ -347,8 +347,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 62,
-      "height": 64
+      "width": 99,
+      "height": 102
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -389,7 +389,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -519,8 +519,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -10,
-      "y": -16.935,
+      "x": -5,
+      "y": -40,
       "z": 0
     },
     "_lrot": {
@@ -1035,8 +1035,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
-      "height": 600
+      "width": 750,
+      "height": 1100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1180,7 +1180,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
+      "width": 750,
       "height": 0
     },
     "_anchorPoint": {
@@ -1272,8 +1272,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 440,
-      "height": 600
+      "width": 750,
+      "height": 1100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1313,8 +1313,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 548,
-      "height": 796
+      "width": 982,
+      "height": 1472
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1417,8 +1417,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1800,
-      "height": 1600
+      "width": 1080,
+      "height": 1920
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

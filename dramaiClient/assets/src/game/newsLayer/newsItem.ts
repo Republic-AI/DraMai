@@ -41,7 +41,7 @@ export class newsItem extends Component {
             this.lblNewsTitle.string = data.newsTitle;
             this.lblNewsContent.string = data.newsContent;
             let cfgBundle = assetManager.getBundle("newsCfg");
-            cfgBundle.load("image/imgNews_" + data.id +"/spriteFrame" ,SpriteFrame,(err,spr:SpriteFrame)=>{
+            cfgBundle.load("image/" + data.imgName +"/spriteFrame" ,SpriteFrame,(err,spr:SpriteFrame)=>{
                 if(err){
                     console.log("news image error" + err);
                 }

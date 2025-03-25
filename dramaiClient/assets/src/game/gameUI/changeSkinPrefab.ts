@@ -1,6 +1,6 @@
 import { _decorator, assetManager, Component, director, EditBox, instantiate, JsonAsset, Label, Node, Prefab, resources, ScrollView, Sprite, SpriteFrame, tween, UITransform, v3 } from 'cc';
 import { NpcManager } from '../../NPC/NpcManager';
-import { npcDes, npcSkinCfg, sceneItemAllCfg } from '../../StaticUtils/NPCConfig';
+import { npcDes, NpcRoomIndex, npcSkinCfg, sceneItemAllCfg } from '../../StaticUtils/NPCConfig';
 import { npcItemPrefab } from './npcItemPrefab';
 import { network } from '../../model/RequestData';
 import { GlobalConfig } from '../config/GlobalConfig';
@@ -68,6 +68,7 @@ export class changeSkinPrefab extends Component {
     _nowSkinData = null;
     _skinIndex = 0;
     _skinFrameArr = null;
+    _isInit = false;
     protected onLoad(): void {
         // resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{
         //     if(error){
@@ -163,6 +164,10 @@ export class changeSkinPrefab extends Component {
         // })
         if(npcDes[npcId]){
             this.lblNpcDes.string = npcDes[npcId];
+            tween(this.lblNpcDes.node).delay(0.1).call(()=>{
+                let targetY = this.lblNpcDes.node.getComponent(UITransform).contentSize.height
+                this.lblNpcDes.node.setPosition(0,-targetY/4 - 40);
+            }).start();
         }
         resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{
             if(error){
@@ -217,6 +222,39 @@ export class changeSkinPrefab extends Component {
                 this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
             }
         }).start()
+        if(!this._isInit){
+            let chatAllRecord = GlobalConfig.instance.chatRecord;
+            for(let i in chatAllRecord){
+                if(NpcRoomIndex[i] == GlobalConfig.instance.chooseScene){
+                    let chatRecordData = chatAllRecord[i]
+                    let chatNpcId = i;
+                    if(chatRecordData && chatRecordData.length > 0){
+                        chatRecordData.forEach(chatInfo=>{
+                            let chatPrefabNode = instantiate(this.chatPrefab);
+                            if(chatInfo.npcSend){
+                                chatPrefabNode.getComponent(chatPrefab).initData(chatNpcId,chatInfo.content)
+                            }
+                            else{
+                                chatPrefabNode.getComponent(chatPrefab).initData(0,chatInfo.content)
+                                chatPrefabNode.getComponent(chatPrefab).setToNpcId(chatNpcId);
+                            }
+                            this.chatViewContent.addChild(chatPrefabNode);
+                            if(chatNpcId!=this._npcId){
+                                tween(this.node).delay(0.02).call(()=>{
+                                    chatPrefabNode.active = false;
+                                }).start()
+                            }
+                        })
+                    }
+                }
+            }
+        }
+        this._isInit = true;
+        // tween(this.node).delay(0.1).call(()=>{
+        //     if(this.chatViewContent.getComponent(UITransform).contentSize.height > 700){
+        //         this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
+        //     }
+        // }).start()
     }
 
     setGoldNum(coinNum){

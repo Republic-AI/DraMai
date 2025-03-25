@@ -217,14 +217,16 @@ export class gameLayer_map3 extends Component {
         tween(this.node).delay(0.1).call(()=>{
             this.initOtherNPCs(GlobalConfig.instance.nowSceneData.otherNpc);
         }).start()
-        tween(this.node).repeatForever(tween(this.node).delay(0.1).call(()=>{
-            this.node.getComponentsInChildren(NpcManager).forEach(npcScript=>{
-                if(npcScript.NpcID == GlobalConfig.instance.chooseNpc){
-                    observer.post(EventType.FOLLOWNPC,GlobalConfig.instance.chooseNpc);
-                    Tween.stopAllByTarget(this.node);
-                }
-            })
-        }).start()).start()
+        if(GlobalConfig.instance.chooseNpc){
+            tween(this.node).repeatForever(tween(this.node).delay(0.1).call(()=>{
+                this.node.getComponentsInChildren(NpcManager).forEach(npcScript=>{
+                    if(npcScript.NpcID == GlobalConfig.instance.chooseNpc){
+                        observer.post(EventType.FOLLOWNPC,GlobalConfig.instance.chooseNpc);
+                        Tween.stopAllByTarget(this.node);
+                    }
+                })
+            }).start()).start()
+        }
         if(GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
             for(let i in GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
                 let id = GlobalConfig.instance.nowSceneData.furnitureMsgDataMap[i].id;
@@ -236,6 +238,7 @@ export class gameLayer_map3 extends Component {
                 })
             }
         }
+        this.fixNode.getComponent(fixPrefab).setIdleStatus();
     }
 
     setNPCPos(NPCs: any) {
@@ -339,7 +342,6 @@ export class gameLayer_map3 extends Component {
                     this.stopMuskMeeting();
                 }
                 else if(actionData.npcId == 10006){
-                    this.fixNode.getComponent(fixPrefab).setIdleStatus();
                     Tween.stopAllByTarget(this.typeComputerNode);
                     this.typeComputerNode.active = false;
                 }
@@ -422,8 +424,19 @@ export class gameLayer_map3 extends Component {
             }
             else if (actionData.actionId === NpcEventType.fix) {
                 npcControl.showBubble(BubbleImgUrl.fix);
-                npcControl.setIdleStatus(KeyCode.KEY_A);
-                this.fixNode.getComponent(fixPrefab).setFixOnStatus();
+                if(actionData.params.oid.includes("up")){
+                    npcControl.setIdleStatus(KeyCode.KEY_W)
+                }
+                if(actionData.params.oid.includes("right")){
+                    npcControl.setIdleStatus(KeyCode.KEY_D)
+                }
+                if(actionData.params.oid.includes("down")){
+                    npcControl.setIdleStatus(KeyCode.KEY_S)
+                }
+                if(actionData.params.oid.includes("left")){
+                    npcControl.setIdleStatus(KeyCode.KEY_A)
+                }
+                //this.fixNode.getComponent(fixPrefab).setFixOnStatus();
             }
             else if (actionData.actionId === NpcEventType.speak) {
                 npcControl.speak(actionData.params.content);
@@ -764,7 +777,37 @@ export class gameLayer_map3 extends Component {
                 else{
                     console.log("no npcId======" + JSON.stringify(actionData.params));
                 }
-            }     
+            } 
+            else if(actionData.actionId === NpcEventType.bulid){
+                npcControl.showBubble(BubbleImgUrl.fix);
+                if(actionData.params.oid.includes("up")){
+                    npcControl.setIdleStatus(KeyCode.KEY_W)
+                }
+                if(actionData.params.oid.includes("right")){
+                    npcControl.setIdleStatus(KeyCode.KEY_D)
+                }
+                if(actionData.params.oid.includes("down")){
+                    npcControl.setIdleStatus(KeyCode.KEY_S)
+                }
+                if(actionData.params.oid.includes("left")){
+                    npcControl.setIdleStatus(KeyCode.KEY_A)
+                }
+            }
+            else if(actionData.actionId === NpcEventType.check){
+                npcControl.showBubble(BubbleImgUrl.check);
+                if(actionData.params.oid.includes("up")){
+                    npcControl.setIdleStatus(KeyCode.KEY_W)
+                }
+                if(actionData.params.oid.includes("right")){
+                    npcControl.setIdleStatus(KeyCode.KEY_D)
+                }
+                if(actionData.params.oid.includes("down")){
+                    npcControl.setIdleStatus(KeyCode.KEY_S)
+                }
+                if(actionData.params.oid.includes("left")){
+                    npcControl.setIdleStatus(KeyCode.KEY_A)
+                }
+            }      
             else {
                 console.log("error actionID======" + actionData.actionId);
                 if (actionData.params.oid) {

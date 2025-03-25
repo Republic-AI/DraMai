@@ -1,7 +1,8 @@
 import { _decorator, assetManager, Component, EditBox, instantiate, Label, Node, Prefab, Sprite, SpriteFrame, UITransform } from 'cc';
 import { network } from '../../../src/model/RequestData';
-import { socket } from '../../../src/game/App';
+import { observer, socket } from '../../../src/game/App';
 import { replyItem } from './replyItem';
+import { EventType } from '../../../src/EventType';
 const { ccclass, property } = _decorator;
 
 @ccclass('commitItem')
@@ -29,6 +30,13 @@ export class commitItem extends Component {
 
     _data = null;
     _twitterId = null;
+    protected onLoad(): void {
+        
+    }
+
+    protected onDestroy(): void {
+        
+    }
     start() {
 
     }
@@ -71,6 +79,9 @@ export class commitItem extends Component {
             })
         }
         this._data = data;
+        if(this._data.commentId){
+            this._data.id = this._data.commentId
+        }
         this._twitterId = twitterId;
         this.lblPlayerName.string = data.nickName;
         this.lblContent.string = data.content;
@@ -94,10 +105,14 @@ export class commitItem extends Component {
         else{
             this.btnViewMore.active = false;
         }
+        this.btnViewMore.active = false;
         //{"id":9,"content":"dadsadsadasd","nickName":"0xBuilder","tweetCommentVo":{"id":22,"content":"bbbbbbbbbbbbb","nickName":"0xBuilder"}}
     }
 
     onEditReplyReturn(){
+        // console.log("this.data=======" + JSON.stringify(this._data));
+        // console.log("this.data.id=======" + JSON.stringify(this._data.id));
+        // return;
         let editComonent = this.node.getComponentInChildren(EditBox);
         if(editComonent.string.length < 1){
             return;
@@ -121,10 +136,23 @@ export class commitItem extends Component {
         console.log("this._data.id======" + this._data.id);
         json["data"].replyId = this._data.id;
         json["data"].tweetId = this._twitterId;
+        json["data"].chooseIndex = 0;
         socket.sendWebSocketBinary(json);
         editComonent.string = "";
     }
+
+    onBtnViewMore(){
+        this.replyLayout.children.forEach(node=>{
+            node.active = true;
+        })
+        this.btnViewMore.active = false;
+    }
     
+    addReplyItem(replyInfo){
+        let replyNode = instantiate(this.replyItem);
+        this.replyLayout.addChild(replyNode);
+        replyNode.getComponent(replyItem).initData(this._twitterId,this._data.id,replyInfo);
+    }
 }
 
 

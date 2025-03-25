@@ -29,13 +29,10 @@
       },
       {
         "__id__": 82
-      },
-      {
-        "__id__": 84
       }
     ],
     "_prefab": {
-      "__id__": 86
+      "__id__": 84
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -639,8 +636,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 45,
-      "height": 37.8
+      "width": 60,
+      "height": 47.88
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -678,10 +675,10 @@
     "_string": "sss",
     "_horizontalAlign": 0,
     "_verticalAlign": 2,
-    "_actualFontSize": 48,
-    "_fontSize": 48,
+    "_actualFontSize": 64,
+    "_fontSize": 64,
     "_fontFamily": "Arial",
-    "_lineHeight": 30,
+    "_lineHeight": 38,
     "_overflow": 0,
     "_enableWrapText": true,
     "_font": {
@@ -1495,9 +1492,9 @@
     "_horizontalAlign": 0,
     "_verticalAlign": 2,
     "_actualFontSize": 48,
-    "_fontSize": 48,
+    "_fontSize": 64,
     "_fontFamily": "Arial",
-    "_lineHeight": 30,
+    "_lineHeight": 38,
     "_overflow": 0,
     "_enableWrapText": true,
     "_font": {
@@ -1846,51 +1843,13 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 1
+      "y": 0.5
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "91cKMi7Y5BnJw++ftDmaQP"
-  },
-  {
-    "__type__": "cc.Layout",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 83
-    },
-    "_resizeMode": 1,
-    "_layoutType": 2,
-    "_cellSize": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    },
-    "_startAxis": 0,
-    "_paddingLeft": 0,
-    "_paddingRight": 0,
-    "_paddingTop": 6,
-    "_paddingBottom": 6,
-    "_spacingX": 0,
-    "_spacingY": 0,
-    "_verticalDirection": 1,
-    "_horizontalDirection": 0,
-    "_constraint": 0,
-    "_constraintNum": 2,
-    "_affectedByScale": false,
-    "_isAlign": false,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "81WzMiXqJO368ocwp02JI1"
   },
   {
     "__type__": "99fb2EPkAtAU5LpGBV6Hw7e",
@@ -1902,7 +1861,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 85
+      "__id__": 83
     },
     "imgNpcHeadBox": {
       "__id__": 3

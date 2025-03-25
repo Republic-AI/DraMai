@@ -147,6 +147,72 @@
        "width":0,
        "x":526.666666666667,
        "y":1296
+      }, 
+      {
+       "height":0,
+       "id":66,
+       "name":"lunaBuild_up_1",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":241,
+       "y":176
+      }, 
+      {
+       "height":0,
+       "id":67,
+       "name":"lunaBuild_down_2",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":465,
+       "y":367
+      }, 
+      {
+       "height":0,
+       "id":68,
+       "name":"avaCheck_left_1",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":241,
+       "y":367
+      }, 
+      {
+       "height":0,
+       "id":69,
+       "name":"avaCheck_down_2",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":336,
+       "y":622
+      }, 
+      {
+       "height":0,
+       "id":70,
+       "name":"avaCheck_up_3",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":273,
+       "y":719
+      }, 
+      {
+       "height":0,
+       "id":71,
+       "name":"lunaBuild_up_3",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":496,
+       "y":718
       }]
   }
 }

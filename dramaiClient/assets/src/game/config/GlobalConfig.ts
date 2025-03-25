@@ -38,6 +38,7 @@ export class GlobalConfig {
     chooseNpc = null;
     chooseScene = null;
     twitterData = [];
+    chatRecord = null;
     static get instance() {
         if (this._instance) {
             return this._instance;

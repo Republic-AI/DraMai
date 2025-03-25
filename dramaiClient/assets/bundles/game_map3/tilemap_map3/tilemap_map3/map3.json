@@ -301,6 +301,72 @@
        "width":0,
        "x":364.515151515152,
        "y":787.363636363636
+      }, 
+      {
+       "height":0,
+       "id":93,
+       "name":"trumpCheck_down_1",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1070.66666666667,
+       "y":1550.66666666667
+      }, 
+      {
+       "height":0,
+       "id":94,
+       "name":"trumpCheck_left_2",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1166.66666666667,
+       "y":1741.33333333333
+      }, 
+      {
+       "height":0,
+       "id":95,
+       "name":"trumpCheck_up_3",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1006.66666666667,
+       "y":1934.66666666667
+      }, 
+      {
+       "height":0,
+       "id":96,
+       "name":"satoshiFix_down_1",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":1070,
+       "y":1710
+      }, 
+      {
+       "height":0,
+       "id":97,
+       "name":"satoshiFix_left_2",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":977,
+       "y":1746
+      }, 
+      {
+       "height":0,
+       "id":98,
+       "name":"satoshiFix_up_3",
+       "rotation":0,
+       "type":"",
+       "visible":true,
+       "width":0,
+       "x":942,
+       "y":1841
       }]
   }
 }

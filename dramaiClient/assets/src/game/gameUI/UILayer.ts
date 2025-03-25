@@ -70,9 +70,6 @@ export class UILayer extends Component {
     btnRank:Button = null;
 
     @property(Node)
-    loginNode:Node = null;
-
-    @property(Node)
     TEXT_LABEL:Node = null;
 
     @property(Label)
@@ -335,7 +332,7 @@ export class UILayer extends Component {
 
         }
 
-        this.viewNode.node.active = false;
+        //this.viewNode.node.active = false;
     //    if(currentUrl.includes("morpheus") || currentUrl.includes("pippin")){
     //         this.viewNode.node.active = false;
     //         if(!sys.isMobile){
@@ -468,12 +465,6 @@ export class UILayer extends Component {
         }
     }
 
-    onBtnLoginClose(){
-        tween(this.loginNode).to(0.17, { scale: v3(0, 0, 1), position: v3(0, 40, 0) }).call(() => {
-            this.loginNode.active = false;
-        }).start()
-    }
-
     onBtnTwitterLogin(){
         WebUtils.showToast("Function not open yet");
         return;
@@ -532,12 +523,6 @@ export class UILayer extends Component {
         //     WebUtils.showToast("Please install MetaMask wallet");
         // }
         return;
-        //console.log("pos=====" + JSON.stringify(this.TEXT_LABEL.position))
-        this.loginNode.active = true;
-        return;
-        tween(this.node).repeatForever(tween(this.node).delay(1).call(()=>{
-            console.log("pos=====" + JSON.stringify(this.TEXT_LABEL.position))
-        })).start()
     }
     
     onBtnTest2(){
@@ -552,12 +537,6 @@ export class UILayer extends Component {
         //     WebUtils.showToast("Please install MetaMask wallet");
         // }
         return;
-        //console.log("pos=====" + JSON.stringify(this.TEXT_LABEL.position))
-        this.loginNode.active = true;
-        return;
-        tween(this.node).repeatForever(tween(this.node).delay(1).call(()=>{
-            console.log("pos=====" + JSON.stringify(this.TEXT_LABEL.position))
-        })).start()
     }
 
     async connectWallet() {
@@ -641,12 +620,6 @@ export class UILayer extends Component {
     onBtnNews(){
         let newsLayerNode = instantiate(this.newsLayer);
         this.node.addChild(newsLayerNode);
-    }
-
-    onBtnCheckLogin(){
-        this.loginNode.active = true;
-        this.loginNode.setScale(v3(0, 0, 1))
-        tween(this.loginNode).to(0.17, { scale: v3(1, 1, 1), position: v3(0, 40, 0) }).to(0.066, { position: v3(0, 0, 0) }).start()
     }
 
     onBtnEditMap(){

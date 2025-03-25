@@ -1,4 +1,4 @@
-import { _decorator, Camera, Component, director, instantiate, Node, Prefab, ScrollView, tween } from 'cc';
+import { _decorator, assetManager, Camera, Component, director, ImageAsset, instantiate, Node, Prefab, ScrollView, Sprite, SpriteFrame, Texture2D, tween, UITransform, v3 } from 'cc';
 import { network } from '../../../src/model/RequestData';
 import { observer, socket } from '../../../src/game/App';
 import { EventType } from '../../../src/EventType';
@@ -7,6 +7,8 @@ import { optionPrefab } from './optionPrefab';
 import { sceneItem } from './sceneItem';
 import { twitterModeType_1 } from './twitterModeType_1';
 import { twitterModeType_2 } from './twitterModeType_2';
+import { lobbyChatRecord } from './lobbyChatRecord';
+import { GuideMask } from '../../../src/game/gameUI/GuideMask';
 const { ccclass, property } = _decorator;
 
 @ccclass('lobbyScene')
@@ -53,15 +55,39 @@ export class lobbyScene extends Component {
     @property(Node)
     status_2:Node = null;
 
+    @property(Node)
+    btnBanner:Node = null;
+
+    @property(Node)
+    bannerNode:Node = null;
+
+    @property(Sprite)
+    imgBannerContent:Sprite = null;
+
+    @property(Node)
+    chatRecordView:Node = null;
+    
+    @property(Node)
+    chatRecordViewContent:Node = null;
+
+    @property(Node)
+    btnPageNode:Node = null;
+
+    @property(Prefab)
+    lobbyChatRecord:Prefab = null;
+
     _orignOrthoHeight = null;
     _chooseSceneId = 1;
-    _pageStatus = null
+    _pageStatus = 1
+    _bannerStatus = "hide"
+    _sceneBannerFrame = {};
     protected onLoad(): void {
         director.addPersistRootNode(this.worldNode);
         observer.on(EventType.GETLOBBYINFO,this.getLobbyInfo,this);
         observer.on(EventType.REQUESTENTERSCENE,this.enterScene,this);
         observer.on("ChooseBtnScene",this.onChooseClick,this);
         observer.on(EventType.INITTWITTERVIEW,this.initTwitterView,this);
+        observer.on(EventType.INITCHATRECORD,this.initChatRecord,this);
     }
     
     _lobbyRoomInfo = null;
@@ -71,7 +97,11 @@ export class lobbyScene extends Component {
     }
 
     update(deltaTime: number) {
-        
+        if(this._sceneBannerFrame[this._chooseSceneId]){
+            this.imgBannerContent.spriteFrame = this._sceneBannerFrame[this._chooseSceneId];
+        }
+        this.status_1.active = this._pageStatus == 1 ? true : false;
+        this.status_2.active = this._pageStatus == 2 ? true : false;
     }
 
     protected onDestroy(): void {
@@ -79,6 +109,7 @@ export class lobbyScene extends Component {
         observer.off(EventType.REQUESTENTERSCENE,this.enterScene,this);
         observer.off("ChooseBtnScene",this.onChooseClick,this);
         observer.off(EventType.INITTWITTERVIEW,this.initTwitterView,this);
+        observer.off(EventType.INITCHATRECORD,this.initChatRecord,this);
     }
 
     _initData(){
@@ -93,6 +124,13 @@ export class lobbyScene extends Component {
 
         this.initRequestTwitter()
 
+        let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+        let posY =  viewSize.height / 2  - 130;
+        this.bannerNode.setPosition(0,posY);
+        this.btnBanner.setScale(1,-1);
+
+        this.initRequestChatRecord();
+
     }
 
     initRequestTwitter(){
@@ -103,6 +141,13 @@ export class lobbyScene extends Component {
         json["data"]["roomId"] = 0;
         json["data"]["page"] = 0;
         json["data"]["size"] = 999;
+        socket.sendWebSocketBinary(json);
+    }
+
+    initRequestChatRecord(){
+        let json = new network.GetAllNPCRequest();
+        json.command = 10114;
+        json.type = 1;
         socket.sendWebSocketBinary(json);
     }
 
@@ -119,6 +164,29 @@ export class lobbyScene extends Component {
                     this.sceneViewContent.addChild(sceneItemNode);
                     sceneItemNode.getComponent(sceneItem).initData(npcID,scene.id)
                 })
+                assetManager.loadRemote<ImageAsset>(scene.bannerUrl, { ext: '.png' }, (err, imageAsset) => {
+                    if (err) {
+                        console.error("图片加载失败:", err);
+                        return;
+                    }
+                
+                    // 确保 imageAsset 有效
+                    if (!(imageAsset instanceof ImageAsset)) {
+                        console.error("imageAsset 不是 ImageAsset 类型");
+                        return;
+                    }
+                
+                    // 创建 Texture2D
+                    const texture = new Texture2D();
+                    texture.image = imageAsset;
+                
+                    // 创建 SpriteFrame
+                    const spriteFrame = new SpriteFrame();
+                    spriteFrame.texture = texture;
+                
+                    // 赋值给 Sprite
+                    this._sceneBannerFrame[scene.id] = spriteFrame;
+                });
             })
             this.node.getComponentsInChildren(optionPrefab).forEach((option,index)=>{
                 if(option._sceneId == 1){
@@ -129,6 +197,9 @@ export class lobbyScene extends Component {
                 }
             })
             this.optionBtnLayout.setPosition(800,0,0);
+            // tween(this.node).delay(0.1).call(()=>{
+            //     this.node.getComponentInChildren(GuideMask).updateHoleByTarget(this.optionBtnLayout.children[0]);
+            // }).start()
         }
     }
 
@@ -258,6 +329,120 @@ export class lobbyScene extends Component {
         else{
             this.sceneItemView.node.active = true;
             this.twitterView.node.active = false;
+        }
+    }
+
+    onBtnHome(){
+        this._pageStatus = 1;
+        this.sceneItemView.node.active = true;
+        this.twitterView.node.active = false;
+        this.bannerNode.active = true;
+        this.btnPageNode.active = true;
+        this.chatRecordView.active = false;
+    }
+
+    onBtnTwitt(){
+        this._pageStatus = 2
+        this.sceneItemView.node.active = false;
+        this.bannerNode.active = false;
+        this.twitterView.node.active = true;
+        this.btnPageNode.active = true;
+        this.chatRecordView.active = false;
+        this.twitterViewContent.children.forEach(node=>{
+            if(node.getComponent(twitterModeType_1)){
+                if(node.getComponent(twitterModeType_1)._roomId == Number(this._chooseSceneId)){
+                    node.active = true;
+                }
+                else{
+                    node.active = false;
+                }
+            }
+            else if(node.getComponent(twitterModeType_2)){
+                if(node.getComponent(twitterModeType_2)._roomId == Number(this._chooseSceneId)){
+                    node.active = true;
+                }
+                else{
+                    node.active = false;
+                }
+            }
+        })
+
+    }
+
+    onBtnChatRecord(){
+        this._pageStatus = 3;
+        this.sceneItemView.node.active = false;
+        this.twitterView.node.active = false;
+        this.bannerNode.active = false;
+        this.btnPageNode.active = false;
+        this.chatRecordView.active = true;
+    }
+
+    onBtnBanner(){
+        if(this._bannerStatus == "show"){
+            this._bannerStatus = "hide";
+        }
+        else{
+            this._bannerStatus = "show";
+            
+        }
+        if(this._bannerStatus == "show"){
+            let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+            let posY =  viewSize.height / 2  + 60;
+            tween(this.bannerNode)
+            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .call(() => {
+
+            })
+            .start();
+            this.btnBanner.setScale(1, 1);
+            // this.bannerNode.setPosition(0,posY);
+            // this.btnBanner.setScale(1,1);
+        }
+        else{
+            let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+            let posY =  viewSize.height / 2  - 130;
+            tween(this.bannerNode)
+            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .call(() => {
+
+            })
+            .start();
+            this.btnBanner.setScale(1, -1);
+        }
+    }
+
+    onBtnBannerEnterScene(){
+        let json = new network.GetAllNPCRequest();
+        json.command = 10012;
+        json.type = 1;
+        json["data"] = {};
+        json["data"]["roomId"] = this._chooseSceneId;
+        GlobalConfig.instance.chooseNpc = null;
+        GlobalConfig.instance.chooseScene = this._chooseSceneId;
+        socket.sendWebSocketBinary(json);
+        director.getScene().getComponentInChildren(lobbyScene).showMaskNode();
+    }
+
+    initChatRecord(data){
+        console.log("chatRecordData======" + JSON.stringify(data.data));
+        let allChatData = data.data.playerNpcChatDataMap;
+        for(let i in allChatData){
+            if(allChatData[i] && allChatData[i].length > 0){
+                let npcId = i;
+                let initChatInfo = null; 
+                allChatData[i] = allChatData[i].reverse()
+                allChatData[i].forEach(chatInfo=>{
+                    if(chatInfo.npcSend){
+                        initChatInfo = chatInfo
+                    }
+                })
+                if(initChatInfo){
+                    let recordItemNode = instantiate(this.lobbyChatRecord);
+                    recordItemNode.getComponent(lobbyChatRecord).initData(initChatInfo,npcId);
+                    this.chatRecordViewContent.addChild(recordItemNode);
+                }
+            }
         }
     }
 

@@ -230,14 +230,16 @@ export class gameLayer_map1 extends Component {
         tween(this.node).delay(0.1).call(()=>{
             this.initOtherNPCs(GlobalConfig.instance.nowSceneData.otherNpc);
         }).start()
-        tween(this.node).repeatForever(tween(this.node).delay(0.1).call(()=>{
-            this.node.getComponentsInChildren(NpcManager).forEach(npcScript=>{
-                if(npcScript.NpcID == GlobalConfig.instance.chooseNpc){
-                    observer.post(EventType.FOLLOWNPC,GlobalConfig.instance.chooseNpc);
-                    Tween.stopAllByTarget(this.node);
-                }
-            })
-        }).start()).start()
+        if(GlobalConfig.instance.chooseNpc){
+            tween(this.node).repeatForever(tween(this.node).delay(0.1).call(()=>{
+                this.node.getComponentsInChildren(NpcManager).forEach(npcScript=>{
+                    if(npcScript.NpcID == GlobalConfig.instance.chooseNpc){
+                        observer.post(EventType.FOLLOWNPC,GlobalConfig.instance.chooseNpc);
+                        Tween.stopAllByTarget(this.node);
+                    }
+                })
+            }).start()).start()
+        }
         if(GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
             for(let i in GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
                 let id = GlobalConfig.instance.nowSceneData.furnitureMsgDataMap[i].id;
@@ -736,7 +738,13 @@ export class gameLayer_map1 extends Component {
             }
             else if(actionData.actionId === NpcEventType.draw){
                 // npcControl.setIdleStatus(KeyCode.KEY_D);
-                // npcControl.showBubble(BubbleImgUrl.draw);
+                npcControl.showBubble(BubbleImgUrl.draw);
+                if(actionData.params.oid.includes("up")){
+                    npcControl.setIdleStatus(KeyCode.KEY_W)
+                }
+                if(actionData.params.oid.includes("right")){
+                    npcControl.setIdleStatus(KeyCode.KEY_D)
+                }
             }
             else if(actionData.actionId === 127){
                 // if(actionData.npcId == 10012){

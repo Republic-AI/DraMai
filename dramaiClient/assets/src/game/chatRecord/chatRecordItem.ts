@@ -19,7 +19,7 @@ export class chatRecordItem extends Component {
 
     update(deltaTime: number) {
         let contentHeight = this.lblContent.getComponent(UITransform).contentSize.height;
-        this.node.getComponent(UITransform).setContentSize(400,contentHeight + 25);
+        this.node.getComponent(UITransform).setContentSize(700,contentHeight + 35);
     }
 
     initData(data,gameNowTime){

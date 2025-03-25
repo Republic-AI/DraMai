@@ -119,6 +119,6 @@
       "image": "project://settings/logo.png",
       "type": "custom"
     },
-    "displayRatio": 1
+    "displayRatio": 0.9
   }
 }

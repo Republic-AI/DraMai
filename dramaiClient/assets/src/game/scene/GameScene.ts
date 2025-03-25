@@ -335,10 +335,8 @@ export class GameScene extends Component {
         console.log("maxX======" + maxX);
         console.log("maxY======" + maxY);
         tween(this.node).delay(0.3).call(()=>{
-            this.cancelFollowNode.children[0].setScale(v3(0, 0, 1));
             this.cancelFollowNode.active = true;
             this.cancelFollowNode.getComponentInChildren(changeSkinPrefab).initData(npcID.data);
-            tween(this.cancelFollowNode.children[0]).to(0.2, {scale: v3(1, 1, 1)}).start()
         }).start();
         //console.log("targetPos=======" + JSON.stringify(targetPos));
         // this.mapModel.setPosition(targetPos);
