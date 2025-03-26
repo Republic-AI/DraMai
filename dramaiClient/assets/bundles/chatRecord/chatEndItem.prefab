@@ -166,8 +166,8 @@
     "_string": "},",
     "_horizontalAlign": 0,
     "_verticalAlign": 2,
-    "_actualFontSize": 60,
-    "_fontSize": 60,
+    "_actualFontSize": 54,
+    "_fontSize": 54,
     "_fontFamily": "Arial",
     "_lineHeight": 35,
     "_overflow": 3,
@@ -257,6 +257,8 @@
       "__id__": 0
     },
     "fileId": "26B/MswL9JzYjneSZKT4QK",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {

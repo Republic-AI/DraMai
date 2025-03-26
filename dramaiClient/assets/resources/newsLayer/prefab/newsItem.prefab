@@ -568,7 +568,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 144,
+      "width": 121.5,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -607,8 +607,8 @@
     "_string": "Days 01",
     "_horizontalAlign": 1,
     "_verticalAlign": 2,
-    "_actualFontSize": 64,
-    "_fontSize": 64,
+    "_actualFontSize": 54,
+    "_fontSize": 54,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
     "_overflow": 0,
@@ -1283,8 +1283,8 @@
     "_string": "labelaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "_horizontalAlign": 0,
     "_verticalAlign": 2,
-    "_actualFontSize": 64,
-    "_fontSize": 64,
+    "_actualFontSize": 54,
+    "_fontSize": 54,
     "_fontFamily": "Arial",
     "_lineHeight": 38,
     "_overflow": 3,

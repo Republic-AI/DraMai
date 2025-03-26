@@ -163,16 +163,13 @@ export class gameLayer_map1 extends Component {
     }
 
     protected onDestroy(): void {
+        // 停止当前播放的音频
+        AudioManager.instance.stop();
         observer.off(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
         observer.off(EventType.SOCKET_NPC_ACTION, this.playNPCAction, this);
         observer.off(EventType.SCENE_ACTION, this.playSceneAction, this);
         observer.off(EventType.RELOGIN, this.reconect, this);
-        observer.off(EventType.RECONECTSCENE,this.reEnterRoom,this);
-        // observer.off(EventType.CREATEPLAYER,this.createPlayer,this);
-        // observer.off(EventType.DESTROYPLAYER,this.destroyPlayer,this);
-        // observer.off(EventType.GETALLNFTSTATUS,this.initAllNftStatus,this);
-        // observer.off(EventType.CHANGENFTSTATUS,this.changeNftStatus,this);
-
+        observer.off(EventType.RECONECTSCENE, this.reEnterRoom, this);
     }
 
     start() {
@@ -980,6 +977,26 @@ export class gameLayer_map1 extends Component {
     //{"id":10002,"name":"Alice Farmer","type":1,"model":10002,"career":"","keyword":"","hair":100,"top":90,"bottoms":100,"speed":0,"x":536,"y":736}
 
     initOtherNPC(NPC: NPCServerD) {
+        if (!this.speakLayer) {
+            console.error('speakLayer is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.replyNode) {
+            console.error('replyNode prefab is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.speakNode) {
+            console.error('speakNode prefab is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.speakNode_Ex) {
+            console.error('speakNode_Ex prefab is not assigned in the editor!');
+            return;
+        }
+
         let replyNode = instantiate(this.replyNode);
         this.speakLayer.addChild(replyNode);
         this._npcSpeakObj["reply_" + NPC.id] = replyNode;

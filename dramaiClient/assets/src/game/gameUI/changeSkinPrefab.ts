@@ -166,7 +166,7 @@ export class changeSkinPrefab extends Component {
             this.lblNpcDes.string = npcDes[npcId];
             tween(this.lblNpcDes.node).delay(0.1).call(()=>{
                 let targetY = this.lblNpcDes.node.getComponent(UITransform).contentSize.height
-                this.lblNpcDes.node.setPosition(0,-targetY/4 - 40);
+                this.lblNpcDes.node.setPosition(0,-targetY/4 - 20);
             }).start();
         }
         resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{

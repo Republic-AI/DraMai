@@ -52,6 +52,10 @@ export class AudioManager {
     }
 
     loadAndPlayAudio(audioPath: string) {
+        const audioSource = AudioManager._audioSource!;
+        if (audioSource.playing) {
+            audioSource.stop()
+        }
         WebUtils.loadRes(audioPath, AudioClip, (err, clip) => {
             if (err) {
                 console.error(err);
@@ -131,5 +135,12 @@ export class AudioManager {
     closeSound() {
         this.setSoundVolume(0);
         GlobalConfig.instance.setGlobalData('sound', 'false');
+    }
+
+    stop() {
+        const audioSource = AudioManager._audioSource!;
+        if (audioSource.playing) {
+            audioSource.stop();
+        }
     }
 }

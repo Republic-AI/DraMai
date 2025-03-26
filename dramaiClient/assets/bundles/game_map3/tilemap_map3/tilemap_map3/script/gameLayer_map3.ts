@@ -132,29 +132,38 @@ export class gameLayer_map3 extends Component {
     _createTimeInfo = {};
     _coffeeNodeStatus = {};
     protected onLoad(): void {
-        this.startScrollNum();;
-        AudioManager.instance.init()
+        // 检查必要的组件和节点是否存在
+        if (!this.speakLayer || !this.replyNode || !this.speakNode || !this.speakNode_Ex) {
+            console.error('Required properties are not set in the editor:', {
+                speakLayer: !!this.speakLayer,
+                replyNode: !!this.replyNode,
+                speakNode: !!this.speakNode,
+                speakNode_Ex: !!this.speakNode_Ex
+            });
+            return;
+        }
+
+        this.startScrollNum();
+        AudioManager.instance.init();
         AudioManager.instance.loadAndPlayAudio("sound/bgm");
-        this._initData()
+        this._initData();
         observer.on(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
         observer.on(EventType.SOCKET_NPC_ACTION, this.playNPCAction, this);
         observer.on(EventType.SCENE_ACTION, this.playSceneAction, this);
         observer.on(EventType.RELOGIN, this.reconect, this);
         observer.on(EventType.RECONECTSCENE,this.reEnterRoom,this);
-        // observer.on(EventType.CREATEPLAYER,this.createPlayer,this);
-        // observer.on(EventType.DESTROYPLAYER,this.destroyPlayer,this);
-        // observer.on(EventType.GETALLNFTSTATUS,this.initAllNftStatus,this);
-        // observer.on(EventType.CHANGENFTSTATUS,this.changeNftStatus,this);
 
         this.node.on(Node.EventType.TOUCH_START,this.onPlayerTouch,this);
     }
 
     protected onDestroy(): void {
+        // 停止当前播放的音频
+        AudioManager.instance.stop();
         observer.off(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
         observer.off(EventType.SOCKET_NPC_ACTION, this.playNPCAction, this);
         observer.off(EventType.SCENE_ACTION, this.playSceneAction, this);
         observer.off(EventType.RELOGIN, this.reconect, this);
-        observer.off(EventType.RECONECTSCENE,this.reEnterRoom,this);
+        observer.off(EventType.RECONECTSCENE, this.reEnterRoom, this);
         // observer.off(EventType.CREATEPLAYER,this.createPlayer,this);
         // observer.off(EventType.DESTROYPLAYER,this.destroyPlayer,this);
         // observer.off(EventType.GETALLNFTSTATUS,this.initAllNftStatus,this);
@@ -1004,6 +1013,26 @@ export class gameLayer_map3 extends Component {
     //{"id":10002,"name":"Alice Farmer","type":1,"model":10002,"career":"","keyword":"","hair":100,"top":90,"bottoms":100,"speed":0,"x":536,"y":736}
 
     initOtherNPC(NPC: NPCServerD) {
+        if (!this.speakLayer) {
+            console.error('speakLayer is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.replyNode) {
+            console.error('replyNode prefab is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.speakNode) {
+            console.error('speakNode prefab is not assigned in the editor!');
+            return;
+        }
+
+        if (!this.speakNode_Ex) {
+            console.error('speakNode_Ex prefab is not assigned in the editor!');
+            return;
+        }
+
         let replyNode = instantiate(this.replyNode);
         this.speakLayer.addChild(replyNode);
         this._npcSpeakObj["reply_" + NPC.id] = replyNode;
