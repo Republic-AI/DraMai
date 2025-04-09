@@ -307,6 +307,12 @@ export class GameScene extends Component {
         if(!npcNode){
             return;
         }
+        if(!(npcNode instanceof Node)){
+            return;
+        }
+        if(!(this.node instanceof Node)){
+            return;
+        }
         let npcWorldPos = npcNode.getComponent(UITransform).convertToWorldSpaceAR(v3(0,0,0));
         let mapWorldPos = this.node.getComponent(UITransform).convertToWorldSpaceAR(v3(0,0,0));
 

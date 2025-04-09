@@ -1,4 +1,4 @@
-import { _decorator, assetManager, Button, color, Component, director, EditBox, game, instantiate, Label, Node, Prefab, resources, ScrollView, Sprite, SpriteFrame, sys, Tween, tween, UIOpacity, UITransform, v2, v3, view } from 'cc';
+import { _decorator, assetManager, Button, color, Component, director, dragonBones, EditBox, game, instantiate, Label, Layout, Node, Prefab, ProgressBar, resources, ScrollView, Sprite, SpriteFrame, sys, Tween, tween, UIOpacity, UITransform, v2, v3, view } from 'cc';
 import { GameScene } from '../scene/GameScene';
 import { network } from '../../model/RequestData';
 import { observer, socket } from '../App';
@@ -18,6 +18,8 @@ import { ScreenshotUploader } from '../../utils/Screenshot';
 import { JietuComponent } from '../../manager/JietuComponent';
 import { linkLayer } from '../linkLayer/linkLayer';
 import { PlayerManager } from '../../NPC/PlayerManager';
+import { npcHeadPrefab } from './npcHeadPrefab';
+import { maxBy } from 'lodash';
 const { ccclass, property } = _decorator;
 
 //金币
@@ -112,12 +114,6 @@ export class UILayer extends Component {
     lblCreateNum:Label = null;
 
     @property(Node)
-    imgHeadBg_2:Node = null;
-
-    @property(Node)
-    chatMsgScrollNode:Node = null;
-
-    @property(Node)
     getNftNode:Node = null;
 
     @property(Node)
@@ -129,12 +125,89 @@ export class UILayer extends Component {
     @property(Sprite)
     imgNftContent:Sprite = null;
 
+    @property(Node)
+    npcHeadLayout:Node = null;
+
+    @property(Node)
+    npcHeadNode:Node = null;
+
+    @property(Prefab)
+    npcHeadPrefab:Prefab = null;
+
+    @property(ProgressBar)
+    progressNpcHeadCD:ProgressBar = null;
+
+    @property(Button)
+    btnChooseNpcChat:Button = null;
+
+    @property(Button)
+    btnChooseGift:Button = null;
+
+    @property(ProgressBar)
+    progressGiftCD:ProgressBar = null;
+
+    @property(Node)
+    giftNode:Node = null;
+
+    @property(Node)
+    giftLayout:Node = null;
+
+    @property(Node)
+    lblNameNode:Node = null;
+
+    @property(Label)
+    lblTestGoldNum:Label = null;
+
+    @property(dragonBones.ArmatureDisplay)
+    npcChooseEffect:dragonBones.ArmatureDisplay = null;
+
+    @property(dragonBones.ArmatureDisplay)
+    giftChooseEffect:dragonBones.ArmatureDisplay = null;
+
+    @property(Node)
+    btnVoteStatus_1:Node = null;
+
+    @property(Node)
+    btnVoteStatus_2:Node = null;
+
+    @property(Label)
+    lblVoteTime:Label = null;
+    
+    @property(Node)
+    voteStartNode:Node = null;
+
+    @property(Node)
+    voteGiftNode:Node = null;
+
+    @property(ProgressBar)
+    giftProgressBar_1:ProgressBar = null;
+
+    @property(ProgressBar)
+    giftProgressBar_2:ProgressBar = null;
+
+    @property(Node)
+    voteResultNode:Node = null;
+
+    @property(Node)
+    voteUnOpenNode:Node = null;
+    
+    @property(Node)
+    helpNode:Node = null;
+    
     _chatInfo = [];
     _randomState = null;
     _isInitItem = false;
     _itemInfo = [];
     _isLive = false;
     _guideContentIndex = 0;
+    _sendNpcId = 0;
+    _chooseNpcId = 0;
+    _chooseGiftNum = 0;
+    _isBulletCD = false;
+
+    _voteInfo = null;
+    _voteCreateTime = 0;
+    _voteEndTime = 0;
     protected onLoad(): void {
         //director.root.pipeline.profiler.enabled = false;
         observer.on(EventType.GETCHAT_BYID,this.initChatDataInfo,this);
@@ -144,6 +217,11 @@ export class UILayer extends Component {
         //observer.on(EventType.FOLLOWNPC,this.talkToNpc,this);
         //observer.on(EventType.PLAYERCLICK,this.playerTalkToNpc,this);
         observer.on(EventType.DESTROYGUIDE,this.showDestroyGuide,this);
+        observer.on(EventType.CHOOSENPCHEAD, this.chooseNpcHead,this);
+        observer.on(EventType.SENDBULLETMSG,this.sendBulletMsg,this);
+        observer.on(EventType.INITVOTEINFO,this.getVoteInfo,this);
+        observer.on(EventType.UPDATEVOTEINFO,this.updateVoteInfo,this);
+        observer.on(EventType.UPDATEMYVOTEINFO,this.updateMyVoteInfo,this);
     }
 
     protected onDestroy(): void {
@@ -154,19 +232,38 @@ export class UILayer extends Component {
         //observer.off(EventType.FOLLOWNPC,this.talkToNpc,this);
         //observer.off(EventType.PLAYERCLICK,this.playerTalkToNpc,this);
         observer.off(EventType.DESTROYGUIDE,this.showDestroyGuide,this);
+        observer.off(EventType.CHOOSENPCHEAD, this.chooseNpcHead,this);
+        observer.off(EventType.SENDBULLETMSG,this.sendBulletMsg,this);
+        observer.off(EventType.INITVOTEINFO,this.getVoteInfo,this);
+        observer.off(EventType.UPDATEVOTEINFO,this.updateVoteInfo,this);
+        observer.off(EventType.UPDATEMYVOTEINFO,this.updateMyVoteInfo,this);
+        // 移除EditBox的事件监听
+        // this.chatEditBox.node.off('editing-began', this.onEditBoxBegan, this);
+        // this.chatEditBox.node.off('editing-ended', this.onEditBoxEnded, this);
     }
 
     start() {
         this.initData();
+        // 添加EditBox的事件监听
+        // this.chatEditBox.node.on('editing-began', this.onEditBoxBegan, this);
+        // this.chatEditBox.node.on('editing-ended', this.onEditBoxEnded, this);
     }
 
     update(deltaTime: number) {
         //this.node.getComponent(UITransform).setContentSize(view.getVisibleSize().width,view.getVisibleSize().height);
-        // if(this.chatEditBox.string){
-        //     this.TEXT_LABEL.active = false;
-        //     this.tempEditView.active = true;
-        //     this.chatEditBox.node.active = false
-        // }
+        
+        // 更新投票倒计时
+        if (this._voteInfo && this.btnVoteStatus_1 && this.btnVoteStatus_1.active) {
+            const currentTime = new Date().getTime();
+            const elapsedTime = Math.floor((currentTime - this._voteCreateTime) / 1000); // 转换为秒
+            const remainingTime = Math.max(0, this._voteEndTime - elapsedTime);
+            
+            const lblVoteTime = this.btnVoteStatus_1.getComponentInChildren(Label);
+            if (lblVoteTime) {
+                lblVoteTime.string = this.formatCountdownTime(remainingTime);
+            }
+        }
+
         //计算摄像机中心点与NPC位置的夹角和距离，实时更新NPC头像小图标的位置和指向
         this.npcDirRoot.children.forEach(node=>{
             let dirNpcId =  node.getComponent(npcDirPrefab)._npcId;
@@ -213,8 +310,13 @@ export class UILayer extends Component {
                 }
             })
         })
-        
-        let mapScript = director.getScene().getComponentInChildren(GameScene).getMapScript();
+        if(!this.giftProgressBar_1.progress){
+            this.giftProgressBar_1.progress = 0.01
+        }
+        if(!this.giftProgressBar_2.progress){
+            this.giftProgressBar_2.progress = 0.01
+        }
+        //let mapScript = director.getScene().getComponentInChildren(GameScene).getMapScript();
         // if(mapScript && mapScript._myPlayerNode){
         //     this.createStatus_1.active = false;
         //     this.createStatus_2.active = true;
@@ -253,6 +355,26 @@ export class UILayer extends Component {
 
     }
 
+    /**
+     * 将秒数转换为 MM:SS 格式的倒计时字符串
+     * @param seconds 剩余秒数
+     * @returns 格式化后的时间字符串
+     */
+    private formatCountdownTime(seconds: number): string {
+        if (seconds <= 0) {
+            return "00:00";
+        }
+        
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        
+        // 使用三元运算符和字符串拼接代替padStart
+        const minutesStr = minutes < 10 ? "0" + minutes : minutes.toString();
+        const secondsStr = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds.toString();
+        
+        return `${minutesStr}:${secondsStr}`;
+    }
+
     onBtnSend(){
         if(this.chatEditBox.node.active && this.chatEditBox.string.length < 1){
             return;
@@ -260,19 +382,65 @@ export class UILayer extends Component {
         // if(this.playerEditBox.node.active && this.playerEditBox.string.length < 1){
         //     return;
         // }
-        let SceneNpcID = director.getScene().getComponentInChildren(GameScene).getNpcID();
-        let json = new network.RequestSendChatData();
-        json.command = 10016;
-        json.data.npcId = SceneNpcID;
-        json.data.sender =  GlobalConfig.instance.LoginData.data.player.playerId;
-        if(this.chatEditBox.node.active){
-            json.data.context = this.chatEditBox.string;
+        let isCD = GlobalConfig.instance.getBulletMsgCDTime();
+        if(isCD || !this._chooseNpcId){
+            let SceneNpcID = director.getScene().getComponentInChildren(GameScene).getNpcID();
+            let json = new network.RequestSendChatData();
+            json.command = 10016;
+            json.data.npcId = this._sendNpcId;
+            json.data.roomId = GlobalConfig.instance.chooseScene;
+            json.data.sender =  GlobalConfig.instance.LoginData.data.player.playerId;
+            if(this.chatEditBox.node.active){
+                json.data.context = this.chatEditBox.string;
+            }
+            // if(this.playerEditBox.node.active){
+            //     json.data.context = this.playerEditBox.string;
+            // }
+            socket.sendWebSocketBinary(json);
+            this.chatEditBox.string = "";
         }
-        // if(this.playerEditBox.node.active){
-        //     json.data.context = this.playerEditBox.string;
-        // }
-        socket.sendWebSocketBinary(json);
-        this.chatEditBox.string = "";
+        else{
+
+            if(Number(this.lblTestGoldNum.string) < this._chooseGiftNum){
+                WebUtils.showToast("You don't have enough gold");
+                return;
+            }
+            let json = new network.GetAllNPCRequest();
+            json.command = 10115;
+            json["data"] = {};
+            json["data"].npcId = this._chooseNpcId;
+            json["data"].content = this.lblNameNode.getComponentInChildren(Label).string + this.chatEditBox.string;
+            json["data"].reward  =  this._chooseGiftNum;
+            socket.sendWebSocketBinary(json);
+
+            // 发送私聊消息接口用来回复
+            let json2 = new network.RequestSendChatData();
+            json2.command = 10106;
+            json2.data.npcId = this._chooseNpcId;
+            json2.data.sender =  GlobalConfig.instance.LoginData.data.player.playerId;
+            json2.data.context = this.chatEditBox.string;
+            json2.data.privateMsg = false;
+            socket.sendWebSocketBinary(json2);
+
+
+            this.chatEditBox.string = "";
+            this.lblNameNode.active = false;
+            this.npcHeadNode.active = false;
+            this.giftNode.active = false;
+
+            this.progressGiftCD.node.active = true;
+            this.progressNpcHeadCD.node.active = true;
+            this.npcChooseEffect.node.active = false;
+            this.giftChooseEffect.node.active = false;
+
+            tween(this.progressGiftCD).to(1, {progress:0}).start();
+            tween(this.progressNpcHeadCD).to(1, {progress:0}).start();
+            this._chooseNpcId = 0;
+            this._chooseGiftNum = 0;
+
+            this._isBulletCD = true;
+
+        }
         //this.playerEditBox.string = "";
         // if(this.chatEditBox.node.active){
         //     let SceneNpcID = director.getScene().getComponentInChildren(GameScene).getNpcID();
@@ -300,9 +468,11 @@ export class UILayer extends Component {
         this.btnChat.interactable = false;
         this.btnRank.interactable = true;
         //测试聊天信息拉取
-        let json = new network.getChatDataInfo();
+        let json = new network.GetAllNPCRequest();
         json.command = 10017;
-        json.data.npcId = SceneNpcID;
+        json["data"] = {};
+        json["data"].npcId = SceneNpcID;
+        json["data"].roomId = GlobalConfig.instance.chooseScene;
         socket.sendWebSocketBinary(json);
 
         //测试物品信息拉取
@@ -320,44 +490,26 @@ export class UILayer extends Component {
         //     this.node.getChildByName("btnLayout").getChildByName("btnEditMap").active = false;
         //     this.node.getChildByName("btnEnterVote").active = false;
         // }
+        GlobalConfig.instance.roomDataList.forEach((scene,index)=>{
+            if(scene.id == GlobalConfig.instance.chooseScene){
+                scene.npcList.forEach(npcID=>{
+                    let npcHeadNode = instantiate(this.npcHeadPrefab);
+                    this.npcHeadLayout.addChild(npcHeadNode);
+                    npcHeadNode.getComponent(npcHeadPrefab).initData(npcID);
+                })
+            }
+        })
 
-        const currentUrl = window.location.href;
-        const url = new URL(currentUrl);
-        // 获取查询参数
-        let codeParam = url.searchParams.get("version");
-        if(codeParam == "live"){
-            this._isLive = true;
-        }
-        if(codeParam == "capture"){
+        this.initVoteInfo()
 
-        }
+    }
 
-        //this.viewNode.node.active = false;
-    //    if(currentUrl.includes("morpheus") || currentUrl.includes("pippin")){
-    //         this.viewNode.node.active = false;
-    //         if(!sys.isMobile){
-    //             this.msgNode.active = false;
-    //             this.node.getChildByName("btnLayout").active = false;
-    //             this.node.getChildByName("btnEnterVote").active = false;
-    //             this.viewNode.node.active = false;
-    //             this.node.getChildByName("chatLayout").active = false;
-    //             this.chatEditBox.node.active = false;
-    //             this.node.getChildByName("btnSend").active = false;
-    //             this.node.getChildByName("imgHeadBox").active = false;
-    //             this.node.getChildByName("btnCreatePlayer").active = false;
-    //         }
-    //    }
-    //    if(currentUrl.includes("capture")){
-    //         this.msgNode.active = false;
-    //         this.node.getChildByName("btnLayout").active = false;
-    //         this.node.getChildByName("btnEnterVote").active = false;
-    //         this.viewNode.node.active = false;
-    //         this.node.getChildByName("chatLayout").active = false;
-    //         this.chatEditBox.node.active = false;
-    //         this.node.getChildByName("btnSend").active = false;
-    //         this.node.getChildByName("imgHeadBox").active = false;
-    //         this.node.getChildByName("btnCreatePlayer").active = false;
-    //    }
+    initVoteInfo(){
+        let json = new network.GetAllNPCRequest();
+        json.command = 10116;
+        json["data"] = {};
+        json["data"].roomId = GlobalConfig.instance.chooseScene;
+        socket.sendWebSocketBinary(json);
     }
 
     updateViewNode(status:String){
@@ -394,7 +546,6 @@ export class UILayer extends Component {
     updateChat(chatInfo){
         console.log("ChatInfo =====",chatInfo);
         let SceneNpcID = director.getScene().getComponentInChildren(GameScene).getNpcID();
-        if(Number(chatInfo.data.data.npcId) == Number(SceneNpcID)){
             this._chatInfo.push(chatInfo.data.data.chatData);
             let chatMsgPrefabNode = instantiate(this.chatMsgPrefab);
             this.chatNode.addChild(chatMsgPrefabNode);
@@ -422,7 +573,6 @@ export class UILayer extends Component {
             //         }
             //     })
             // }
-        }
     }
 
     showBulletMsg(data){
@@ -438,7 +588,7 @@ export class UILayer extends Component {
     randomHead(){
         const headBundle = assetManager.getBundle("headFrame");
         if(headBundle){
-            let randomIndex = Math.floor(Math.random() * 160) + 1
+            let randomIndex = Number(localStorage.getItem("avatarId"))
             //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
             headBundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
                 if(error){
@@ -451,7 +601,7 @@ export class UILayer extends Component {
         }
         else{
             assetManager.loadBundle("headFrame",{},(error,bundle)=>{
-                let randomIndex = Math.floor(Math.random() * 160) + 1
+                let randomIndex = Number(localStorage.getItem("avatarId"));
                 //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
                 bundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
                     if(error){
@@ -496,13 +646,13 @@ export class UILayer extends Component {
         // } else {
         //     WebUtils.showToast("Please install MetaMask wallet");
         // }
-        const clientId = "5e0b6a27-bb7f-4e80-b596-aab2847767e0"; // 替换为你自己的 Client ID
-        const redirectUri = "https://aitown.infinitytest.cc/"; // 替换为你的回调 URL
-        const scope = "wallet:accounts:read"; // 请求的权限
+        // const clientId = "5e0b6a27-bb7f-4e80-b596-aab2847767e0"; // 替换为你自己的 Client ID
+        // const redirectUri = "https://aitown.infinitytest.cc/"; // 替换为你的回调 URL
+        // const scope = "wallet:accounts:read"; // 请求的权限
     
-        const authUrl = `https://www.coinbase.com/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+        // const authUrl = `https://www.coinbase.com/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
     
-        window.location.href = authUrl;
+        // window.location.href = authUrl;
     }
 
     onBtnTest(){
@@ -540,39 +690,62 @@ export class UILayer extends Component {
     }
 
     async connectWallet() {
-        if (typeof window["ethereum"] !== 'undefined') {
-            try {
-                // 请求连接钱包
-                const accounts = await window["ethereum"].request({ method: 'eth_requestAccounts' });
-                console.log('连接成功，钱包地址:', accounts[0]);
-                let callback = ()=>{
-                    window.location.reload();
-                }
-                let str = "Link wallet successfully,click confirm to log in again.";
-                WebUtils.showAlert(str,alert_cb_status.ok,callback);
-                localStorage.setItem("walletID",accounts[0]);
-                return accounts[0]; // 返回第一个钱包地址
-            } catch (error) {
-                WebUtils.showToast("Link wallet failed");
-            }
-        } else {
-            WebUtils.showToast("Please install MetaMask wallet");
+        // if (typeof window["ethereum"] !== 'undefined') {
+        //     try {
+        //         // 使用标准的provider API
+        //         const provider = window["ethereum"];
+                
+        //         // 请求连接钱包
+        //         const accounts = await provider.request({ 
+        //             method: 'eth_requestAccounts',
+        //             params: []
+        //         });
+
+        //         console.log('连接成功，钱包地址:', accounts[0]);
+                
+        //         // 监听账户变化
+        //         provider.on('accountsChanged', (newAccounts) => {
+        //             console.log('钱包账户已更改:', newAccounts[0]);
+        //             localStorage.setItem("walletID", newAccounts[0]);
+        //         });
+
+        //         // 监听链变化
+        //         provider.on('chainChanged', (chainId) => {
+        //             console.log('网络已更改:', chainId);
+        //             window.location.reload();
+        //         });
+
+        //         let callback = () => {
+        //             window.location.reload();
+        //         }
+        //         let str = "Link wallet successfully, click confirm to log in again.";
+        //         WebUtils.showAlert(str, alert_cb_status.ok, callback);
+        //         localStorage.setItem("walletID", accounts[0]);
+        //         return accounts[0];
+        //     } catch (error) {
+        //         console.error('连接钱包失败:', error);
+        //         WebUtils.showToast("Link wallet failed");
+        //     }
+        // } else {
+        //     WebUtils.showToast("Please install MetaMask wallet");
+        // }
+    }
+
+    onEditBoxBegan() {
+        // 编辑开始时隐藏名字节点
+        this.lblNameNode.active = false;
+    }
+
+    onEditBoxEnded() {
+        // 编辑结束时，如果有选中的NPC，显示名字节点
+        if (this._chooseNpcId && this._chooseNpcId !== 0) {
+            this.lblNameNode.active = true;
         }
-    }
-
-    onEditBegin(){
-        // this.chatEditBox.node.active = false;
-        // this.tempEditView.active = true;
-    }
-
-    onEditEnd(){
-        // this.chatEditBox.node.active = true;
-        // this.chatEditBox.blur();
-        // this.tempEditView.active = true;
     }
 
     updateItem(itemInfo){
         this._itemInfo = itemInfo.data.data;
+        //this.lblTestGoldNum.node.active = false;
         console.log("itemInfo=====",this._itemInfo)
         if(!this._itemInfo){
             return;
@@ -585,7 +758,7 @@ export class UILayer extends Component {
                 this.lblPaperNum.string = item.count;
             }
             if(item.goodsId == ITEM_MONEY_ID){
-                this.lblGoldNum.string = item.count;
+                this.lblTestGoldNum.string = item.count;
             }
         })
         this._isInitItem = true;
@@ -630,6 +803,22 @@ export class UILayer extends Component {
     onBtnGift(){
         WebUtils.showToast("Function not open yet");
         return;
+    }
+
+    onBtnChooseGift(eventTarget, CustomData: string) {
+        console.log("eventTarget=====",eventTarget.target.name);
+
+        const targetSprite = eventTarget.target.getComponent(Sprite);
+        if (!targetSprite) {
+            console.error('Target node does not have Sprite component');
+            return;
+        }
+
+        this.giftLayout.active = false;
+        this.giftNode.active = true;
+        this.giftNode.getComponent(Sprite).spriteFrame = targetSprite.spriteFrame;
+        this._chooseGiftNum = Number(CustomData);  
+        this.giftChooseEffect.node.active = false;
     }
 
     getLiveStatues(){
@@ -783,13 +972,13 @@ export class UILayer extends Component {
         
     }
 
-    // onBtnHelp(){
-    //     this.helpNode.active = true;
-    // }
+    onBtnHelp(){
+        this.helpNode.active = true;
+    }
 
-    // onBtnCloseHelp(){
-    //     this.helpNode.active = false;
-    // }
+    onBtnCloseHelp(){
+        this.helpNode.active = false;
+    }
 
     playerTalkToNpc(npcId){
         if(!NpcName[npcId.data]){
@@ -869,6 +1058,334 @@ export class UILayer extends Component {
         GlobalConfig.instance.chooseScene = null
         socket.sendWebSocketBinary(json);
     }
+
+    onBtnChooseNpcChat(){
+        if(this._isBulletCD){
+            return;
+        }
+        this.npcHeadLayout.active = !this.npcHeadLayout.active;
+        this._chooseNpcId = 0;
+        this.npcHeadNode.active = false;
+        this.npcChooseEffect.node.active = true;
+    }
+
+    onBtnChooseNpcGift(){
+        if(this._isBulletCD){
+            return;
+        }
+        this.giftLayout.active = !this.giftLayout.active;
+        this._chooseGiftNum = 0;
+        this.giftNode.active = false;
+        this.giftChooseEffect.node.active = true;
+    }
+
+    chooseNpcHead(npcId: { data: number }){
+        this.npcHeadLayout.active = false;
+        this.npcHeadNode.active = true;
+        this.npcHeadNode.getComponent(npcHeadPrefab).initData(String(npcId.data));
+        this._chooseNpcId = npcId.data;
+        this.lblNameNode.active = true;
+        this.lblNameNode.getComponentInChildren(Label).string = "@" + String(NpcName[npcId.data]) + " ";
+        this.progressNpcHeadCD.node.active = false;
+        this.npcChooseEffect.node.active = false;
+        if(!this.chatEditBox.string){
+            this.chatEditBox.string = " ";
+        }
+    }
+
+    sendBulletMsg(data){
+        console.log("sendBulletMsg=====",data.data);
+        let bulletMsgNode = instantiate(this.bulletMsgPrefab);
+        this.msgNode.addChild(bulletMsgNode);
+        bulletMsgNode.getComponent(bulletMsgPrefab).initData(data.data);
+        if(data.data.userNo == GlobalConfig.instance.LoginData.data.player.playerId){
+            GlobalConfig.instance.setBulletMsgCDTime(data.data.cdTime);
+            let cdTime = Math.ceil(data.data.cdTime / 1000);
+            console.log("cdTime=====",cdTime);
+            tween(this.progressGiftCD).delay(1.1).to(cdTime, {progress:1}).call(()=>{
+                this.giftChooseEffect.node.active = true;
+                this.giftChooseEffect.playAnimation("newAnimation",1);
+            }).start();
+            tween(this.progressNpcHeadCD).delay(1.1).to(cdTime, {progress:1}).call(()=>{
+                this._isBulletCD = false;
+                this.npcChooseEffect.node.active = true;
+                this.npcChooseEffect.playAnimation("newAnimation",1);
+            }).start();
+        }
+    }
+
+    onBtnVoteYes(){
+        let json = new network.GetAllNPCRequest()
+        json.command = 10117;
+        json["data"] = {};
+        json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
+        json["data"]["choose"] = true;
+        json["data"]["reward"] = 0;
+        socket.sendWebSocketBinary(json);
+
+        this.voteStartNode.active = false;
+        this.voteGiftNode.active = true;
+        let giftNode_1 = this.giftProgressBar_1.node.getChildByName("giftNode");
+        giftNode_1.getComponent(Sprite).spriteFrame = null;
+
+        let giftNode_2 = this.giftProgressBar_2.node.getChildByName("giftNode");
+        giftNode_2.getComponent(Sprite).spriteFrame = null;
+    }
+
+    onBtnVoteNo(){
+        let json = new network.GetAllNPCRequest()
+        json.command = 10117;
+        json["data"] = {};
+        json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
+        json["data"]["choose"] = false;
+        json["data"]["reward"] = 0;
+        socket.sendWebSocketBinary(json);
+
+        this.voteStartNode.active = false;
+        this.voteGiftNode.active = true;
+
+        let giftNode_1 = this.giftProgressBar_1.node.getChildByName("giftNode");
+        giftNode_1.getComponent(Sprite).spriteFrame = null;
+
+        let giftNode_2 = this.giftProgressBar_2.node.getChildByName("giftNode");
+        giftNode_2.getComponent(Sprite).spriteFrame = null;
+    }
+
+    onBtnVoteStatus_1(){
+        if(this._voteInfo){
+            let myVoteCount = this._voteInfo.myYesCount + this._voteInfo.myNoCount;
+            if(myVoteCount > 0){
+                this.voteGiftNode.active = true;
+            }
+            else{
+                this.voteStartNode.active = true;
+            }
+        }
+    }
+
+    onBtnVoteStatus_2(){
+        if(this._voteInfo){
+            this.voteUnOpenNode.active = true;
+        }
+    }
+
+    onBtnCloseVoteStart(){
+        this.voteStartNode.active = false;
+    }
+
+    onBtnCloseVoteGiftNode(){
+        this.voteGiftNode.active = false;
+    }
+
+    onBtnChooseGift_1(){
+        let layoutNode = this.giftProgressBar_1.node.getComponentInChildren(Layout).node;
+        layoutNode.active = !layoutNode.active;
+
+        let giftNode = this.giftProgressBar_1.node.getChildByName("giftNode");
+        giftNode.active = false;
+
+        let layoutNode2 = this.giftProgressBar_2.node.getComponentInChildren(Layout).node;
+        layoutNode2.active = false;
+
+    }
+
+    onBtnChooseGift_2(){
+        let layoutNode = this.giftProgressBar_2.node.getComponentInChildren(Layout).node;
+        layoutNode.active = !layoutNode.active; 
+
+        let giftNode = this.giftProgressBar_2.node.getChildByName("giftNode");        let giftNode2 = this.giftProgressBar_2.node.getChildByName("giftNode");
+        giftNode.active = false;
+
+        let layoutNode2 = this.giftProgressBar_1.node.getComponentInChildren(Layout).node;
+        layoutNode2.active = false;
+    }
+    
+    
+    onBtnChooseVoteGift_1(eventTarget, CustomData: string) {
+        console.log("eventTarget=====",eventTarget.target.name);
+
+        const targetSprite = eventTarget.target.getComponent(Sprite);
+        if (!targetSprite) {
+            console.error('Target node does not have Sprite component');
+            return;
+        }
+        let layoutNode = this.giftProgressBar_1.node.getComponentInChildren(Layout).node;
+        layoutNode.active = false;
+        let chooseGiftNum = Number(CustomData);
+        let json = new network.GetAllNPCRequest()
+        json.command = 10117;
+        json["data"] = {};
+        json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
+        json["data"]["choose"] = true;
+        json["data"]["reward"] = chooseGiftNum;
+        socket.sendWebSocketBinary(json);
+    }
+
+    onBtnChooseVoteGift_2(eventTarget, CustomData: string) {
+        console.log("eventTarget=====",eventTarget.target.name);
+
+        const targetSprite = eventTarget.target.getComponent(Sprite);
+        if (!targetSprite) {
+            console.error('Target node does not have Sprite component');
+            return;
+        }
+        let layoutNode = this.giftProgressBar_2.node.getComponentInChildren(Layout).node;
+        layoutNode.active = false;
+        let chooseGiftNum = Number(CustomData);
+        let json = new network.GetAllNPCRequest()
+        json.command = 10117;
+        json["data"] = {};
+        json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
+        json["data"]["choose"] = false;
+        json["data"]["reward"] = chooseGiftNum;
+        socket.sendWebSocketBinary(json);  
+    }
+
+    onBtnCloseVoteResult(){
+        this.voteResultNode.active = false;
+    }
+
+    onBtnVoteUnOpenNode(){
+        this.voteUnOpenNode.active = false;
+    }
+
+    getVoteInfo(data){
+        //{"roomId":1,"state":0,"endTime":275660,"yesCount":0,"noCount":0,"myYesCount":0,"myNoCount":0,"content":"Should Popcat ask Pippin to go fishing?","yesContent":"Popcat will ask Pippin to go fishing.","noContent":"Popcat will not ask Pippin to go fishing."}
+        console.log("getVoteInfo=====",data.data);
+        this._voteInfo = data.data;
+
+        if(this._voteInfo.state == 0){ 
+            this.btnVoteStatus_1.active = true;
+            this.btnVoteStatus_2.active = false;
+            this._voteCreateTime = new Date().getTime();
+            this._voteEndTime = Math.ceil(this._voteInfo.endTime / 1000);
+            this.voteGiftNode.getComponentInChildren(Label).string = this._voteInfo.content;
+            this.voteStartNode.getComponentInChildren(Label).string = this._voteInfo.content;
+            this.giftProgressBar_1.progress =  this._voteInfo.yesCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+            this.giftProgressBar_2.progress =  this._voteInfo.noCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+
+
+            this.giftProgressBar_1.node.getComponentInChildren(Label).string = this._voteInfo.yesCount;
+            this.giftProgressBar_2.node.getComponentInChildren(Label).string = this._voteInfo.noCount;
+        }
+        else{
+            this.btnVoteStatus_1.active = false;
+            this.btnVoteStatus_2.active = true;
+        }
+    }
+
+    updateVoteInfo(data){
+        console.log("updateVoteInfo=====",data.data);
+        if(this._voteInfo){
+            if(data.data.state == 1){
+                this.showVoteResult()
+                this.voteGiftNode.active = false;
+                this.voteStartNode.active = false;
+                this.voteUnOpenNode.active = false;
+                this.btnVoteStatus_1.active = false;
+                this.btnVoteStatus_2.active = true;
+            }
+            else{
+                this.voteUnOpenNode.active = false;
+                this.voteResultNode.active = false;
+                this._voteInfo.yesCount = data.data.yesCount;
+                this._voteInfo.noCount = data.data.noCount; 
+                if(this._voteInfo.state == 0){
+                    if(this.voteGiftNode.active){
+                        let progress1 =  this._voteInfo.yesCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                        let progress2 =  this._voteInfo.noCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                        console.log("progress1=====",progress1);
+                        console.log("progress2=====",progress2);
+                        tween(this.giftProgressBar_1).to(0.25, {progress:progress1}).start();
+                        tween(this.giftProgressBar_2).to(0.25, {progress:progress2}).start();
+                    }
+                    else{
+                        let progress1 =  this._voteInfo.yesCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                        let progress2 =  this._voteInfo.noCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                        this.giftProgressBar_1.progress = progress1;
+                        this.giftProgressBar_2.progress = progress2;
+                    }
+                    this.giftProgressBar_1.node.getComponentInChildren(Label).string = this._voteInfo.yesCount;
+                    this.giftProgressBar_2.node.getComponentInChildren(Label).string = this._voteInfo.noCount;
+                }
+                else{
+                    this.btnVoteStatus_1.active = true;
+                    this.btnVoteStatus_2.active = false;
+                    this._voteCreateTime = new Date().getTime();
+                    this._voteEndTime = Math.ceil(data.data.endTime / 1000);
+                    this.voteGiftNode.getComponentInChildren(Label).string = this._voteInfo.content;
+                    this.voteStartNode.getComponentInChildren(Label).string = this._voteInfo.content;
+                    this.giftProgressBar_1.progress =  this._voteInfo.yesCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                    this.giftProgressBar_2.progress =  this._voteInfo.noCount / (this._voteInfo.yesCount + this._voteInfo.noCount);
+                    this.giftProgressBar_1.node.getComponentInChildren(Label).string = this._voteInfo.yesCount;
+                    this.giftProgressBar_2.node.getComponentInChildren(Label).string = this._voteInfo.noCount;
+                    this._voteInfo.myYesCount = 0;
+                    this._voteInfo.myNoCount  = 0;
+                }
+            }
+            this._voteInfo.state = data.data.state;
+
+        }   
+        
+        //{"roomId":4,"state":0,"endTime":479966,"yesCount":0,"noCount":0,"content":"Should Leo tell Ivy his secret?","yesContent":" Leo will tell Ivy his secret.","noContent":"Leo will not tell Ivy his secret."}
+    }
+    
+    updateMyVoteInfo(data){
+        console.log("updateMyVoteInfo=====",data.data);
+        //{"roomId":0,"choose":true,"reward":0}
+        if(data.data.choose){
+            if(data.data.reward > 0){
+                this._voteInfo.myYesCount += data.data.reward;
+            }
+            else{
+                this._voteInfo.myYesCount += 1;
+            }
+        }
+        else{
+            if(data.data.reward > 0){
+                this._voteInfo.myNoCount += data.data.reward;
+            }
+            else{
+                this._voteInfo.myNoCount += 1;
+            }
+        }
+    }
+    showVoteResult(){
+        if(this._voteInfo.yesCount == this._voteInfo.noCount){
+            return;
+        }
+        else{
+            if(this._voteInfo.myYesCount || this._voteInfo.myNoCount){
+                this.voteResultNode.active = true;
+                let contentStr = this._voteInfo.yesCount > this._voteInfo.noCount ? this._voteInfo.yesContent : this._voteInfo.noContent;
+                let resultNum = this._voteInfo.yesCount > this._voteInfo.noCount ? 1 : 2;
+                let myNum = this._voteInfo.myYesCount > this._voteInfo.myNoCount ? 1 : 2;
+                let frontStr = resultNum == myNum ? "Your vote made ite happen!" : "Oh noes!Your vote didn't make it.";
+                this.voteResultNode.getComponentInChildren(Label).string = frontStr  + contentStr;
+                if(myNum == resultNum){
+                    this.voteResultNode.getChildByName("voteResultNode").getChildByName("imgFail").active = false;
+                    this.voteResultNode.getChildByName("voteResultNode").getChildByName("imgSuccess").active = true;
+                }
+                else{
+                    this.voteResultNode.getChildByName("voteResultNode").getChildByName("imgFail").active = true;
+                    this.voteResultNode.getChildByName("voteResultNode").getChildByName("imgSuccess").active = false;
+                }
+
+            }
+            else{
+                return;
+            }
+        }
+    }
+    onBtnShowVoteConfirm(eventTarget, CustomData: string) {
+        let layout = eventTarget.target.parent;
+        layout.children.forEach(child=>{
+            child.children[0].active = false;
+        })
+        eventTarget.target.children[0].active = true;
+    }
+
+
 }
 
 

@@ -35,12 +35,18 @@ export const NpcIndex = {
   10013: 13,
   10014: 14,
   10015: 15,
+  10016: 16,
+  10017: 17,
+  10018: 18,
+  10019: 19,
+  10020: 20,
+  10021: 21,
 }
 export const NpcRoomIndex = {
   10002: 0,
-  10003: 1,
-  10005: 2,
-  10004: 4,
+  10003: 0,
+  10005: 0,
+  10004: 0,
   10006: 3,
   10007: 1,
   10008: 1,
@@ -51,6 +57,12 @@ export const NpcRoomIndex = {
   10013: 13,
   10014: 2,
   10015: 2,
+  10016: 4,
+  10017: 4,
+  10018: 4,
+  10019: 4,
+  10020: 4,
+  10021: 4,
 }
 
 export const NpcName = {
@@ -68,6 +80,12 @@ export const NpcName = {
   10013:"morpheus",
   10014:"ava",
   10015: "luna",
+  10016: "leo",
+  10017: "ivy",
+  10018: "kai",
+  10019: "qiu",
+  10020: "nova",
+  10021: "aiden",
 }
 
 export const npcSkinCfg = {
@@ -85,6 +103,12 @@ export const npcSkinCfg = {
   10013: [0,1001301,1001302],
   10014: [0,1001401,1001402],
   10015: [0,1001501,1001502],
+  10016: [0],
+  10017: [0],
+  10018: [0],
+  10019: [0],
+  10020: [0],
+  10021: [0],
 }
 
 export const npcSceneItemCfg = {
@@ -102,6 +126,12 @@ export const npcSceneItemCfg = {
   10013: [0,1001301,1001302],
   10014: [0,1001403,1001404],
   10015: [0,1001503,1001504],
+  10016: [0],
+  10017: [0],
+  10018: [0],
+  10019: [0],
+  10020: [0],
+  10021: [0],
 }
 
 export const sceneItemAllCfg = {
@@ -248,6 +278,18 @@ export const sceneItemAllCfg = {
               "price": 150,
               "info": "Deep Sea Tank: Mysterious depths, just like his identity."
           }
+      ],
+      "10016": [
+      ],
+      "10017": [
+      ],
+      "10018": [
+      ],
+      "10019": [
+      ],
+      "10020": [
+      ],
+      "10021": [
       ]
   }
 
@@ -395,7 +437,19 @@ export const sceneItemAllCfg = {
             "price": 150,
             "info": "Bitcoin Crown: The true king of digital gold."
         }
-    ]
+    ],
+    "10016": [
+    ],
+    "10017": [
+    ],
+    "10018": [
+    ],
+    "10019": [
+    ],
+    "10020": [
+    ],
+    "10021": [
+    ],
 }
 export const NPCPartDisplayInfo = {
   body: [
@@ -535,7 +589,13 @@ export const npcDes = {
   10012:"Trump, a bold and charismatic figure in AI Town, aims to become president of the Meme Republic. Balancing big dreams with relatable moments, he wins hearts through jokes, ideas, and connecting with the town.",
   10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
   10014:"AVA, a clever hedge fund investor, works tirelessly analyzing markets. She loves exploring trendy spots and thrives in the bustling city life.",
-  10015:"Luna, a dazzling super idol known for her captivating performances, powerful vocals, and global influence."
+  10015:"Luna, a dazzling super idol known for her captivating performances, powerful vocals, and global influence.",
+  10016:"Leo: A quiet farmer with hidden depths, drawn to DraMai Town by the promise of untold secrets.",
+  10017:"Ivy: A gentle baker whose warm creations hint at a heart yearning for genuine connection.",
+  10018:"Kai, a tech-savvy and adventurous AI engineer. With a knack for coding and a love for adventure, Leo is always ready to explore new ideas and share his enthusiasm with the town.",
+  10019:"Selena: A polished influencer in search of raw authenticity beyond the digital world.",
+  10020:"Nova: A vibrant artist ready to transform the unknown into her next masterpiece.",
+  10021:"Aiden: A determined athlete with a mysterious past, seeking a fresh start in DraMai Town.",
 }
 
 export const npcTitleDes = {
@@ -548,7 +608,13 @@ export const npcTitleDes = {
   10012:"Trump dances to make the Republic great again.",
   10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
   10014:"Ava moves to the rhythm of the market.",
-  10015:"Luna won the Grammy Award, making history worldwide."
+  10015:"Luna won the Grammy Award, making history worldwide.",
+  10016:"Leo lives for chaos, color, and breaking every rule in the book.",
+  10017:"Ivy hides behind flour and sugar, where emotions quietly rise.",
+  10018:"Kai slices through arguments and emotions with equal precision.",
+  10019:"Selena shines online, but the spotlight can’t reach her doubts.",
+  10020:"Nova tends her fields in silence — and buries her secrets even deeper.",
+  10021:"Aiden wins hearts like he wins races — fast, but never without friction.",
 }
 export const BubbleImgUrl = {
   sleep: 'action/bubble/sleep',
@@ -597,6 +663,11 @@ export const BubbleImgUrl = {
 
   //pippin
   check:"action/bubble/check",
+
+  cake:"action/bubble/cake",
+  sport:"action/bubble/sport",
+  water:"action/bubble/water",
+  live:"action/bubble/live",
 
   100: {},
   101: {},
@@ -650,6 +721,11 @@ NpcEventType {
   sendItem = 133,
   bulid = 134,
   check = 135,
+  water = 136,
+  sport = 137,
+  makecake = 138,
+  LiveShow = 139,
+
 }
 
 export enum SleepHeadDirect {
@@ -704,6 +780,28 @@ export  const newsInfo = {
       "newsTitle": "Satoshi Returns!",
       "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
     },
-  ]
-
+  ],
+  4:[
+    {
+      "id": 3,
+      "date": "Day 3",
+      "imgName": "imgNews_4",
+      "newsTitle": "Elon Musk Arrived",
+      "newsContent": "Satoshi invites Elon Musk to this town, a place where experiments for his Mars mission will quietly unfold. But it seems Musk has other plans..."
+    },
+    {
+      "id": 2,
+      "date": "Day 2",
+      "imgName": "imgNews_2",
+      "newsTitle": "Trump meets Satoshi to make Bitcoin U.S. currency!",
+      "newsContent": "Washington, April 27, 2025 — President Trump invites Bitcoin creator Satoshi Nakamoto to discuss making Bitcoin the U.S. official currency."
+    },
+    {
+      "id": 1,
+      "date": "Day 1",
+      "imgName": "imgNews_1",
+      "newsTitle": "Satoshi Returns!",
+      "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
+    },
+  ],
 }

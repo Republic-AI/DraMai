@@ -34,6 +34,9 @@ export class NpcManager extends Component {
     @property(SpriteFrame)
     skinFrameArr:SpriteFrame []= [];
 
+    @property(SpriteFrame)
+    npcBigFrame:SpriteFrame = null;
+
 
     _sleepNode: Node = null;
     _fishNode: Node = null;
@@ -170,6 +173,14 @@ export class NpcManager extends Component {
         }
         else if(dir == KeyCode.KEY_D){
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("right_standby",0);
+        }
+
+        if(Number(this.NpcID) == 10021 && this._curTile.x == 22 && this._curTile.y == 13){
+            this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("right_standby",0);
+        }
+
+        if(Number(this.NpcID) == 10019 && this._curTile.x == 23 && this._curTile.y == 13){
+            this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("left_standby",0);
         }
     }
 

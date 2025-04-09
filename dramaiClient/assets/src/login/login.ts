@@ -91,7 +91,7 @@ const CowPos = [
  * 5.微信qq 分享文案
  */
 
-let version = "v0.2.2"
+let version = "v0.3.2"
 const TAG = 'Index'
 @ccclass("Index")
 export default class Index extends Component {
@@ -176,6 +176,11 @@ export default class Index extends Component {
     await this.initData();
     // 获取查询参数
     await this.goLogin()
+
+    //控制台调试
+    // let script = document.createElement("script");
+    // script.src = "https://s.url.cn/qqun/qun/qqweb/m/qun/confession/js/vconsole.min.js";
+    // document.body.appendChild(script);
   }
 
   protected update(dt: number): void {
@@ -239,6 +244,7 @@ export default class Index extends Component {
     await assetManager.loadBundle("game_map1");
     await assetManager.loadBundle("game_map2");
     await assetManager.loadBundle("game_map3");
+    await assetManager.loadBundle("game_map4");
   }
 
   setAnimation() {
@@ -265,7 +271,16 @@ export default class Index extends Component {
     json.requestId = 0;
     json.type = 1;
     json.command = 10000;
-    json.data.avatar = "";
+    
+    let avatarId = Number(localStorage.getItem("avatarId"));
+    if(avatarId){
+        json.data.avatar = avatarId;
+    }
+    else{
+        avatarId = Math.floor(Math.random() * 160) + 1
+        localStorage.setItem("avatarId",avatarId.toString());
+    }
+    json.data.avatar = Number(avatarId);
     json.data.clientOs = "";
     json.data.loginType = 0;
     let idString
@@ -304,6 +319,8 @@ export default class Index extends Component {
       GlobalConfig.instance.hasLogin = true;
       GlobalConfig.instance.LoginData = data as network.LoginResponse;
       GlobalConfig.instance.loginType  = da.data.data.loginType;
+      GlobalConfig.instance.address = da.data.data.address;
+      GlobalConfig.instance.nickName = da.data.data.nickName;
       console.log("loginType====" + GlobalConfig.instance.loginType);
       //显示loading页
       //this.loginview.active = false;

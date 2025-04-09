@@ -173,13 +173,14 @@ export module network {
                 "name": "loginName",
                 "password": "",
                 "nickName": "nickName",
-                "avatar": "",
+                "avatar": 0,
                 "sex": 0,
                 "timeZone": 0,
                 "clientOs": "",
                 userId: "aaa",
                 inviteCode: "",
-                invite: ""
+                invite: "",
+                "address": ""
             }
         }
         public data: {
@@ -187,13 +188,14 @@ export module network {
             "name": string,
             "password": string,
             "nickName": string,
-            "avatar": string,
+            "avatar": number,
             "sex": number,
             "timeZone": number,
             "clientOs": string,
             userId: string,
             inviteCode: string,
-            invite: string
+            invite: string,
+            "address": string
         };
 
     }
@@ -223,7 +225,8 @@ export module network {
                 // dailyWork?: number,
                 "playerId": "2416BE07V201Y2",
                 "charater": 0,
-                "loginType":0
+                "loginType":0,
+                "address": ""
             },
 
         }
@@ -579,8 +582,10 @@ export module network {
         "command" = 10016;
         "data" = {
             "context": "写一段七言绝句诗，题目是：火锅！",
-            "npcId": 10006,
+            "npcId": 0,
+            "roomId": 0,
             "sender": "sasadad",
+            "privateMsg": false
         }
     }
     

@@ -49,6 +49,7 @@ import WebUtils from "../../../../../src/utils/WebUtils";
 import { changeSkinPrefab } from "../../../../../src/game/gameUI/changeSkinPrefab";
 import { furnitureNode } from "../../../../../src/game/gameUI/furnitureNode";
 import { fixPrefab } from "./fixPrefab";
+import { UILayer } from "db://assets/src/game/gameUI/UILayer";
 export const sleepFramePosX = [40, -61];
 export const sleepFrameTime = 0.45;
 export const bubbleTime = 0.7;
@@ -1376,6 +1377,8 @@ export class gameLayer_map3 extends Component {
         json["data"] = {};
         json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
         socket.sendWebSocketBinary(json);
+
+        director.getScene().getComponentInChildren(UILayer).initVoteInfo();
     }
 
     async reEnterRoom(){

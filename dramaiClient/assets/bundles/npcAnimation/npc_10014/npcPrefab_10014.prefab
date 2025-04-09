@@ -2285,6 +2285,10 @@
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
+    "npcBigFrame": {
+      "__uuid__": "7064da26-1da3-4768-8396-1b04220bc376@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": ""
   },
   {

@@ -985,8 +985,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -20,
-      "y": 32,
+      "x": -26,
+      "y": 25,
       "z": 0
     },
     "_lrot": {
@@ -2277,6 +2277,10 @@
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
+    "npcBigFrame": {
+      "__uuid__": "27860903-8d78-46d8-9684-bee8c37d21e6@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": ""
   },
   {

@@ -39,6 +39,11 @@ export class GlobalConfig {
     chooseScene = null;
     twitterData = [];
     chatRecord = null;
+    roomDataList = null;
+    bulletMsgCDTime = 0;
+    bulletMsgCreateTime = 0;
+    address = "";
+    goldNum = 0;
     static get instance() {
         if (this._instance) {
             return this._instance;
@@ -59,6 +64,28 @@ export class GlobalConfig {
     }
     setGlobalData(key: string, value: any) {
         this.jsonData[key] = value;
+    }
+
+    setBulletMsgCDTime(time:number){
+        this.bulletMsgCDTime = time;
+        if(time > 0){
+            this.bulletMsgCreateTime = new Date().getTime();
+        }
+    }
+
+    getBulletMsgCDTime(){
+        let nowTime = new Date().getTime();
+        if(nowTime - this.bulletMsgCreateTime >= this.bulletMsgCDTime){
+            return 0;
+        }
+        else{
+            let time = this.bulletMsgCDTime - (nowTime - this.bulletMsgCreateTime);
+            return time;
+        }
+    }
+
+    getBulletMsgCreateTime(){
+        return this.bulletMsgCreateTime;
     }
     
 }

@@ -1,4 +1,4 @@
-import { _decorator, assetManager, Camera, Component, director, ImageAsset, instantiate, Node, Prefab, ScrollView, Sprite, SpriteFrame, Texture2D, tween, UITransform, v3 } from 'cc';
+import { _decorator, assetManager, Camera, Component, director, ImageAsset, instantiate, Label, Node, Prefab, ScrollView, Sprite, SpriteFrame, Texture2D, tween, UITransform, v3 } from 'cc';
 import { network } from '../../../src/model/RequestData';
 import { observer, socket } from '../../../src/game/App';
 import { EventType } from '../../../src/EventType';
@@ -9,6 +9,7 @@ import { twitterModeType_1 } from './twitterModeType_1';
 import { twitterModeType_2 } from './twitterModeType_2';
 import { lobbyChatRecord } from './lobbyChatRecord';
 import { GuideMask } from '../../../src/game/gameUI/GuideMask';
+import { storyItemPrefab } from './storyItemPrefab';
 const { ccclass, property } = _decorator;
 
 @ccclass('lobbyScene')
@@ -76,11 +77,39 @@ export class lobbyScene extends Component {
     @property(Prefab)
     lobbyChatRecord:Prefab = null;
 
+    @property(Node)
+    userView:Node = null;
+
+    @property(Node)
+    userViewContent:Node = null;
+
+    @property(Sprite)
+    imgPlayerHead:Sprite = null;
+
+    @property(Label)
+    lblPlayerName:Label = null;
+
+    @property(Label)
+    lblUserNo:Label = null;
+
+    @property(Label)
+    lblLocation:Label = null;
+
+    @property(Label)
+    lblGoldNum:Label = null;
+
+    @property(Node)
+    storyContent:Node = null;
+
+    @property(Prefab)
+    storyItemPrefab:Prefab = null;
+
     _orignOrthoHeight = null;
     _chooseSceneId = 1;
     _pageStatus = 1
-    _bannerStatus = "hide"
+    _bannerStatus = "show"
     _sceneBannerFrame = {};
+    _userViewContentPosY = 0;
     protected onLoad(): void {
         director.addPersistRootNode(this.worldNode);
         observer.on(EventType.GETLOBBYINFO,this.getLobbyInfo,this);
@@ -88,11 +117,14 @@ export class lobbyScene extends Component {
         observer.on("ChooseBtnScene",this.onChooseClick,this);
         observer.on(EventType.INITTWITTERVIEW,this.initTwitterView,this);
         observer.on(EventType.INITCHATRECORD,this.initChatRecord,this);
+        observer.on(EventType.UPDATE_ITEM,this.updateItem,this);
+        observer.on(EventType.INITSTORYINFO,this.getStoryInfo,this);
     }
     
     _lobbyRoomInfo = null;
     _isInit
     start() {
+        console.log("address=========" + GlobalConfig.instance.address)
         this._initData()
     }
 
@@ -101,7 +133,7 @@ export class lobbyScene extends Component {
             this.imgBannerContent.spriteFrame = this._sceneBannerFrame[this._chooseSceneId];
         }
         this.status_1.active = this._pageStatus == 1 ? true : false;
-        this.status_2.active = this._pageStatus == 2 ? true : false;
+        this.status_2.active = (this._pageStatus == 2 || this._pageStatus == 4 )? true : false;
     }
 
     protected onDestroy(): void {
@@ -110,6 +142,8 @@ export class lobbyScene extends Component {
         observer.off("ChooseBtnScene",this.onChooseClick,this);
         observer.off(EventType.INITTWITTERVIEW,this.initTwitterView,this);
         observer.off(EventType.INITCHATRECORD,this.initChatRecord,this);
+        observer.off(EventType.UPDATE_ITEM,this.updateItem,this);
+        observer.off(EventType.INITSTORYINFO,this.getStoryInfo,this);
     }
 
     _initData(){
@@ -127,10 +161,41 @@ export class lobbyScene extends Component {
         let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
         let posY =  viewSize.height / 2  - 130;
         this.bannerNode.setPosition(0,posY);
-        this.btnBanner.setScale(1,-1);
+        //this.btnBanner.setScale(1,-1);
 
         this.initRequestChatRecord();
 
+        this.initUserView();
+
+    }
+
+    initUserView(){
+        const headBundle = assetManager.getBundle("headFrame");
+        let randomIndex = Number(localStorage.getItem("avatarId"))
+        //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
+        headBundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
+            if(error){
+                console.log("loadHeadError" + error)
+            }
+            else{
+                this.imgPlayerHead.spriteFrame = spFrame
+            }
+        })
+
+        this.lblUserNo.string = GlobalConfig.instance.LoginData.data.player.playerId;
+        this.lblLocation.string = GlobalConfig.instance.address;
+        this.lblPlayerName.string = GlobalConfig.instance.nickName;
+        //物品信息拉取
+        let json_2 = new network.getPlayerItemInfo();
+        json_2.command = 100081;
+        socket.sendWebSocketBinary(json_2);
+
+        let json = new network.GetAllNPCRequest();
+        json.command = 10119;
+        json.type = 1;
+        json["data"] = {};
+        json["data"]["roomId"] = this._chooseSceneId;
+        socket.sendWebSocketBinary(json);
     }
 
     initRequestTwitter(){
@@ -155,6 +220,7 @@ export class lobbyScene extends Component {
         if(!this._lobbyRoomInfo){
             console.log("lobby data========" + JSON.stringify(data.data.data.roomDataList));
             this._lobbyRoomInfo = data.data.data.roomDataList;
+            GlobalConfig.instance.roomDataList = data.data.data.roomDataList;
             this._lobbyRoomInfo.forEach((scene,index)=>{
                 let optionNode = instantiate(this.optionPrefab);
                 this.optionBtnLayout.addChild(optionNode);
@@ -250,6 +316,13 @@ export class lobbyScene extends Component {
                 }
             }
         })
+
+        let json3 = new network.GetAllNPCRequest();
+        json3.command = 10119;
+        json3.type = 1;
+        json3["data"] = {};
+        json3["data"]["roomId"] = this._chooseSceneId;
+        socket.sendWebSocketBinary(json3);
     }
 
     showMaskNode(){
@@ -339,6 +412,7 @@ export class lobbyScene extends Component {
         this.bannerNode.active = true;
         this.btnPageNode.active = true;
         this.chatRecordView.active = false;
+        this.userView.active = false;
     }
 
     onBtnTwitt(){
@@ -348,6 +422,7 @@ export class lobbyScene extends Component {
         this.twitterView.node.active = true;
         this.btnPageNode.active = true;
         this.chatRecordView.active = false;
+        this.userView.active = false;
         this.twitterViewContent.children.forEach(node=>{
             if(node.getComponent(twitterModeType_1)){
                 if(node.getComponent(twitterModeType_1)._roomId == Number(this._chooseSceneId)){
@@ -376,40 +451,41 @@ export class lobbyScene extends Component {
         this.bannerNode.active = false;
         this.btnPageNode.active = false;
         this.chatRecordView.active = true;
+        this.userView.active = false;
     }
 
     onBtnBanner(){
-        if(this._bannerStatus == "show"){
-            this._bannerStatus = "hide";
-        }
-        else{
-            this._bannerStatus = "show";
+        // if(this._bannerStatus == "show"){
+        //     this._bannerStatus = "hide";
+        // }
+        // else{
+        //     this._bannerStatus = "show";
             
-        }
-        if(this._bannerStatus == "show"){
-            let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
-            let posY =  viewSize.height / 2  + 60;
-            tween(this.bannerNode)
-            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
-            .call(() => {
+        // }
+        // if(this._bannerStatus == "show"){
+        //     let viewSize = this.userView.getComponent(UITransform).contentSize;
+        //     let posY =  this.userViewContent.position.y - 612;
+        //     tween(this.bannerNode)
+        //     .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+        //     .call(() => {
 
-            })
-            .start();
-            this.btnBanner.setScale(1, 1);
-            // this.bannerNode.setPosition(0,posY);
-            // this.btnBanner.setScale(1,1);
-        }
-        else{
-            let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
-            let posY =  viewSize.height / 2  - 130;
-            tween(this.bannerNode)
-            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
-            .call(() => {
+        //     })
+        //     .start();
+        //     this.btnBanner.setScale(1, 1);
+        //     // this.bannerNode.setPosition(0,posY);
+        //     // this.btnBanner.setScale(1,1);
+        // }
+        // else{
+        //     let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+        //     let posY =  viewSize.height / 2  - 130;
+        //     tween(this.bannerNode)
+        //     .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+        //     .call(() => {
 
-            })
-            .start();
-            this.btnBanner.setScale(1, -1);
-        }
+        //     })
+        //     .start();
+        //     this.btnBanner.setScale(1, -1);
+        // }
     }
 
     onBtnBannerEnterScene(){
@@ -427,6 +503,8 @@ export class lobbyScene extends Component {
     initChatRecord(data){
         console.log("chatRecordData======" + JSON.stringify(data.data));
         let allChatData = data.data.playerNpcChatDataMap;
+        let chatRecords = [];  // 用于存储所有要显示的聊天记录
+
         for(let i in allChatData){
             if(allChatData[i] && allChatData[i].length > 0){
                 let npcId = i;
@@ -438,13 +516,97 @@ export class lobbyScene extends Component {
                     }
                 })
                 if(initChatInfo){
-                    let recordItemNode = instantiate(this.lobbyChatRecord);
-                    recordItemNode.getComponent(lobbyChatRecord).initData(initChatInfo,npcId);
-                    this.chatRecordViewContent.addChild(recordItemNode);
+                    chatRecords.push({
+                        chatInfo: initChatInfo,
+                        npcId: npcId
+                    });
                 }
             }
         }
+
+        // 根据time进行排序，从小到大
+        chatRecords.sort((a, b) => a.chatInfo.time - b.chatInfo.time);
+
+        // 按排序后的顺序创建并添加节点
+        chatRecords.forEach(record => {
+            let recordItemNode = instantiate(this.lobbyChatRecord);
+            recordItemNode.getComponent(lobbyChatRecord).initData(record.chatInfo, record.npcId);
+            this.chatRecordViewContent.addChild(recordItemNode);
+        });
     }
+
+    updateItem(itemInfo){
+        let itemArr = itemInfo.data.data;
+        console.log("itemArr=====",itemArr)
+        itemArr.forEach(item=>{
+            if(item.goodsId == 10101000){
+                GlobalConfig.instance.goldNum = item.count;
+                this.lblGoldNum.string = GlobalConfig.instance.goldNum.toString();
+            }
+        })
+    }
+
+    onBtnUserInfo(){
+       this._pageStatus = 4;
+       this.sceneItemView.node.active = false;
+       this.twitterView.node.active = false;
+       this.bannerNode.active = false;
+       this.chatRecordView.active = false;
+       this.userView.active = true;
+       
+    }
+
+    onBtnShowHideUserView(){
+        if(!this._userViewContentPosY){
+            this._userViewContentPosY = this.userViewContent.position.y;
+        }
+        if(this._bannerStatus == "show"){
+            this._bannerStatus = "hide";
+        }
+        else{
+            this._bannerStatus = "show";
+            
+        }
+        if(this._bannerStatus == "show"){
+            //let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+            let posY =  this._userViewContentPosY;
+            tween(this.userViewContent)
+            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .call(() => {
+
+            })
+            .start();
+            this.btnBanner.setScale(1, 1);
+            // this.bannerNode.setPosition(0,posY);
+            // this.btnBanner.setScale(1,1);
+        }
+        else{
+            //let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
+            let posY =  this.userViewContent.position.y - 617;
+            tween(this.userViewContent)
+            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .call(() => {
+
+            })
+            .start();
+            this.btnBanner.setScale(1, -1);
+        }
+    }
+
+    getStoryInfo(data){
+        console.log("storyInfoData======" + JSON.stringify(data.data));
+        this.storyContent.destroyAllChildren();
+        
+        let storyData = data.data.voteHistoryInfoList;
+        storyData.forEach((item,index)=>{
+            let storyItemNode = instantiate(this.storyItemPrefab);
+            this.storyContent.addChild(storyItemNode);
+            storyItemNode.getComponent(storyItemPrefab).initData(this._chooseSceneId,item,index)
+        })
+    }
+
+
+    
 
 }
 

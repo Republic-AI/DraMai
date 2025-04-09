@@ -36,7 +36,6 @@ export class SocketDataManager extends Component {
             return;
         }
         if(repData.command == 10007){
-            console.log("1111111111test");
             observer.post(EventType.SOCKET_NPC_ACTION, repData);
         }
         if (repData.command == 10017) {
@@ -47,7 +46,7 @@ export class SocketDataManager extends Component {
             //{"requestId":6025933171,"playerId":5212530193423409000,"type":2,"command":10016,"code":0,"data":{"barrage":0,"type":0,"content":"assasasasasas","voice":"","npcId":10006,"sender":"24201W10EG21WM"}}
             observer.post(EventType.UPDATE_CHAT,repData);
         }
-        if (repData.command == 100081) {
+        if (repData.command == 100081 || repData.command == 100091) {
             //{"requestId":6025933171,"playerId":5212530193423409000,"type":2,"command":10016,"code":0,"data":{"barrage":0,"type":0,"content":"assasasasasas","voice":"","npcId":10006,"sender":"24201W10EG21WM"}}
             observer.post(EventType.UPDATE_ITEM,repData);
         }
@@ -153,6 +152,21 @@ export class SocketDataManager extends Component {
             //     GlobalConfig.instance.chatRecord[i] = chatInfoArr;
             // }
             observer.post(EventType.INITCHATRECORD,repData["data"]);
+        }
+        if(repData.command == 10115){  
+            observer.post(EventType.SENDBULLETMSG,repData["data"]);
+        }
+        if(repData.command == 10116){
+            observer.post(EventType.INITVOTEINFO,repData["data"]);
+        }
+        if(repData.command == 10117){
+            observer.post(EventType.UPDATEMYVOTEINFO,repData["data"]);
+        }
+        if(repData.command == 10118){
+            observer.post(EventType.UPDATEVOTEINFO,repData["data"]);
+        }
+        if(repData.command == 10119){
+            observer.post(EventType.INITSTORYINFO,repData["data"]);
         }
     }
 }

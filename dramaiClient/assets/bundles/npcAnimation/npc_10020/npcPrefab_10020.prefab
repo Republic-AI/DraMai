@@ -738,8 +738,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 48.10000000000001
+      "width": 34.084840385042185,
+      "height": 48.14322596312403
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -786,8 +786,8 @@
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",
-    "_animationName": "down_standby",
-    "_animationIndexValue": 2,
+    "_animationName": "",
+    "_animationIndexValue": 0,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -877,8 +877,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 48.10000000000001
+      "width": 34.084840385042185,
+      "height": 48.14322596312403
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -926,7 +926,7 @@
     },
     "_armatureName": "normal",
     "_animationName": "send",
-    "_animationIndexValue": 9,
+    "_animationIndexValue": 7,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -985,8 +985,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 40,
-      "y": 32,
+      "x": 43,
+      "y": 20,
       "z": 0
     },
     "_lrot": {
@@ -1076,8 +1076,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 50,
-      "height": 32
+      "width": 46,
+      "height": 34
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1113,7 +1113,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "c3358047-e469-443b-abea-030a08a43bb6@f9941",
+      "__uuid__": "18e59143-12ee-4184-91fb-2e9db0b23ed3@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -1212,7 +1212,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
+      "width": 48,
       "height": 36
     },
     "_anchorPoint": {
@@ -1249,7 +1249,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "c039dc9a-1e69-4773-93a8-1d9d6756902d@f9941",
+      "__uuid__": "0b233fd1-f802-44cb-95d0-a4fe171d2464@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -2255,7 +2255,7 @@
       "__id__": 98
     },
     "npcFrame": {
-      "__uuid__": "0f0adfe0-c9d6-40e8-ad10-34d48eccd29f@f9941",
+      "__uuid__": "f4f792d6-7840-4a27-90ae-9626237062be@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "NpcID": 10020,
@@ -2273,10 +2273,14 @@
     },
     "skinFrameArr": [
       {
-        "__uuid__": "0f0adfe0-c9d6-40e8-ad10-34d48eccd29f@f9941",
+        "__uuid__": "f4f792d6-7840-4a27-90ae-9626237062be@f9941",
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
+    "npcBigFrame": {
+      "__uuid__": "8c2ab0ee-5624-4794-8d73-b857822b941e@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": ""
   },
   {

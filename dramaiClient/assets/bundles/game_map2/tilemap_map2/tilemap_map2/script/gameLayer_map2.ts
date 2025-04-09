@@ -1346,6 +1346,8 @@ export class gameLayer_map2 extends Component {
         json["data"] = {};
         json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
         socket.sendWebSocketBinary(json);
+
+        director.getScene().getComponentInChildren(UILayer).initVoteInfo();
     }
 
     async reEnterRoom(){

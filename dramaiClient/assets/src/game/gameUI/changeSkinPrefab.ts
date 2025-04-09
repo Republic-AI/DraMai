@@ -1,6 +1,6 @@
-import { _decorator, assetManager, Component, director, EditBox, instantiate, JsonAsset, Label, Node, Prefab, resources, ScrollView, Sprite, SpriteFrame, tween, UITransform, v3 } from 'cc';
+import { _decorator, assetManager, Component, director, EditBox, instantiate, JsonAsset, Label, Node, Prefab, resources, ScrollView, Sprite, SpriteFrame, tween, UITransform, v3, Overflow, Slider, HorizontalTextAlignment } from 'cc';
 import { NpcManager } from '../../NPC/NpcManager';
-import { npcDes, NpcRoomIndex, npcSkinCfg, sceneItemAllCfg } from '../../StaticUtils/NPCConfig';
+import { npcDes, NpcName, NpcRoomIndex, npcSkinCfg, sceneItemAllCfg } from '../../StaticUtils/NPCConfig';
 import { npcItemPrefab } from './npcItemPrefab';
 import { network } from '../../model/RequestData';
 import { GlobalConfig } from '../config/GlobalConfig';
@@ -9,6 +9,9 @@ import { chatPrefab } from './chatPrefab';
 import { GameScene } from '../scene/GameScene';
 import { changeSkinItem } from './changeSkinItem';
 import { changeSceneItem } from './changeSceneItem';
+import { ItemConfigMap } from '../../StaticUtils/ItemConfig';
+import { NPCSkillMap } from '../../StaticUtils/NPCSkillConfig';
+import { itemPrefab } from './itemPrefab';
 const { ccclass, property } = _decorator;
 @ccclass('changeSkinPrefab')
 export class changeSkinPrefab extends Component {
@@ -58,7 +61,36 @@ export class changeSkinPrefab extends Component {
     @property(Node)
     changeNode:Node = null;
 
-    @property
+    @property(Label)
+    lblTwitterContent:Label = null;
+
+    @property(Label)
+    lblTwitterName:Label = null;
+
+    @property(Label)
+    lblTwitterTime:Label = null;
+
+    @property(Sprite)
+    imgBigFrame:Sprite = null;
+
+    @property(Node)
+    helpNode:Node = null;
+
+    @property(Prefab)
+    itemPrefab:Prefab = null;
+
+    @property(Prefab)
+    skillTagNode:Prefab = null;
+
+    @property(Node)
+    skillContent:Node = null;
+
+    @property(Node)
+    itemContent:Node = null;
+
+    @property(Node)
+    emoLayout:Node = null;
+
     _goldNum = 0;
     _itemCfg = null;
     _ownItem = {}
@@ -104,6 +136,9 @@ export class changeSkinPrefab extends Component {
             if(npcScript.NpcID == this._npcId){
                 this._skinFrameArr = npcScript.getComponent(NpcManager).skinFrameArr;
                 this._nowSkinData = npcScript._skinId;
+                if(npcScript.npcBigFrame){
+                    this.imgBigFrame.spriteFrame = npcScript.npcBigFrame;
+                }
                 npcSkinCfg[this._npcId].forEach((skinId,index)=>{
                     if(skinId == this._nowSkinData){
                         this._skinIndex = index;
@@ -112,38 +147,40 @@ export class changeSkinPrefab extends Component {
                 })
             }
         })
-        this.skinViewContent.destroyAllChildren();
-        npcSkinCfg[this._npcId].forEach((skinId,index)=>{
-            if(skinId){
-                let skinItemNode = instantiate(this.changeSkinItem);
-                this.skinViewContent.addChild(skinItemNode);
-                skinItemNode.getComponent(changeSkinItem).initData(this._npcId,skinId,this._skinFrameArr[index]);
-            }
-        })
+        this._skinIndex = 0;
+        this.setSkinStatus();
+        // this.skinViewContent.destroyAllChildren();
+        // npcSkinCfg[this._npcId].forEach((skinId,index)=>{
+        //     if(skinId){
+        //         let skinItemNode = instantiate(this.changeSkinItem);
+        //         this.skinViewContent.addChild(skinItemNode);
+        //         skinItemNode.getComponent(changeSkinItem).initData(this._npcId,skinId,this._skinFrameArr[index]);
+        //     }
+        // })
 
-        for(let i = 0 ;i<6;i++){
-            let skinLockNode = instantiate(this.changeSkinItem_lock);
-            this.skinViewContent.addChild(skinLockNode);
-        }
-        tween(this.node).delay(0.1).call(()=>{
-            this.skinViewContent.setPosition(850,0,0);
-        }).start()
+        // for(let i = 0 ;i<6;i++){
+        //     let skinLockNode = instantiate(this.changeSkinItem_lock);
+        //     this.skinViewContent.addChild(skinLockNode);
+        // }
+        // tween(this.node).delay(0.1).call(()=>{
+        //     this.skinViewContent.setPosition(850,0,0);
+        // }).start()
 
-        this.sceneViewContent.destroyAllChildren();
-        sceneItemAllCfg[this._npcId].forEach(sceneItemInfo=>{
-            let sceneItemNode = instantiate(this.changeSceneItem);
-            this.sceneViewContent.addChild(sceneItemNode);
-            sceneItemNode.getComponent(changeSceneItem).initData(sceneItemInfo)
+        // this.sceneViewContent.destroyAllChildren();
+        // sceneItemAllCfg[this._npcId].forEach(sceneItemInfo=>{
+        //     let sceneItemNode = instantiate(this.changeSceneItem);
+        //     this.sceneViewContent.addChild(sceneItemNode);
+        //     sceneItemNode.getComponent(changeSceneItem).initData(sceneItemInfo)
 
-        })
+        // })
 
-        for(let i = 0 ;i<6;i++){
-            let sceneItem_lock = instantiate(this.changeSceneItem_lock);
-            this.sceneViewContent.addChild(sceneItem_lock);
-        }
-        tween(this.node).delay(0.1).call(()=>{
-            this.sceneViewContent.setPosition(920,0,0);
-        }).start()
+        // for(let i = 0 ;i<6;i++){
+        //     let sceneItem_lock = instantiate(this.changeSceneItem_lock);
+        //     this.sceneViewContent.addChild(sceneItem_lock);
+        // }
+        // tween(this.node).delay(0.1).call(()=>{
+        //     this.sceneViewContent.setPosition(920,0,0);
+        // }).start()
         //this.skinViewContent.setPosition(0,0,0);
         // this.skinViewContent.children.forEach((skinNode,index)=>{
         //     if(index < this._skinFrameArr.length){
@@ -164,11 +201,12 @@ export class changeSkinPrefab extends Component {
         // })
         if(npcDes[npcId]){
             this.lblNpcDes.string = npcDes[npcId];
-            tween(this.lblNpcDes.node).delay(0.1).call(()=>{
-                let targetY = this.lblNpcDes.node.getComponent(UITransform).contentSize.height
-                this.lblNpcDes.node.setPosition(0,-targetY/4 - 20);
-            }).start();
+            // tween(this.lblNpcDes.node).delay(0.1).call(()=>{
+            //     let targetY = this.lblNpcDes.node.getComponent(UITransform).contentSize.height
+            //     this.lblNpcDes.node.setPosition(0,-targetY/4 - 20);
+            // }).start();
         }
+        this.updateTwitterContent(npcId);
         resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{
             if(error){
                 console.log("load item Cfg error:" + error);
@@ -255,6 +293,28 @@ export class changeSkinPrefab extends Component {
         //         this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
         //     }
         // }).start()
+        if(NPCSkillMap[this._npcId]){
+            this.skillContent.destroyAllChildren();
+            NPCSkillMap[this._npcId].skills.forEach(skillInfo=>{
+                let skillTagNode = instantiate(this.skillTagNode);
+                skillTagNode.getComponentInChildren(Label).string = skillInfo;
+                this.skillContent.addChild(skillTagNode);
+            })
+
+            NPCSkillMap[this._npcId].MBTI.forEach((mbtiInfo,index)=>{
+                this.emoLayout.children[index].getComponent(Slider).enabled = true;
+                this.emoLayout.children[index].getComponent(Slider).progress = mbtiInfo;
+                this.emoLayout.children[index].getComponent(Slider).enabled = false;
+            })
+            this.itemContent.destroyAllChildren();
+            NPCSkillMap[this._npcId].itemIds.forEach(itemId=>{
+                let itemPrefabNode = instantiate(this.itemPrefab);
+                itemPrefabNode.getComponent(itemPrefab).initData(itemId);
+                this.itemContent.addChild(itemPrefabNode);
+            })
+        }
+
+        this.hideHelpNode();
     }
 
     setGoldNum(coinNum){
@@ -297,6 +357,7 @@ export class changeSkinPrefab extends Component {
         json.data.npcId = this._npcId;
         json.data.sender =  GlobalConfig.instance.LoginData.data.player.playerId;
         json.data.context = this.chatEditBox.string;
+        json.data.privateMsg = true;
         socket.sendWebSocketBinary(json);
         this.chatEditBox.string = "";
         // if(this.chatEditBox.node.active){
@@ -327,8 +388,23 @@ export class changeSkinPrefab extends Component {
                 this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
             }
         }).start()
-    }
 
+        this.chatViewContent.getComponentsInChildren(chatPrefab).forEach(prefab=>{
+            if(prefab._npcId == this._npcId && prefab.imgNpcTypeNode.active){
+                prefab.node.destroy();
+            }
+        })
+
+        tween(this.node).delay(1.2).call(()=>{
+            let chatTypeNode = instantiate(this.chatPrefab);
+            chatTypeNode.getComponent(chatPrefab).initData(this._npcId,null)
+            this.chatViewContent.addChild(chatTypeNode)
+        }).start()
+
+        
+
+
+    }    
     showNpcReplyPlayer(npcId,content){
         let chatPrefabNode = instantiate(this.chatPrefab);
         chatPrefabNode.getComponent(chatPrefab).initData(npcId,content)
@@ -341,6 +417,12 @@ export class changeSkinPrefab extends Component {
                 this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
             }
         }).start()
+
+        this.chatViewContent.getComponentsInChildren(chatPrefab).forEach(prefab=>{
+            if(prefab._npcId == this._npcId && prefab.imgNpcTypeNode.active){
+                prefab.node.destroy();
+            }
+        })
     }
 
     onEditBegin(){
@@ -399,6 +481,99 @@ export class changeSkinPrefab extends Component {
     onBtnDir(){
         this.changeNode.active = !this.changeNode.active;
         this.chatNode.active = !this.chatNode.active;
+    }
+
+    private truncateTextToLines(text: string, maxLines: number = 3): string {
+        if (!text) return '';
+        
+        const label = this.lblTwitterContent;
+        if (!label) return text;
+
+        // 保存原始设置
+        const originalString = label.string;
+        
+        // 计算每行大约能显示多少字符
+        const lineWidth = label.node.getComponent(UITransform).width;
+        const avgCharWidth = label.fontSize * 0.75; // 估算每个字符的平均宽度
+        const charsPerLine = Math.floor(lineWidth / avgCharWidth);
+        
+        // 估算总行数
+        const totalLines = Math.ceil(text.length / charsPerLine);
+        
+        // 如果估算的行数小于等于最大行数，直接返回原文
+        if (totalLines <= maxLines) {
+            return text;
+        }
+        
+        // 计算大约需要的字符数
+        const maxChars = charsPerLine * maxLines - 3; // 减去3个字符留给"..."
+        
+        // 截断文本
+        return text.substring(0, maxChars) + '...';
+    }
+
+    private updateTwitterContent(npcId: number) {
+        this.lblTwitterContent.string = null;
+        // 设置自动换行
+        this.lblTwitterContent.overflow = Overflow.RESIZE_HEIGHT;
+        this.lblTwitterContent.enableWrapText = true;
+        const uiTrans = this.lblTwitterContent.getComponent(UITransform);
+        uiTrans.width = 450;
+        // 设置水平对齐方式
+        this.lblTwitterContent.horizontalAlign = HorizontalTextAlignment.LEFT;
+        // 设置行高，避免字符被截断
+        this.lblTwitterContent.lineHeight = 40;
+
+        GlobalConfig.instance.twitterData.forEach(twitInfo => {
+            if (twitInfo.npcId == npcId && !this.lblTwitterContent.string) {
+                const maxLength = 87;
+                // 替换连续的空格为单个空格，避免不必要的换行
+                const content = twitInfo.content.length > maxLength 
+                    ? twitInfo.content.replace(/\s+/g, ' ').substring(0, maxLength) + '...' 
+                    : twitInfo.content.replace(/\s+/g, ' ');
+                
+                this.lblTwitterContent.string = content;
+                let durTime = Math.floor(twitInfo.createTime/1000);
+
+                if(durTime >= 86400){
+                    let str = "d";
+                    let time = Math.floor(durTime / 86400);
+                    this.lblTwitterTime.string = time + str;
+                }
+                else if(durTime > 3600){
+                    let str = "h";
+                    let time = Math.floor(durTime / 3600);
+                    this.lblTwitterTime.string = time + str;
+                }
+                else if(durTime > 60){
+                    let str = "m";
+                    let time = Math.floor(durTime / 60);
+                    this.lblTwitterTime.string = time + str;
+                }
+                else{
+                    let str = "s";
+                    let time = durTime;
+                    this.lblTwitterTime.string = time + str;
+                }
+
+                this.lblTwitterName.string = NpcName[twitInfo.npcId];
+            }
+        });
+    }
+
+    showHelpNode(itemId){
+        let iteminfo = ItemConfigMap[itemId];
+        this.helpNode.active = true;
+        if(iteminfo){                
+            this.helpNode.getComponentInChildren(Label).string = iteminfo.des;
+        }
+        else{
+            this.helpNode.getComponentInChildren(Label).string = "No description";
+        }
+    }
+
+    hideHelpNode(){
+        this.helpNode.active = false;
     }
 }
 

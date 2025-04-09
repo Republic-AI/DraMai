@@ -39,13 +39,13 @@ export class NetworkCtrl {
             //this._url = "wss://www.infinitytest.cc:8989"
             //this._url = "ws://44.200.143.84:8989"; //linux
             //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            //this._url = "ws://192.168.0.100:8686"; //张航本地
+            this._url = "ws://192.168.0.101:8686"; //张航本地
             //this._url = "ws://54.159.82.155:8686"
             //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            this._url = "wss://dramai.world/api/ws"
+            //this._url = "wss://dramai.world/api/ws"
             //this._url = "wss://memerepublic.ai/api/ws"
             GlobalConfig.instance.isDebug = true;
-            GlobalConfig.instance.testTools = true
+            GlobalConfig.instance.testTools = true;
             
         } else {
             //this._url = "wss://www.infinitytest.cc:8989"
@@ -132,7 +132,15 @@ export class NetworkCtrl {
                 json.requestId = 0;
                 json.type = 1;
                 json.command = 10000;
-                json.data.avatar = "";
+                let avatarId = Number(localStorage.getItem("avatarId"));
+                if(avatarId){
+                    json.data.avatar = avatarId;
+                }
+                else{
+                    avatarId = Math.floor(Math.random() * 160) + 1
+                    localStorage.setItem("avatarId",avatarId.toString());
+                }
+                json.data.avatar = Number(avatarId);
                 json.data.clientOs = "";
                 json.data.loginType = 1;
                 json.data.name = GlobalConfig.instance.playername;

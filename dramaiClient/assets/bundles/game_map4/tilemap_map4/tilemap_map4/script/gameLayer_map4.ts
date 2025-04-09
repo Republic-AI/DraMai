@@ -48,6 +48,7 @@ import { NPCServerD } from "../../../../../src/game/config/DataStruct";
 import WebUtils from "../../../../../src/utils/WebUtils";
 import { changeSkinPrefab } from "../../../../../src/game/gameUI/changeSkinPrefab";
 import { furnitureNode } from "../../../../../src/game/gameUI/furnitureNode";
+import { UILayer } from "db://assets/src/game/gameUI/UILayer";
 export const sleepFramePosX = [40, -61];
 export const sleepFrameTime = 0.45;
 export const bubbleTime = 0.7;
@@ -444,16 +445,22 @@ export class gameLayer_map4 extends Component {
             }
             else if (actionData.actionId === NpcEventType.reply) {
                 console.log("replyData====" + JSON.stringify(actionData))
-                // let replyName = actionData.params.chatData.rName;
-                // let content = actionData.params.chatData.context;
-                // let userNo = actionData.params.chatData.receiver;
+                let replyName = actionData.params.chatData.rName;
+                let content = actionData.params.chatData.context;
+                let userNo = actionData.params.chatData.receiver;
                 // let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
                 // UILayerSrc.showBulletMsg(actionData.params.chatData);
-                // npcControl.replyMsg(replyName,content,userNo)
+                //npcControl.replyMsg(replyName,content,userNo)
                 // let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
-                // UILayerSrc.showNpcReplyPlayer(actionData.npcId,actionData.params.chatData.context);
-                let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
-                UILayerSrc.showNpcReplyPlayer(actionData.npcId,actionData.params.chatData.context);
+                // UILayerSrc.showNpcReplyPlayer(actionData.npcId,actionData.params.chatData.context)
+                // ;
+                if(actionData.params.chatData.privateMsg){
+                    let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
+                    UILayerSrc.showNpcReplyPlayer(actionData.npcId,content);
+                }
+                else{
+                   npcControl.replyMsg(replyName,content,userNo) 
+                }
             }
             else if(actionData.actionId === NpcEventType.sleep){
                 console.log(actionData.npcId + "start sleep");
@@ -734,7 +741,23 @@ export class gameLayer_map4 extends Component {
                 else{
                     console.log("no npcId======" + JSON.stringify(actionData.params));
                 }
-            }     
+            } 
+            else if(actionData.actionId === NpcEventType.LiveShow){
+                npcControl.setIdleStatus(KeyCode.KEY_A);
+                npcControl.showBubble(BubbleImgUrl.live);
+            }
+            else if(actionData.actionId === NpcEventType.makecake){
+                npcControl.setIdleStatus(KeyCode.KEY_W);
+                npcControl.showBubble(BubbleImgUrl.cake);
+            }
+            else if(actionData.actionId === NpcEventType.sport){
+                npcControl.setIdleStatus(KeyCode.KEY_S);
+                npcControl.showBubble(BubbleImgUrl.sport);
+            }
+            else if(actionData.actionId === NpcEventType.water){
+                npcControl.setIdleStatus(KeyCode.KEY_D);
+                npcControl.showBubble(BubbleImgUrl.water);
+            }
             else {
                 console.log("error actionID======" + actionData.actionId);
                 if (actionData.params.oid) {
@@ -1254,6 +1277,8 @@ export class gameLayer_map4 extends Component {
         json["data"] = {};
         json["data"]["roomId"] = GlobalConfig.instance.chooseScene;
         socket.sendWebSocketBinary(json);
+
+        director.getScene().getComponentInChildren(UILayer).initVoteInfo();
     }
 
     async reEnterRoom(){

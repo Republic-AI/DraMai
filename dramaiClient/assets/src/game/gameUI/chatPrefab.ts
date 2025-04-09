@@ -20,6 +20,12 @@ export class chatPrefab extends Component {
     @property(SpriteFrame)
     playerChatFrame:SpriteFrame = null;
 
+    @property(Node)
+    imgNpcTypeNode:Node = null;
+
+    @property(Sprite)
+    imgNpcHeadFrame_2:Sprite = null;
+
     toNpcId = 0;
     _npcId = 0;
     start() {
@@ -35,10 +41,26 @@ export class chatPrefab extends Component {
             let targetSize = this.imgPlayerHeadBox.getComponentInChildren(ChatBubble).node.getComponent(UITransform).contentSize;
             this.node.getComponent(UITransform).setContentSize(targetSize.width,targetSize.height + 20)
         }
+        if(this.imgNpcTypeNode.active){
+            this.node.getComponent(UITransform).setContentSize(500,90);
+        }
     }
     initData(npcId,content){
         this._npcId = npcId
-        if(npcId){
+        if(!content){
+            this.imgNpcHeadBox.active = false;
+            this.imgPlayerHeadBox.active = false;
+
+            this.imgNpcTypeNode.active = true;
+
+            resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
+                if(error){
+                    return;
+                }
+                this.imgNpcHeadFrame_2.spriteFrame = sprFrame
+            })
+        }
+        else if(npcId){
             console.log("111111111111")
             this.imgNpcHeadBox.active = true;
             this.imgPlayerHeadBox.active = false;
