@@ -115,7 +115,7 @@ public class ChatTask extends BaseTask<ChatRequest> {
 
         RedisKeyEnum chatKey = RedisKeyEnum.CHAT;
         RedissonClient redissonClient = SpringContextHolder.getBean(RedissonClient.class);
-        RList<String> chatList = redissonClient.getList(chatKey.getKey());
+        RList<String> chatList = redissonClient.getList(chatKey.getKey(msg.getData().getRoomId()));
         // 添加新的聊天记录到列表的头部
         chatList.add(0, chatData.toString());
         // 如果列表超过了最大聊天记录数，则裁剪列表

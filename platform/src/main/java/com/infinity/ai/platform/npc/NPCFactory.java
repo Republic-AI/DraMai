@@ -44,6 +44,18 @@ public class NPCFactory {
                 return new AvaNPC(npc.getId(), npc.getName());
             case Luna:
                 return new LunaNPC(npc.getId(), npc.getName());
+            case Ivy:
+                return new IvyNPC(npc.getId(), npc.getName());
+            case Kai:
+                return new KaiNPC(npc.getId(), npc.getName());
+            case Leo:
+                return new LeoNPC(npc.getId(), npc.getName());
+            case Nova:
+                return new NovaNPC(npc.getId(), npc.getName());
+            case Aiden:
+                return new AidenNPC(npc.getId(), npc.getName());
+            case Selena:
+                return new SelenaNPC(npc.getId(), npc.getName());
             default:
                 throw new IllegalArgumentException("Unknown npc type: " + type);
         }

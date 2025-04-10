@@ -51,6 +51,7 @@ public class ProtocolCommon {
     public static final int PLAYER_NFT_COMMAND = 10027;
     public static final int QUERY_NFT_COMMAND = 10028;
 
+    public static final int NPC_COMMAND_SYNC_COMMAND = 10029;
     public static final int NPC_ACTION_COMMAND = 10100;
     public static final int NPC_DATA_SYNC_COMMAND = 10101;
     public static final int QUERY_NPC_DATA_COMMAND = 10102;
@@ -64,6 +65,28 @@ public class ProtocolCommon {
     public static final int P_NPC_TALK_COMMAND = 10107;
     //NPC换装
     public static final int NPC_CHANGE_COMMAND = 10108;
+    //拉取房间列表
+    public static final int QUERY_ROOM_LIST_COMMAND = 10109;
+    //离开房间
+    public static final int LEAVE_LIVE_COMMAND = 10110;
+    //修改房间家具
+    public static final int ROOM_CHANGE_COMMAND = 10111;
+    //拉取tweets
+    public static final int QUERY_TWEETS_COMMAND = 10112;
+    //点赞或评论
+    public static final int COMMENT_TWEET_COMMAND = 10113;
+    //拉取聊天记录
+    public static final int QUERY_PLAYER_NPC_CHAT_COMMAND = 10114;
+    //NCP指令
+    public static final int NPC_COMMAND_COMMAND = 10115;
+    //查询投票信息
+    public static final int QUERY_VOTE_COMMAND = 10116;
+    //投票
+    public static final int OP_VOTE_COMMAND = 10117;
+    //投票通知
+    public static final int VOTE_NOTIFY_COMMAND = 10118;
+    //投票历史
+    public static final int VOTE_HISTORY_COMMAND = 10119;
 
     public static final int QUARTZ_GETUP_COMMAND = 10013;
 

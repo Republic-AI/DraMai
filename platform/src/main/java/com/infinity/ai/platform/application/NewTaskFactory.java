@@ -1,22 +1,27 @@
 package com.infinity.ai.platform.application;
 
+import com.infinity.ai.platform.task.chat.QueryPlayerNpcChatTask;
 import com.infinity.ai.platform.task.frame.FrameSyncTask;
 import com.infinity.ai.platform.task.gm.GmTask;
 import com.infinity.ai.platform.task.goods.QueryGoodsTask;
 import com.infinity.ai.platform.task.goods.TypeToEarnTask;
-import com.infinity.ai.platform.task.live.QueryGiftTask;
-import com.infinity.ai.platform.task.live.QueryRankTask;
-import com.infinity.ai.platform.task.live.SendGiftTask;
-import com.infinity.ai.platform.task.live.SwithLiveTask;
+import com.infinity.ai.platform.task.live.*;
 import com.infinity.ai.platform.task.map.QueryMapDataTask;
 import com.infinity.ai.platform.task.npc.*;
 import com.infinity.ai.platform.task.player.LoginTask;
 import com.infinity.ai.platform.task.player.LogoutTask;
 import com.infinity.ai.platform.task.player.RefreshGameUserTask;
 import com.infinity.ai.platform.task.quartz.EveryDayZeroTimerTask;
+import com.infinity.ai.platform.task.room.QueryRoomListTask;
+import com.infinity.ai.platform.task.room.RoomChangeTask;
 import com.infinity.ai.platform.task.sign.SignTask;
 import com.infinity.ai.platform.task.system.RefreshTask;
 import com.infinity.ai.platform.task.timer.ExpireTask;
+import com.infinity.ai.platform.task.tweet.OperateTweetTask;
+import com.infinity.ai.platform.task.tweet.QueryTweetTask;
+import com.infinity.ai.platform.task.vote.OpVoteTask;
+import com.infinity.ai.platform.task.vote.QueryVoteTask;
+import com.infinity.ai.platform.task.vote.VoteHistoryTask;
 import com.infinity.network.IChannel;
 import com.infinity.protocol.HeaderOuterClass;
 import com.infinity.protocol.ProtocolCommon;
@@ -81,6 +86,20 @@ public class NewTaskFactory implements ITaskFactory {
 
         NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.P_NPC_TALK_COMMAND, ChatNpcTask::new);
         NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.NPC_CHANGE_COMMAND, NpcChangeTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.QUERY_ROOM_LIST_COMMAND, QueryRoomListTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.LEAVE_LIVE_COMMAND, LeaveLiveTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.ROOM_CHANGE_COMMAND, RoomChangeTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.QUERY_TWEETS_COMMAND, QueryTweetTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.COMMENT_TWEET_COMMAND, OperateTweetTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.QUERY_PLAYER_NPC_CHAT_COMMAND, QueryPlayerNpcChatTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.NPC_COMMAND_COMMAND, NpcCommandTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.QUERY_VOTE_COMMAND, QueryVoteTask::new);
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.OP_VOTE_COMMAND, OpVoteTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.VOTE_HISTORY_COMMAND, VoteHistoryTask::new);
         log.info("total commands: {}", creator_.size());
     }
 

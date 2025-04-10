@@ -26,13 +26,14 @@ public class ChatManager {
         return instance;
     }
 
-    public void talk(long sender, long receiver, String content) {
+    public void talk(long sender, long receiver, String content, int roomId) {
         String key = getKey(sender, receiver);
         NpcChatData npcChatData = chatDataMap.get(key);
         if (npcChatData == null) {
             npcChatData = new NpcChatData();
             npcChatData.setGameTime(MapDataManager.getInstance().getGameTime());
             npcChatData.setCreatedAt(System.currentTimeMillis());
+            npcChatData.setRoomId(roomId);
             chatDataMap.put(key, npcChatData);
         }
         npcChatData.getSpeakDataList().add(new ChatDataVo(sender, receiver, content));

@@ -32,7 +32,7 @@ public class LoginRequest extends BaseMsg<LoginRequest.RequestData> {
         //昵称
         private String nickName;
         //头像
-        private String avatar;
+        private int avatar;
         //性别：0:未知,1:男,2:女
         private int sex;
         //国际时区

@@ -16,6 +16,7 @@ public enum RedisKeyEnum {
     CHAT_ID("id:chat", null, null),
     LIVE_ROOM("npc:live:room:%s", RSortedSet.class, new LongCodec()),
     LIVE_RANK("npc:live:rank:%s", RSortedSet.class, new LongCodec()),
+    NICK_NAME_ID("id:nickname", null, null)
     ;
 
     private final String key;

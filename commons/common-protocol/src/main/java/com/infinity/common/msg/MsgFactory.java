@@ -6,6 +6,8 @@ import com.infinity.common.msg.cluster.RefreshPlayerMessage;
 import com.infinity.common.msg.common.RefreshMsg;
 import com.infinity.common.msg.common.ResponseOk;
 import com.infinity.common.msg.platform.chat.PChatNpcRequest;
+import com.infinity.common.msg.platform.chat.QueryNpcPlayerRequest;
+import com.infinity.common.msg.platform.chat.QueryNpcPlayerResponse;
 import com.infinity.common.msg.platform.gm.GmRequest;
 import com.infinity.common.msg.platform.gm.GmResponse;
 import com.infinity.common.msg.platform.goods.*;
@@ -14,9 +16,18 @@ import com.infinity.common.msg.platform.map.QueryMapDataRequest;
 import com.infinity.common.msg.platform.map.QueryMapDataResponse;
 import com.infinity.common.msg.platform.npc.*;
 import com.infinity.common.msg.platform.player.*;
+import com.infinity.common.msg.platform.room.QueryRoomListReponse;
+import com.infinity.common.msg.platform.room.QueryRoomListRequest;
+import com.infinity.common.msg.platform.room.RoomChangeReponse;
+import com.infinity.common.msg.platform.room.RoomChangeRequest;
 import com.infinity.common.msg.platform.sys.BroadcastRequest;
 import com.infinity.common.msg.platform.sys.HeartRequest;
 import com.infinity.common.msg.platform.task.*;
+import com.infinity.common.msg.platform.tweet.OperateTweetReponse;
+import com.infinity.common.msg.platform.tweet.OperateTweetRequest;
+import com.infinity.common.msg.platform.tweet.QueryTweetReponse;
+import com.infinity.common.msg.platform.tweet.QueryTweetRequest;
+import com.infinity.common.msg.platform.vote.*;
 import com.infinity.common.msg.timer.EveryDayZeroMessage;
 import com.infinity.common.msg.timer.SubmitExpridedMessage;
 
@@ -115,6 +126,39 @@ public class MsgFactory {
 
         dataMap.put(MsgType.Request.value + NpcChangeRequest.getCmd(), NpcChangeRequest.class);
         dataMap.put(MsgType.Response.value + NpcChangeResponse.getCmd(), NpcChangeResponse.class);
+
+        dataMap.put(MsgType.Request.value + QueryRoomListRequest.getCmd(), QueryRoomListRequest.class);
+        dataMap.put(MsgType.Response.value + QueryRoomListReponse.getCmd(), QueryRoomListReponse.class);
+
+        dataMap.put(MsgType.Request.value + LeaveLiveRequest.getCmd(), LeaveLiveRequest.class);
+        dataMap.put(MsgType.Response.value + LeaveLiveResponse.getCmd(), LeaveLiveResponse.class);
+
+        dataMap.put(MsgType.Request.value + RoomChangeRequest.getCmd(), RoomChangeRequest.class);
+        dataMap.put(MsgType.Response.value + RoomChangeReponse.getCmd(), RoomChangeReponse.class);
+
+        dataMap.put(MsgType.Request.value + QueryTweetRequest.getCmd(), QueryTweetRequest.class);
+        dataMap.put(MsgType.Response.value + QueryTweetReponse.getCmd(), QueryTweetReponse.class);
+
+        dataMap.put(MsgType.Request.value + OperateTweetRequest.getCmd(), OperateTweetRequest.class);
+        dataMap.put(MsgType.Response.value + OperateTweetReponse.getCmd(), OperateTweetReponse.class);
+
+        dataMap.put(MsgType.Request.value + QueryNpcPlayerRequest.getCmd(), QueryNpcPlayerRequest.class);
+        dataMap.put(MsgType.Response.value + QueryNpcPlayerResponse.getCmd(), QueryNpcPlayerResponse.class);
+
+        dataMap.put(MsgType.Request.value + NpcCommandRequest.getCmd(), NpcCommandRequest.class);
+        dataMap.put(MsgType.Response.value + NpcCommandResponse.getCmd(), NpcCommandResponse.class);
+
+        dataMap.put(MsgType.Request.value + QueryVoteRequest.getCmd(), QueryVoteRequest.class);
+        dataMap.put(MsgType.Response.value + QueryVoteResponse.getCmd(), QueryVoteResponse.class);
+
+        dataMap.put(MsgType.Request.value + OpVoteRequest.getCmd(), OpVoteRequest.class);
+        dataMap.put(MsgType.Response.value + OpVoteResponse.getCmd(), OpVoteResponse.class);
+
+        dataMap.put(MsgType.Response.value + NotifyVoteResponse.getCmd(), NotifyVoteResponse.class);
+
+        dataMap.put(MsgType.Request.value + VoteHistoryRequest.getCmd(), VoteHistoryRequest.class);
+        dataMap.put(MsgType.Response.value + VoteHistoryResponse.getCmd(), VoteHistoryResponse.class);
+
     }
 
     public static Class<? extends BaseMsg> getMsgClass(final MsgType type, final int command) {

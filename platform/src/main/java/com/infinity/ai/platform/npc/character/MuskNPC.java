@@ -19,8 +19,8 @@ public class MuskNPC extends NPC {
     protected void init() {
         //启动增加当前正在做的行为
         super.initAction();
-        this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         //this.oidList.add("pepeBuy");
         //this.oidList.add("muskThink");
         //this.oidList.add("muskEat");
@@ -28,7 +28,7 @@ public class MuskNPC extends NPC {
         //this.oidList.add("muskMeeting");
         //this.oidList.add("muskData");
         //this.oidList.add("muskDricoffee");
-        //this.oidList.add("share");
+        this.oidList.add("share");
     }
 
     //注册NPC行为

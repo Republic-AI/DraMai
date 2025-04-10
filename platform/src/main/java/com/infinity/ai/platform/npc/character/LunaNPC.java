@@ -26,8 +26,9 @@ public class LunaNPC extends NPC {
         this.oidList.add("popcatBuy");
         this.oidList.add("satoshiDricoffee");*/
         //this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
-        this.oidList.add("elizaTree");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("elizaTree");
+        this.oidList.add("lunaBuild");
     }
 
     //注册NPC行为
@@ -49,6 +50,7 @@ public class LunaNPC extends NPC {
         this.addAction(new ReadAction(null));
         this.addAction(new SingAction(null));
         this.addAction(new ShareAction(null));
+        this.addAction(new BuildAction(null, List.of("lunaBuild_up_1", "lunaBuild_down_2", "lunaBuild_up_3")));
     }
 
     @Override
@@ -84,20 +86,9 @@ public class LunaNPC extends NPC {
                 Map<String, Object> params = new HashMap<>();
                 params.put("oid", oid);
                 int actionId = 0;
-                if (oid.equals("zhongbencongType")) {
-                    actionId = ActionEnumType.Type.getCode();
-                } else if (oid.equals("zhongbencongThink")) {
-                    actionId = ActionEnumType.Think.getCode();
-                } else if (oid.equals("zhongbencongFix")) {
-                        actionId = ActionEnumType.Repair.getCode();
-                } else if (oid.equals("popcatBuy")) {
-                    params.put("npcId", 10007);
-                    actionId = ActionEnumType.Buy.getCode();
-                } else if (oid.equals("satoshiDricoffee")) {
-                    actionId = ActionEnumType.DrinkCoffee.getCode();
-                } else if (oid.equals("elizaTree")) {
-                    actionId = ActionEnumType.ChristmasTree.getCode();
-                } else if (oid.equals("share")) {
+                if (oid.equals("lunaBuild")) {
+                    actionId = ActionEnumType.Build.getCode();
+                }  else if (oid.equals("share")) {
                     params.remove("oid");
                     params.put("npcId", 10008);
                     actionId = ActionEnumType.Share.getCode();

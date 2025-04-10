@@ -52,4 +52,6 @@ public class NpcData implements Serializable {
 
     //时装ID
     private int dressId;
+    //时装剩余时间
+    private int dressEndTime;
 }

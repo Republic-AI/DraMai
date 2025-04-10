@@ -1,16 +1,14 @@
 package com.infinity.ai.platform.npc.goap.action;
 
 import com.infinity.ai.domain.model.ActionData;
-import com.infinity.ai.platform.manager.MapDataManager;
-import com.infinity.ai.platform.manager.MapManager;
-import com.infinity.ai.platform.manager.NpcHolder;
-import com.infinity.ai.platform.manager.NpcManager;
+import com.infinity.ai.platform.manager.*;
 import com.infinity.ai.platform.map.AStar;
 import com.infinity.ai.platform.map.GameMap;
 import com.infinity.ai.platform.map.Position;
 import com.infinity.ai.platform.map.object.MapObject;
 import com.infinity.ai.platform.npc.NPC;
 import com.infinity.ai.platform.npc.goap.action.data.MoveData;
+import com.infinity.ai.platform.npc.live.NpcRoom;
 import com.infinity.common.base.exception.BusinessException;
 import com.infinity.common.base.exception.ResultCode;
 import com.infinity.common.consts.ActionStatus;
@@ -66,7 +64,7 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
         }
         curIndex += 1;
         Position targetPosition = pathList.get(pathList.size() - 1);
-        if (!MapManager.getInstance().canStand(npc, targetPosition.getX(), targetPosition.getY())) {
+        if (!RoomManager.getInstance().getMapManager(npc.getRoomId()).canStand(npc, targetPosition.getX(), targetPosition.getY())) {
             firstPerform(npc, actionData, params);
             actionData.getParams().put("curIndex", 0);
             return;
@@ -86,7 +84,7 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
         if (npc.getGridPostion().equals(temp)) {
             return;
         }
-        GameMap gameMap = MapDataManager.getInstance().getGameMap();
+        GameMap gameMap = RoomManager.getInstance().getRoom(npc.getRoomId()).getGameMap();
         List<Position> pathList = gameMap.aStar.findPath(npc, npc.getGridPostion(), temp);
         if (pathList.isEmpty()) {
             log.debug("MoveToAction not found path,npcId={}, cur = {}, target = {}", npc.getId(), npc.getGridPostion(), temp);
@@ -107,9 +105,9 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
         int gridX;
         int girdY;
         MapObject mapObject;
-        if (!StringUtils.isEmpty(params.getOid()) && (mapObject = findMapObj(params.getOid())) != null) {
-            if (!MapManager.getInstance().canStand(npc, mapObject.getGridX(), mapObject.getGridY())) {
-                List<Position> positionList = getEmptyNeighbors(new Position(mapObject.getGridX(), mapObject.getGridY()));
+        if (!StringUtils.isEmpty(params.getOid()) && (mapObject = findMapObj(params.getOid(), npc.getRoomId())) != null) {
+            if (!RoomManager.getInstance().getMapManager(npc.getRoomId()).canStand(npc, mapObject.getGridX(), mapObject.getGridY())) {
+                List<Position> positionList = getEmptyNeighbors(new Position(mapObject.getGridX(), mapObject.getGridY()), npc.getRoomId());
                 if (positionList == null || positionList.isEmpty()) {
                     throw new BusinessException("position not found");
                 }
@@ -125,7 +123,7 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
                 throw new BusinessException(ResultCode.NPC_NOT_EXIST_ERROR);
             }
             NPC tageNpc = sellerNpc.getNpc();
-            List<Position> positionList = getEmptyNeighbors(tageNpc.getGridPostion());
+            List<Position> positionList = getEmptyNeighbors(tageNpc.getGridPostion(), npc.getRoomId());
             if (positionList == null || positionList.isEmpty()) {
                 throw new BusinessException("position not found");
             }
@@ -179,9 +177,9 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
     }
 
     // 获取邻居节点
-    public List<Position> getEmptyNeighbors(Position node) {
-        GameMap gameMap = MapDataManager.getInstance().getGameMap();
-        AStar aStar = gameMap.aStar;
+    public List<Position> getEmptyNeighbors(Position node, int roomId) {
+        NpcRoom npcRoom = RoomManager.getInstance().getRoom(roomId);
+        AStar aStar = npcRoom.getGameMap().aStar;
         List<Position> neighbors = new ArrayList<>();
         // 八个方向：上、右、下、左、左上、右上、左下、右下
         int[][] directions = {
@@ -201,7 +199,7 @@ public class MoveToAction extends Action<NpcActionRequest.MoveData> {
 
             // 检查新的坐标是否在地图范围内且不是障碍物
             if (newX >= 0 && newX < aStar.getWidth() && newY >= 0 && newY < aStar.getHeight() && aStar.getMap()[newX][newY] == 0) {
-                if (MapManager.getInstance().isEmpty(newX, newY)) {
+                if (RoomManager.getInstance().getMapManager(roomId).isEmpty(newX, newY)) {
                     neighbors.add(new Position(newX, newY));
                 }
             }

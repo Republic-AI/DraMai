@@ -49,4 +49,8 @@ public class IDManager {
     public long getActionId() {
         return getId(RedisKeyEnum.ACTION_ID.getKey());
     }
+
+    public long getNickNameId() {
+        return getId(RedisKeyEnum.NICK_NAME_ID.getKey());
+    }
 }

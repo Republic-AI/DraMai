@@ -26,6 +26,8 @@ public class NpcSpeakData {
 
     private Long createdAt;
 
+    private int roomId;
+
     //是否发过twitter
     private Boolean twitter;
 

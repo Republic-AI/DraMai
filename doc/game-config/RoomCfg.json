@@ -1,0 +1,26 @@
+[
+  {
+    "banner": "https://dramai.world/img/banner1.png",
+    "map": "map1",
+    "name": "Ranch Love Story",
+    "id": 1
+  },
+  {
+    "banner": "https://dramai.world/img/banner2.png",
+    "map": "map2",
+    "name": "Urban Idol Life",
+    "id": 2
+  },
+  {
+    "banner": "https://dramai.world/img/banner3.png",
+    "map": "map3",
+    "name": "The Mad Scientist",
+    "id": 3
+  },
+  {
+    "banner": "https://dramai.world/img/banner4.png",
+    "map": "map4",
+    "name": "Signal of Heart",
+    "id": 4
+  }
+]

@@ -11,12 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MapManager {
 
     @Getter
-    private static final MapManager instance = new MapManager();
-
-    @Getter
     private Map<Integer, MapGrid> gridMap;
 
-    private MapManager() {
+    public MapManager() {
         this.gridMap = new ConcurrentHashMap<>();
     }
 

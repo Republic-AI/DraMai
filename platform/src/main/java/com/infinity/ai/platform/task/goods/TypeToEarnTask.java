@@ -58,13 +58,13 @@ public class TypeToEarnTask extends BaseTask<TypeToEarnRequest> {
             return true;
         }
 
-        int interval = GameConfigManager.getInstance().getSysParamCfgManager()
+        /*int interval = GameConfigManager.getInstance().getSysParamCfgManager()
                 .getParameterInt(SysParamsConsts.TYPE_TO_EARN_INTERVAL, 8000);
         long now = System.currentTimeMillis();
         if (now - player.getLastTypeToEarnTime() < interval) {
             return true;
         }
-        player.setLastTypeToEarnTime(now);
+        player.setLastTypeToEarnTime(now);*/
         BagManager bag = player.getBag();
         bag.addGoods(GoodsConsts.ITEM_DOC_ID, 1, false, GoodsSource.TYPE_TO_EARN);
         //bag.addGoods(GoodsConsts.ITEM_MONEY_ID, 1, false, GoodsSource.TYPE_TO_EARN);

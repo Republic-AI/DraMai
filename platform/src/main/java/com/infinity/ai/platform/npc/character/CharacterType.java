@@ -23,7 +23,13 @@ public enum CharacterType {
     Trump(11, "Trump"),
     Morpheos(12, "Morpheos"),
     Ava(13, "Ava"),
-    Luna(14, "Luna"),;
+    Luna(14, "Luna"),
+    Leo(15, "Leo"),
+    Ivy(16, "Ivy"),
+    Kai(17, "Kai"),
+    Selena(18, "Selena"),
+    Nova(19, "Nova"),
+    Aiden(20, "Aiden");
 
 
     private final int code;

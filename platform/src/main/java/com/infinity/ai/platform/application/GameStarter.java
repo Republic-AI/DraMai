@@ -5,6 +5,7 @@ import com.infinity.ai.platform.event.ActionService;
 import com.infinity.ai.platform.event.task.PlayerTaskContext;
 import com.infinity.ai.platform.manager.AIManager;
 import com.infinity.ai.platform.manager.NFTManager;
+import com.infinity.ai.platform.manager.RoomManager;
 import com.infinity.ai.platform.npc.NpcStarter;
 import com.infinity.common.base.game.IGameStarter;
 import com.infinity.common.base.thread.MultiParam;
@@ -77,6 +78,7 @@ public final class GameStarter implements IGameStarter {
         GameStartInit.init();
         ActionService.init();
         MessageSender.getInstance().setMyNode(config.getNodeConfig());
+        RoomManager.getInstance().init();
         NpcStarter.getInstance().initializeNpc();
         AIManager.startAIChat();
         NFTManager.getInstance().init();

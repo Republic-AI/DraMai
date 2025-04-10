@@ -35,6 +35,8 @@ public class ChatData {
     public Long replyMsgId;
     //playerId
     public Long targetPlayerId;
+    //私聊
+    private boolean privateMsg;
 
     @Override
     public String toString() {

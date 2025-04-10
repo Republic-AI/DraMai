@@ -12,7 +12,6 @@
         <module name="quartz" />
         <module name="telegram" />
         <module name="common-utils" />
-        <module name="login" />
         <module name="platform" />
         <module name="common-db" />
         <module name="common-bases" />
@@ -23,11 +22,14 @@
         <module name="common-constant" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hall" target="14" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="chat" options="-parameters" />
-      <module name="login" options="-parameters" />
+      <module name="hall" options="-parameters" />
       <module name="platform" options="-parameters" />
       <module name="quartz" options="-parameters" />
       <module name="telegram" options="-parameters" />

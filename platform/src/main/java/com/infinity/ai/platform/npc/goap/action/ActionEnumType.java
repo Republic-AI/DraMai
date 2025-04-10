@@ -43,7 +43,13 @@ public enum ActionEnumType {
     Draw(130, "Draw"),
     Game(131, "Game"),
     Sing(132, "Sing"),
-    Share(133, "Share");
+    Share(133, "Share"),
+    Build(134, "Build"),
+    Check(135, "Check"),
+    Water(136, "Water"),
+    Sport(137, "Sport"),
+    MakeCake(138, "MakeCake"),
+    LiveShow(139, "LiveShow"),;
 
     /**
      * 100	耕种	ploughSow

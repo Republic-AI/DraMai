@@ -34,5 +34,6 @@ public class QueryChatRequest extends BaseMsg<QueryChatRequest.RequestData> {
         private Long npcId;
         //查询页码，默认1
         //private Integer pageNum;
+        private int roomId;
     }
 }

@@ -37,7 +37,7 @@ public class QueryChatTask extends BaseTask<QueryChatRequest> {
         QueryChatRequest.RequestData requestData = msg.getData();
         RedissonClient redissonClient = SpringContextHolder.getBean(RedissonClient.class);
         RedisKeyEnum chatKey = RedisKeyEnum.CHAT;
-        RList<String> list = redissonClient.getList(chatKey.getKey());
+        RList<String> list = redissonClient.getList(chatKey.getKey(msg.getData().getRoomId()));
         sendMessage(buildResponse(requestData.getNpcId(), list.readAll(), msg));
         return true;
     }

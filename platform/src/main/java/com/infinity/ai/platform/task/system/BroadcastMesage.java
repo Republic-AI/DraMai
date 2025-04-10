@@ -23,19 +23,6 @@ public class BroadcastMesage {
         ManagerService.getTaskManager().add(task);
     }
 
-    /**
-     * 广播消息
-     *
-     * @param playerId 玩家ID
-     * @param playerIds 广播列表
-     * @param message  广播的内容
-     */
-    public void send(long playerId, List<Long> playerIds, String message) {
-        ITask task = new BroadcastTask(playerId, message);
-        task.init();
-        ManagerService.getTaskManager().add(task);
-    }
-
 
 
     private static class Holder {

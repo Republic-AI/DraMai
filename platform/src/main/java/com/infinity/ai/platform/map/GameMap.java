@@ -23,10 +23,10 @@ public class GameMap {
     //A*寻址算法
     public AStar aStar;
 
-    public GameMap() {
+    public GameMap(String mapName) {
         //加载地图坐标数据
         String gameDataPath = Config.getInstance().getGameDataPath();
-        map = MapLoader.parseMap(gameDataPath + "/SatoshiTotalMap.tmx");
+        map = MapLoader.parseMap(gameDataPath + "/" + mapName + ".tmx");
         int index = 0;
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -40,7 +40,7 @@ public class GameMap {
         aStar = new AStar(map);
         try {
             //加载地图数据
-            this.mapData = MapLoader.mapParser(gameDataPath + "/zhongbenCong.json");
+            this.mapData = MapLoader.mapParser(gameDataPath + "/" + mapName + ".json");
         } catch (Exception e) {
             e.printStackTrace();
             log.info("loadMap data error......");
@@ -66,11 +66,6 @@ public class GameMap {
         Position ret = null;
         int count = 0;
         List<Position> list = MapDataManager.getInstance().getGameMap().passableList;
-        for (Position p : list) {
-            if (p.getX() == 22 && p.getY() == 39) {
-                System.out.printf("");
-            }
-        }
         while ((ret == null || MapUtil.getDistance(position, ret) < distance) && count < 100) {
             ret = list.get(RandomUtils.randNum(0, list.size() - 1));
             count++;

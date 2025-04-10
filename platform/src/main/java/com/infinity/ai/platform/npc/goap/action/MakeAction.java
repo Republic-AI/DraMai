@@ -60,7 +60,7 @@ public class MakeAction extends Action<NpcActionRequest.MakeData> {
     public void perform(NPC npc, NpcActionRequest.MakeData params) {
         /*log.debug("MakeAction perform,npcId={}", npc.getId());
         //地图上厨房桌子的ID
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         Long bid = this.getBid();

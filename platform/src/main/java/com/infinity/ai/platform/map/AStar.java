@@ -1,6 +1,7 @@
 package com.infinity.ai.platform.map;
 
 import com.infinity.ai.platform.manager.MapManager;
+import com.infinity.ai.platform.manager.RoomManager;
 import com.infinity.ai.platform.npc.NPC;
 import com.infinity.common.consts.GameConsts;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class AStar {
             if (current.equals(end)) {
                 return constructPath(current); // 如果当前节点是终点，则构建路径并返回
             }
-            List<Position> positionList = getNeighbors(current, npc.getId() > GameConsts.MAX_NPC_ID);
+            List<Position> positionList = getNeighbors(current, npc.getId() > GameConsts.MAX_NPC_ID, npc.getRoomId());
             for (Position neighbor : positionList) { // 遍历当前节点的邻居节点
                 if (closedList.contains(neighbor)) continue; // 如果邻居节点已经处理过，则跳过
 
@@ -62,7 +63,7 @@ public class AStar {
     }
 
     // 获取邻居节点
-    public List<Position> getNeighbors(Position node, boolean checkEmpty) {
+    public List<Position> getNeighbors(Position node, boolean checkEmpty, int roomId) {
         List<Position> neighbors = new ArrayList<>();
         // 四个方向，分别为上、右、下、左
         int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
@@ -73,7 +74,7 @@ public class AStar {
 
             // 检查新的坐标是否在地图范围内且不是障碍物
             if (newX >= 0 && newX < width && newY >= 0 && newY < height && map[newX][newY] == 0) {
-                if (!checkEmpty || MapManager.getInstance().isEmpty(newX, newY)) {
+                if (!checkEmpty || RoomManager.getInstance().getMapManager(roomId).isEmpty(newX, newY)) {
                     neighbors.add(new Position(newX, newY));
                 }
             }

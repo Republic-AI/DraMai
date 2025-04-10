@@ -58,7 +58,7 @@ public class HarvestAction extends Action<NpcActionRequest.HarvestData> {
     public void perform(NPC npc, NpcActionRequest.HarvestData params) {
         log.debug("HarvestAction perform,npcId={}", npc.getId());
         //获取农田的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
         //获取DB中保存的物品数据
         MapObj obj = MapDataManager.getInstance().getMap().get_v().getMapObject().getObjMap().get(params.getOid());
         if (obj != null && obj.getState() == ObjectStatus.FarmingObjType.FRUIT.code) {

@@ -66,7 +66,7 @@ public class QueryNpcDataTask extends BaseTask<QueryNpcDataRequest> {
         //世界数据
         data.setWorld(npcManager.getWorldDataListener().getWorldData());
         //地图数据
-        data.setMapObj(npcManager.getListener().getMapItemList());
+        //data.setMapObj(npcManager.getListener().getMapItemList());
         request.setData(data);
         return request;
     }

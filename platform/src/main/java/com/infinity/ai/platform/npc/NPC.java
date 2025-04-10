@@ -1,13 +1,11 @@
 package com.infinity.ai.platform.npc;
 
-import com.alibaba.fastjson.JSON;
 import com.infinity.ai.PNpc;
 import com.infinity.ai.domain.model.ActionData;
 import com.infinity.ai.domain.tables.NpcTalk;
-import com.infinity.ai.platform.manager.MapDataManager;
-import com.infinity.ai.platform.manager.MapManager;
 import com.infinity.ai.platform.manager.NpcHolder;
 import com.infinity.ai.platform.manager.NpcManager;
+import com.infinity.ai.platform.manager.RoomManager;
 import com.infinity.ai.platform.map.GameMap;
 import com.infinity.ai.platform.map.MapUtil;
 import com.infinity.ai.platform.map.Position;
@@ -21,6 +19,7 @@ import com.infinity.ai.platform.npc.event.EventListener;
 import com.infinity.ai.platform.npc.goap.Goal;
 import com.infinity.ai.platform.npc.goap.action.Action;
 import com.infinity.ai.platform.npc.goap.action.ActionEnumType;
+import com.infinity.ai.platform.npc.live.NpcRoom;
 import com.infinity.ai.platform.npc.live.Room;
 import com.infinity.common.base.exception.BusinessException;
 import com.infinity.common.base.exception.ResultCode;
@@ -29,25 +28,22 @@ import com.infinity.common.base.thread.Threads;
 import com.infinity.common.base.thread.timer.IntervalTimer;
 import com.infinity.common.consts.ActionStatus;
 import com.infinity.common.consts.GameConsts;
-import com.infinity.common.consts.RedisKeyEnum;
-import com.infinity.common.msg.chat.ChatData;
+import com.infinity.common.msg.platform.command.NpcCommandSyncResponse;
 import com.infinity.common.msg.platform.npc.NpcActionBroadRequest;
 import com.infinity.common.msg.platform.npc.NpcActionRequest;
 import com.infinity.common.msg.platform.npc.NpcActionResponse;
-import com.infinity.common.msg.platform.npc.NpcReplyChatResponse;
 import com.infinity.common.utils.GsonUtil;
 import com.infinity.common.utils.StringUtils;
-import com.infinity.common.utils.spring.SpringContextHolder;
 import com.infinity.manager.node.NodeConstant;
 import com.infinity.network.MessageSender;
 import com.infinity.network.RequestIDManager;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RList;
-import org.redisson.api.RedissonClient;
+
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.LinkedBlockingDeque;
 
 @Getter
 @Setter
@@ -96,6 +92,14 @@ public abstract class NPC extends MapElement implements EventListener {
 
     private volatile NpcActionBroadRequest.RequestData requestData;//当前行为推送的消息
 
+    private int roomId;
+
+    private int dressId;
+
+    private long dressEndTime;
+
+    private LinkedBlockingDeque<String> commands = new LinkedBlockingDeque<>();
+
     public NPC(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -137,17 +141,52 @@ public abstract class NPC extends MapElement implements EventListener {
                 return run();
             }
         });
+        //启动innervoice服务
+        Threads.addListener(ThreadConst.TIMER_1S, 0,"npc#innerVoice", new IntervalTimer(5000, 10000) {
+            @Override
+            public boolean exec0(int interval) {
+                return innerVoice();
+            }
+        });
+    }
+
+    public boolean innerVoice() {
+        String command = fetchCommand();
+        if (StringUtils.isNotBlank(command)) {
+            NpcCommandSyncResponse response = new NpcCommandSyncResponse();
+            NpcCommandSyncResponse.RequestData requestData = new NpcCommandSyncResponse.RequestData();
+            response.setData(requestData);
+            requestData.setNpcId(getId());
+            requestData.setCommand(command);
+            response.setPlayerId(null);
+            response.setGateway(null);
+            response.setSessionId(null);
+            response.setRequestId(RequestIDManager.getInstance().RequestID(false));
+            log.debug("sendInnerVoiceMsg===================npcId = {},:{}", getId(), response.toString());
+            MessageSender.getInstance().broadcastMessageToAllService(NodeConstant.kPythonService, response);
+        }
+        return false;
+    }
+
+    public void addCommand(String command) {
+        if (StringUtils.isNotBlank(command)) {
+            commands.offerLast(command);
+        }
+    }
+
+    public String fetchCommand() {
+        return commands.pollFirst();
     }
 
     //按固定帧数执行NPC业务
     public boolean run() {
         if (exit) {
-            MapManager.getInstance().removeElement(this);
+            RoomManager.getInstance().getMapManager(this.getRoomId()).removeElement(this);
             log.debug("npc has exit,npcId={},name={}", id, name);
             return true;
         }
         if (!init) {
-            MapManager.getInstance().addElement(this);
+            RoomManager.getInstance().getMapManager(this.getRoomId()).addElement(this);
             log.debug("npc init,npcId={},name={}", id, name);
             init = true;
         }
@@ -166,12 +205,10 @@ public abstract class NPC extends MapElement implements EventListener {
         //log.debug("npcId={},name={}", id, name);
         //检测AI并初始化
         long now = System.currentTimeMillis();
-        /*if (now - lastActiontTime > 3000) {
-            if (getId() == 10010) {
-              initServerAi();
-            }
-        }*/
-        if (getId() < GameConsts.MAX_NPC_ID){
+        if (now - lastActiontTime > 3000) {
+            //initServerAi();
+        }
+        if (getId() < GameConsts.MAX_NPC_ID) {
             //处理聊天回复
             handleReplyChat();
             //处理talk
@@ -218,7 +255,7 @@ public abstract class NPC extends MapElement implements EventListener {
             }
             if (curActionData != null) {
                 Map<String, Object> params = GsonUtil.toMap(curActionData.getContent());
-                if (!checkPosition(params)) {
+                if (!checkPosition(params, this.getRoomId())) {
                     ActionData toActionData = todo.isEmpty() ? null : getNpcModel().get_v().getAction().getBehavior().get(todo.get(0));
                     if (curActionType != ActionEnumType.Move.getCode() && (toActionData == null || toActionData.getAid() != ActionEnumType.Move.getCode())) {
                         doAction(ActionEnumType.Move.getCode(), params, true);
@@ -267,7 +304,7 @@ public abstract class NPC extends MapElement implements EventListener {
                     curActionType = curActionData.getAid();
                     action = actions.get(curActionData.getAid());
                     Map<String, Object> params = GsonUtil.toMap(curActionData.getContent());
-                    if (action.getActionType() != ActionEnumType.ReplyChat && action.getActionType() != ActionEnumType.Move && action.getActionType() != ActionEnumType.GotoNpc && !checkPosition(params)) {
+                    if (action.getActionType() != ActionEnumType.ReplyChat && action.getActionType() != ActionEnumType.Move && action.getActionType() != ActionEnumType.GotoNpc && !checkPosition(params, this.getRoomId())) {
                         action.beforePerform(this, curActionData);
                         doAction(ActionEnumType.Move.getCode(), params, curActionData.isServerAction());
                         curActionData.setMoveCount(curActionData.getMoveCount() + 1);
@@ -314,11 +351,11 @@ public abstract class NPC extends MapElement implements EventListener {
         }
     }
 
-    public boolean checkPosition(Map<String, Object> objectMap) {
+    public boolean checkPosition(Map<String, Object> objectMap, int roomId) {
         if (objectMap.containsKey("oid")) {
             String oid = (String) objectMap.get("oid");
-            MapObject mapObject = findMapObj(oid);
-            if (!MapManager.getInstance().canStand(this, mapObject.getGridX(), mapObject.getGridY())) {
+            MapObject mapObject = findMapObj(oid, roomId);
+            if (!RoomManager.getInstance().getMapManager(this.getRoomId()).canStand(this, mapObject.getGridX(), mapObject.getGridY())) {
                 int distance = MapUtil.getDistance(getGridPostion(), new Position(mapObject.getGridX(), mapObject.getGridY()));
                 return distance <= 3;
             }
@@ -336,7 +373,7 @@ public abstract class NPC extends MapElement implements EventListener {
         } else if (objectMap.containsKey("gridX") && objectMap.containsKey("gridY")) {
             int gridX = ((Number)objectMap.get("gridX")).intValue();
             int girdY = ((Number)objectMap.get("gridY")).intValue();
-            if (!MapManager.getInstance().canStand(this, gridX, girdY)) {
+            if (!RoomManager.getInstance().getMapManager(this.getRoomId()).canStand(this, gridX, girdY)) {
                 return false;
             }
             return getGridPostion().equals(new Position(gridX, girdY));
@@ -344,10 +381,10 @@ public abstract class NPC extends MapElement implements EventListener {
         return false;
     }
 
-    public MapObject findMapObj(String oid) {
+    public MapObject findMapObj(String oid, int roomId) {
         if (!StringUtils.isEmpty(oid)) {
-            MapDataManager mapDataManager = MapDataManager.getInstance();
-            GameMap gameMap = mapDataManager.getGameMap();
+            NpcRoom npcRoom = RoomManager.getInstance().getRoom(roomId);
+            GameMap gameMap = npcRoom.getGameMap();
             if (!StringUtils.isEmpty(oid)) {
                 MapObject object = gameMap.getObject(oid);
                 if (object != null)
@@ -556,10 +593,10 @@ public abstract class NPC extends MapElement implements EventListener {
         }
 
         if (isUpdate) {
-            MapManager.getInstance().updatePostion(this, lastPosition.getX(), lastPosition.getY());
+            RoomManager.getInstance().getMapManager(this.getRoomId()).updatePostion(this, lastPosition.getX(), lastPosition.getY());
             Threads.runAsync(ThreadConst.QUEUE_LOGIC, 0, "npc#position", () -> {
                 //地图靠近事件、查找附件的人
-                MapDataManager.getInstance().getGameMap().eventManager.checkEvents(this);
+                //MapDataManager.getInstance().getGameMap().eventManager.checkEvents(this);
 
                 //同步数据
                 //npcDataListener.notifyProperty(false);

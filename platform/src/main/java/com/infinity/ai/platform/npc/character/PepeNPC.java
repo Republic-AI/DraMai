@@ -19,14 +19,15 @@ public class PepeNPC extends NPC {
     protected void init() {
         //启动增加当前正在做的行为
         super.initAction();
-        this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         /*this.oidList.add("pepeSleep");
         this.oidList.add("pepeEat");
         this.oidList.add("pepeRead");
         this.oidList.add("pepeCleanItem");
         this.oidList.add("pepeEat");
         this.oidList.add("pepeDricoffee");*/
+        this.oidList.add("draw");
     }
 
     //注册NPC行为
@@ -48,6 +49,7 @@ public class PepeNPC extends NPC {
         this.addAction(new GotoNpcAction(null));
         this.addAction(new ChristmasTreeAction(null));
         this.addAction(new ShareAction(null));
+        this.addAction(new DrawAction(null, List.of("pepeDraw_up_2", "pepeDraw_right_1")));
     }
 
     @Override
@@ -81,16 +83,8 @@ public class PepeNPC extends NPC {
                 Map<String, Object> params = new HashMap<>();
                 params.put("oid", oid);
                 int actionId = 0;
-                if (oid.equals("pepeSleep")) {
-                    actionId = ActionEnumType.Sleep.getCode();
-                } else if (oid.equals("pepeEat")) {
-                    actionId = ActionEnumType.Dinning.getCode();
-                } else if (oid.equals("pepeRead")) {
-                    actionId = ActionEnumType.Read.getCode();
-                } else if (oid.equals("pepeCleanItem")){
-                    actionId = ActionEnumType.TidyUp.getCode();
-                } else if (oid.equals("pepeDricoffee")) {
-                    actionId = ActionEnumType.DrinkCoffee.getCode();
+                if (oid.equals("draw")) {
+                    actionId = ActionEnumType.Draw.getCode();
                 } else if (oid.equals("share")) {
                     params.remove("oid");
                     params.put("npcId", 10008);

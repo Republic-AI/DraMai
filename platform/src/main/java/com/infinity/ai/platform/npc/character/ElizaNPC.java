@@ -25,7 +25,7 @@ public class ElizaNPC extends NPC {
         this.oidList.add("popcatBuy");
         this.oidList.add("satoshiDricoffee");*/
         //this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         this.oidList.add("elizaTree");
         //this.oidList.add("share");
     }

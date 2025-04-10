@@ -4,6 +4,8 @@ import com.infinity.ai.domain.tables.PlayerNpc;
 import com.infinity.ai.platform.manager.NpcManager;
 import com.infinity.ai.platform.manager.Player;
 import com.infinity.ai.platform.manager.PlayerManager;
+import com.infinity.ai.platform.manager.RoomManager;
+import com.infinity.ai.platform.npc.live.NpcRoom;
 import com.infinity.ai.platform.task.system.BroadcastMesage;
 import com.infinity.common.base.thread.ThreadConst;
 import com.infinity.common.base.thread.Threads;
@@ -54,6 +56,12 @@ public class LogoutTask extends BaseTask<LogoutRequest> {
 
             player.getPlayerModel().setLastofftime(System.currentTimeMillis());
             PlayerManager.getInstance().removeOnlinePlayer(msg.getPlayerId());
+
+            int roomId = player.getRoomId();
+            if (roomId > 0) {
+                NpcRoom npcRoom = RoomManager.getInstance().getRoom(roomId);
+                npcRoom.getPlayerList().remove(player.getPlayerID());
+            }
         }
 
         return true;

@@ -21,6 +21,12 @@ public class LoginResponse extends BaseMsg<LoginResponse.ResponseData> {
         private TwitterData twitterData;
         //登陆类型
         private int loginType;
+        //打赏CD
+        private int awardCD;
+        //地址
+        private String address;
+        //nickName
+        private String nickName;
     }
 
     @Override

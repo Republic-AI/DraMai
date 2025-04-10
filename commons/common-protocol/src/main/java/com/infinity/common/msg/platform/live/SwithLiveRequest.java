@@ -30,6 +30,6 @@ public class SwithLiveRequest extends BaseMsg<SwithLiveRequest.RequestData> {
     @Builder
     public static class RequestData {
         //NPC ID
-        public Long npcId;
+        public Integer roomId;
     }
 }

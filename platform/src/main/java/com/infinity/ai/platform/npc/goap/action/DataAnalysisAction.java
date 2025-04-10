@@ -15,6 +15,10 @@ import java.util.Map;
 @Slf4j
 public class DataAnalysisAction extends CommonAction {
 
+    public DataAnalysisAction(List<Action> preActions) {
+        super(preActions);
+    }
+
     public DataAnalysisAction(List<Action> preActions, List<String> oids) {
         super(preActions, oids);
     }

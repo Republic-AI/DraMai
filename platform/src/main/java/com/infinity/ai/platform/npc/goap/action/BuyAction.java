@@ -75,7 +75,7 @@ public class BuyAction extends Action<NpcActionRequest.BuyData> {
     @Override
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.BuyData params) {
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

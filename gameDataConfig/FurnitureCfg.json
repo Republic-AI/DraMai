@@ -1,0 +1,146 @@
+[
+  {
+    "npcId": 10007,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "popcat_3",
+    "time": 5,
+    "type": "house_pot",
+    "price": 150,
+    "id": 1000703
+  },
+  {
+    "npcId": 10007,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "popcat_4",
+    "time": 5,
+    "type": "house_table",
+    "price": 150,
+    "id": 1000704
+  },
+  {
+    "npcId": 10010,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "pippin_3",
+    "time": 5,
+    "type": "house_board",
+    "price": 150,
+    "id": 1001003
+  },
+  {
+    "npcId": 10010,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "pippin_4",
+    "time": 5,
+    "type": "house_bed",
+    "price": 150,
+    "id": 1001004
+  },
+  {
+    "npcId": 10008,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "pepe_3",
+    "time": 5,
+    "type": "house_sofa",
+    "price": 150,
+    "id": 1000803
+  },
+  {
+    "npcId": 10008,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "pepe_4",
+    "time": 5,
+    "type": "house_branch",
+    "price": 150,
+    "id": 1000804
+  },
+  {
+    "npcId": 10015,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "luna_3",
+    "time": 5,
+    "type": "house_instrument",
+    "price": 150,
+    "id": 1001503
+  },
+  {
+    "npcId": 10015,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "luna_4",
+    "time": 5,
+    "type": "house_cloth",
+    "price": 150,
+    "id": 1001504
+  },
+  {
+    "npcId": 10014,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "ava_3",
+    "time": 5,
+    "type": "house_closet",
+    "price": 150,
+    "id": 1001403
+  },
+  {
+    "npcId": 10014,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "ava_4",
+    "time": 5,
+    "type": "house_game",
+    "price": 150,
+    "id": 1001404
+  },
+  {
+    "npcId": 10012,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "trump_3",
+    "time": 5,
+    "type": "house_tab",
+    "price": 150,
+    "id": 1001203
+  },
+  {
+    "npcId": 10012,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "trump_4",
+    "time": 5,
+    "type": "house_wine",
+    "price": 150,
+    "id": 1001204
+  },
+  {
+    "npcId": 10009,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "elon_3",
+    "time": 5,
+    "type": "house_car",
+    "price": 150,
+    "id": 1000903
+  },
+  {
+    "npcId": 10009,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "elon_4",
+    "time": 5,
+    "type": "house_projection",
+    "price": 150,
+    "id": 1000904
+  },
+  {
+    "npcId": 10006,
+    "info": "Wave Table: Surfing the crypto tides like a true legend.",
+    "name": "satoshi_3",
+    "time": 5,
+    "type": "house_computer",
+    "price": 150,
+    "id": 1000603
+  },
+  {
+    "npcId": 10006,
+    "info": "Deep Sea Tank: Mysterious depths, just like his identity.",
+    "name": "satoshi_4",
+    "time": 5,
+    "type": "house_sandbox",
+    "price": 150,
+    "id": 1000604
+  }
+]

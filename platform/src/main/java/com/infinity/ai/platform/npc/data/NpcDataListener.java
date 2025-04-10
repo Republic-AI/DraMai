@@ -167,6 +167,9 @@ public class NpcDataListener {
 
     //地图物品数据
     public List<MapData> buildMapData() {
+        if (MapDataManager.getInstance().getGameMap() == null) {
+            return Collections.EMPTY_LIST;
+        }
         Map<String, List<MapObject>> mapObjects = MapDataManager.getInstance().getGameMap().getByNpcId(this.npc.getId().intValue());
         if (mapObjects == null || mapObjects.size() == 0) {
             return Collections.EMPTY_LIST;

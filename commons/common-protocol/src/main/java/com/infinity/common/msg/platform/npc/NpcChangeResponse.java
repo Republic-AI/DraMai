@@ -33,5 +33,7 @@ public class NpcChangeResponse extends BaseMsg<NpcChangeResponse.ReponseData> {
         public Integer dressId;
         //npcId
         public Long npcId;
+        //换装过期时间
+        public long endTime;
     }
 }

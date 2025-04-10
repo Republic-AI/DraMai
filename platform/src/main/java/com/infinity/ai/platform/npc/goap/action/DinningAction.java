@@ -45,7 +45,7 @@ public class DinningAction extends Action<NpcActionRequest.DinningData> {
     public void perform(NPC npc, NpcActionRequest.DinningData params) {
         log.debug("DinningAction perform,npcId={}", npc.getId());
         //获取床的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         sendMessage(npc, "oid", mapObject.name);
@@ -55,7 +55,7 @@ public class DinningAction extends Action<NpcActionRequest.DinningData> {
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.DinningData params) {
         log.debug("TypeAction perform,npcId={}", npc.getId());
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

@@ -60,7 +60,7 @@ public class FeedingAction extends Action<NpcActionRequest.FeedingData> {
     public void perform(NPC npc, NpcActionRequest.FeedingData params) {
         log.debug("FeedingAction perform,npcId={}", npc.getId());
         //获取投喂对象牛的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         List<NpcActionRequest.Item> items = params.getItems() == null ? Collections.EMPTY_LIST : params.getItems();

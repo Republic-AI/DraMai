@@ -3,6 +3,7 @@ package com.infinity.ai.platform.npc;
 import com.alibaba.fastjson.JSONObject;
 import com.infinity.ai.PNpc;
 import com.infinity.ai.platform.manager.*;
+import com.infinity.ai.platform.npc.live.NpcRoom;
 import com.infinity.common.config.data.NpcCfg;
 import com.infinity.common.config.manager.GameConfigManager;
 import com.infinity.common.config.manager.ItemBaseDataManager;
@@ -35,7 +36,7 @@ public class NpcStarter {
             List<NpcCfg> npcCfgs = npcCfgManager.allNpcCfg();
             for (int i = 0; i < npcCfgs.size(); i++) {
                 NpcCfg npcCfg = npcCfgs.get(i);
-                if (npcCfg == null || npcCfg.getType() == 0 || npcCfg.getId() < 10006) {
+                if (npcCfg == null || npcCfg.getType() == 0 || npcCfg.getMap() == 0) {
                     continue;
                 }
 
@@ -46,8 +47,13 @@ public class NpcStarter {
                     NpcManager.getInstance().addOnlineNpc(npc.getId(), npc);
                 }
 
+                NpcRoom npcRoom = RoomManager.getInstance().getRoomMap().get(npcCfg.getMap());
+                if (npcRoom != null) {
+                    npcRoom.getNpcList().add(npc.getId());
+                }
+
                 //启动运行npc
-                start(npc);
+                start(npc, npcCfg.getMap());
 
                 NpcHolder npcHolder = NpcManager.getInstance().getOnlineNpcHolder(npcCfg.getId());
                 NpcBagManager bagManager = npcHolder.getBag();
@@ -78,7 +84,7 @@ public class NpcStarter {
         }
     }
 
-    public void start(PNpc dbNPC) {
+    public void start(PNpc dbNPC, int roomId) {
         if (dbNPC == null) {
             log.error("start npc error, PNpc is null");
             return;
@@ -97,6 +103,7 @@ public class NpcStarter {
         //顺序不要动
         npc.initialize();
         npc.start();
+        npc.setRoomId(roomId);
     }
 
     public PNpc newDBNpc(NpcCfg npcCfg) {
@@ -152,7 +159,7 @@ public class NpcStarter {
                 NpcManager.getInstance().addOnlineNpc(npc.getId(), npc);
 
                 //启动运行npc
-                start(npc);
+                start(npc, 0);
             }
             log.info("init system npc done！");
 
@@ -175,7 +182,7 @@ public class NpcStarter {
             }
 
             NpcHolder npcHolder = NpcManager.getInstance().getOnlineNpcHolder(npcCfg.getId());
-            if (npcHolder != null) {
+            if (npcHolder != null && MapDataManager.getInstance().getGameMap() != null) {
                 NPC npc = npcHolder.getNpc();
                 MapDataManager.getInstance().getGameMap().eventManager.checkEvents(npc);
             }

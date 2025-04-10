@@ -2,6 +2,7 @@ package com.infinity.ai.platform.task.npc;
 
 import com.infinity.ai.domain.tables.PlayerNpc;
 import com.infinity.ai.platform.manager.*;
+import com.infinity.ai.platform.npc.NPC;
 import com.infinity.ai.platform.npc.NpcStarter;
 import com.infinity.ai.platform.npc.data.NpcDataListener;
 import com.infinity.ai.platform.task.system.BroadcastMesage;
@@ -89,7 +90,7 @@ public class PlayerNpcSetTask extends BaseTask<CharaterSetRequest> {
         NpcManager.getInstance().getNpcTemplateMap().put(msg.getData().getModel(), npc.getEndTime());
 
         //返回创建的npc给玩家
-        NpcData myNpc = buildNpcData(npc);
+        NpcData myNpc = buildNpcData(null, npc);
         sendMessage(buildResponse(myNpc, player, msg));
 
         //广播创建的npc给其他在线玩家
@@ -143,7 +144,7 @@ public class PlayerNpcSetTask extends BaseTask<CharaterSetRequest> {
             DBManager.add(npc);
             player.getPlayerModel().get_v().getNpc().setNpcId(npc.getId());
             player.getPlayerModel().get_v().getNpc().getNpcIds().add(npc.getId());
-            NpcStarter.getInstance().start(npc);
+            NpcStarter.getInstance().start(npc, 0);
         } catch (Exception e) {
             if (npc != null && npc.getId() > 0) {
                 log.error("new npc[{},{}] fail, err: {}", npc.getId(), npc.getName(), e.getMessage());
@@ -225,41 +226,43 @@ public class PlayerNpcSetTask extends BaseTask<CharaterSetRequest> {
         return response;
     }
 
-    public static NpcData buildNpcData(PNpc npc) {
+    public static NpcData buildNpcData(NPC npc, PNpc pNpc) {
         NpcData myNpc = new NpcData();
         //NPC ID
-        myNpc.setId(npc.getId());
+        myNpc.setId(pNpc.getId());
         //NPC名字
-        myNpc.setName(npc.getName());
+        myNpc.setName(pNpc.getName());
         //NPC类型
-        myNpc.setType(npc.getType());
+        myNpc.setType(pNpc.getType());
         //模型ID
-        myNpc.setModel(npc.getModel());
+        myNpc.setModel(pNpc.getModel());
         //职业
-        myNpc.setCareer(npc.getCareer());
+        myNpc.setCareer(pNpc.getCareer());
         //关键词
-        myNpc.setKeyword(npc.getKeyword());
+        myNpc.setKeyword(pNpc.getKeyword());
         //发型
-        myNpc.setHair(npc.getHair());
+        myNpc.setHair(pNpc.getHair());
         //top
-        myNpc.setTop(npc.getTop());
+        myNpc.setTop(pNpc.getTop());
         //bottoms
-        myNpc.setBottoms(npc.getBottoms());
+        myNpc.setBottoms(pNpc.getBottoms());
         //NPC移动速度
-        myNpc.setSpeed(npc.getSpeed());
+        myNpc.setSpeed(pNpc.getSpeed());
         //NPC位置X
-        myNpc.setX(npc.getX());
+        myNpc.setX(pNpc.getX());
         //NPC位置Y
-        myNpc.setY(npc.getY());
-        //时装ID
-        myNpc.setDressId(npc.getDressId());
+        myNpc.setY(pNpc.getY());
+        if (npc != null) {
+            myNpc.setDressId(npc.getDressId());
+            myNpc.setDressEndTime((int) (npc.getDressEndTime() - System.currentTimeMillis()));
+        }
         //Npc 过期时间
-        myNpc.setEndTime(npc.getEndTime() - System.currentTimeMillis());
-        GameUser gameUser = GameUserMgr.getGameUser(npc.getPlayerId());
+        myNpc.setEndTime(pNpc.getEndTime() - System.currentTimeMillis());
+        GameUser gameUser = GameUserMgr.getGameUser(pNpc.getPlayerId());
         if (gameUser != null) {
             myNpc.setUserNo(gameUser.getUserNo());
         }
-        NpcHolder holder = NpcManager.getInstance().getOnlineNpcHolder(npc.getId());
+        NpcHolder holder = NpcManager.getInstance().getOnlineNpcHolder(pNpc.getId());
         if (holder != null) {
             NpcDataListener npcDataListener = holder.getNpc().getNpcDataListener();
             myNpc.setItems(npcDataListener.getItemsData());

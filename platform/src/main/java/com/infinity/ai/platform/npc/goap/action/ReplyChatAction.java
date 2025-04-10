@@ -1,22 +1,31 @@
 package com.infinity.ai.platform.npc.goap.action;
 
 import com.infinity.ai.domain.model.ActionData;
+import com.infinity.ai.platform.entity.NpcPlayerChatData;
+import com.infinity.ai.platform.entity.NpcSpeakData;
+import com.infinity.ai.platform.manager.MapDataManager;
 import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.npc.NPC;
 import com.infinity.ai.platform.npc.goap.action.data.ReplyChatData;
+import com.infinity.ai.platform.repository.NpcPlayerChatDataRepository;
+import com.infinity.ai.platform.repository.NpcSpeakDataRepository;
 import com.infinity.ai.platform.task.system.BroadcastMesage;
 import com.infinity.common.base.data.GameUser;
 import com.infinity.common.base.data.GameUserMgr;
 import com.infinity.common.base.exception.BusinessException;
+import com.infinity.common.base.thread.ThreadConst;
+import com.infinity.common.base.thread.Threads;
 import com.infinity.common.msg.chat.ChatRequest;
 import com.infinity.common.msg.platform.npc.NpcActionBroadRequest;
 import com.infinity.common.msg.platform.npc.NpcActionRequest;
+import com.infinity.common.utils.spring.SpringContextHolder;
 import com.infinity.manager.node.NodeConstant;
 import com.infinity.network.Channel;
 import com.infinity.network.MessageSender;
 import com.infinity.network.RequestIDManager;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,12 +77,26 @@ public class ReplyChatAction extends Action<NpcActionRequest.ReplyChatData> {
         data.setReceiver(params.getChatData().getSender());
         data.setRName(params.getChatData().getSname());
         data.setReplyMsgId(params.getChatData().getMsgId());
+        data.setPrivateMsg(params.getChatData().isPrivateMsg());
         //request.setData(data);
         //log.debug("sendMessage===================:{}",request.toString());
         //MessageSender.getInstance().sendMessage(NodeConstant.kChatService, request);
-        GameUser gameUser = GameUserMgr.getGameUser(params.getChatData().getSender());
-        if (gameUser != null) {
-            sendMessage(gameUser, npc, actionData, gameUser.getUserId(), "chatData", data);
+        if (params.getChatData().isPrivateMsg()) {
+            GameUser gameUser = GameUserMgr.getGameUser(params.getChatData().getSender());
+            if (gameUser != null) {
+                sendMessage(gameUser, npc, actionData, gameUser.getUserId(), "chatData", data);
+                Threads.runAsync(ThreadConst.QUEUE_LOGIC, "Async#saveChat", () -> {
+                    NpcPlayerChatData chatData = new NpcPlayerChatData();
+                    chatData.setNpcId(npc.getId());
+                    chatData.setPlayerId(gameUser.getUserId());
+                    chatData.setContent(params.getContent());
+                    chatData.setNpcSend(true);
+                    chatData.setCreatedAt(new Date());
+                    SpringContextHolder.getBean(NpcPlayerChatDataRepository.class).save(chatData);
+                });
+            }
+        } else {
+            sendMessage(npc, actionData, null,"chatData", data);
         }
     }
 

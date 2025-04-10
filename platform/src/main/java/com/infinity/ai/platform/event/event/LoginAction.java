@@ -39,7 +39,7 @@ public class LoginAction extends AbstractAction {
             PNpc npcModel = onlineNpcHolder.getNpcModel();
             if (npcModel != null) {
                 NpcNotifyRequest.RequestData data = new NpcNotifyRequest.RequestData();
-                data.setMyNpc(PlayerNpcSetTask.buildNpcData(npcModel));
+                data.setMyNpc(PlayerNpcSetTask.buildNpcData(onlineNpcHolder.getNpc(), npcModel));
 
                 NpcNotifyRequest response = new NpcNotifyRequest();
                 response.setRequestId(RequestIDManager.getInstance().RequestID(false));

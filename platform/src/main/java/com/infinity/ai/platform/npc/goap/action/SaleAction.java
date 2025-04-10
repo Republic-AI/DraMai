@@ -51,7 +51,7 @@ public class SaleAction extends Action<NpcActionRequest.SaleData> {
     @Override
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.SaleData params) {
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

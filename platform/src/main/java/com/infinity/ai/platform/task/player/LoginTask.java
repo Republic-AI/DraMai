@@ -5,6 +5,7 @@ import com.infinity.ai.PPlayer;
 import com.infinity.ai.domain.tables.PlayerNpc;
 import com.infinity.ai.domain.tables.PlayerTwitter;
 import com.infinity.ai.platform.application.Config;
+import com.infinity.ai.platform.common.IPUtil;
 import com.infinity.ai.platform.event.ActionService;
 import com.infinity.ai.platform.event.ActionTypeEnum;
 import com.infinity.ai.platform.manager.*;
@@ -17,6 +18,8 @@ import com.infinity.common.base.thread.ThreadConst;
 import com.infinity.common.base.thread.Threads;
 import com.infinity.common.base.thread.timer.IntervalTimer;
 import com.infinity.common.consts.ErrorCode;
+import com.infinity.common.consts.GoodsConsts;
+import com.infinity.common.consts.GoodsSource;
 import com.infinity.common.consts.PlayerStatus;
 import com.infinity.common.msg.BaseMsg;
 import com.infinity.common.msg.ProtocolCommon;
@@ -65,9 +68,9 @@ public class LoginTask extends BaseTask<LoginRequest> {
         }
 
         //添加在线列表
-        PlayerManager.getInstance().addOnlinePlayer(player.getId(), player);
+        Player playerTemp  = PlayerManager.getInstance().addOnlinePlayer(player.getId(), player);
         this.refreshGame(player, msg);
-        sendMessage(buildResponse(player, msg));
+        sendMessage(buildResponse(playerTemp, player, msg, IPUtil.getIpAddress(msg.getIp())));
 
         if (isRegister) {
             /*PlayerManager.getInstance().getOnlinePlayerWithID(player.getId()).bag.addGoods(
@@ -78,13 +81,14 @@ public class LoginTask extends BaseTask<LoginRequest> {
 
             //发布注册事件
             ActionService.push(player.getId(), ActionTypeEnum.REGISTER);
+            BagManager bag = playerTemp.getBag();
+            bag.addGoods(GoodsConsts.ITEM_MONEY_ID, 10000, false, GoodsSource.REGISTER);
         } else {
             //增加玩家npc到在线状态
             Long npcId = player.get_v().getNpc().getNpcId();
             if (npcId != null && npcId > 0) {
                 PNpc npc = DBManager.get(PNpc.class, npcId);
-                Player playerTemp = PlayerManager.getInstance().getOnlinePlayerWithID(playerId);
-                NpcStarter.getInstance().start(npc);
+                NpcStarter.getInstance().start(npc, 0);
                 int lid = Threads.addListener(ThreadConst.TIMER_1S, npcId,"Npc#remove", new IntervalTimer(npc.getEndTime() - System.currentTimeMillis(), 1000) {
                     @Override
                     public boolean exec0(int interval) {
@@ -113,8 +117,8 @@ public class LoginTask extends BaseTask<LoginRequest> {
         return true;
     }
 
-    private BaseMsg buildResponse(PPlayer player, BaseMsg msg) {
-        final long playerId = player.getId();
+    private BaseMsg buildResponse(Player player, PPlayer pPlayer, BaseMsg msg, String address) {
+        final long playerId = pPlayer.getId();
         LoginResponse response = new LoginResponse();
         response.setRequestId(msg.getRequestId());
         response.setSessionId(msg.getSessionId());
@@ -124,13 +128,13 @@ public class LoginTask extends BaseTask<LoginRequest> {
         Long nowTime = System.currentTimeMillis();
         data.setTimestamp(nowTime);
         PlayerData info = new PlayerData();
-        info.setPlayerId(player.getUserno());
-        //info.setCharaterValue(player.get_v().getNpc().getNpcId());
+        info.setPlayerId(pPlayer.getUserno());
+        //info.setCharaterValue(pPlayer.get_v().getNpc().getNpcId());
         info.setTime(MapDataManager.getInstance().getGameTime());
-        info.setRoomId(player.get_v().getLive().getRoomId());
+        info.setRoomId(pPlayer.get_v().getLive().getRoomId());
         data.setPlayer(info);
         TwitterData twitterData = new TwitterData();
-        PlayerTwitter playerTwitter = player.get_v().getPlayerTwitter();
+        PlayerTwitter playerTwitter = pPlayer.get_v().getPlayerTwitter();
         twitterData.setTwitterUserName(playerTwitter.getTwitterUserName());
         twitterData.setTwitterScreenName(playerTwitter.getTwitterScreenName());
         data.setTwitterData(twitterData);
@@ -149,7 +153,12 @@ public class LoginTask extends BaseTask<LoginRequest> {
                     e.getMessage(), playerId, nowTime, duration, clientNodeId, ConvertUtil.getHexStr(Common.getInstance().getTokenKey(), false));
             e.printStackTrace();
         }
-        data.setLoginType(player.get_v().getBase().getLoginType());
+        data.setLoginType(pPlayer.get_v().getBase().getLoginType());
+        if (player != null) {
+            data.setAwardCD((int) (System.currentTimeMillis() - player.getLastNpcCommandTime()));
+        }
+        data.setAddress(address);
+        data.setNickName(player.getNickname());
         response.setData(data);
         return response;
     }
@@ -174,10 +183,8 @@ public class LoginTask extends BaseTask<LoginRequest> {
 
         RequestData requestData = msg.getData();
         PPlayer player = DBManager.get(PPlayer.class, playerId);
-        player.setNickname(requestData.getNickName());
         player.get_v().getBase().setZone(requestData.getTimeZone());
         player.get_v().getBase().setOs(0);
-        player.get_v().getBase().setAvatar(requestData.getAvatar());
         player.get_v().getBase().setLoginType(requestData.getLoginType());
         player.setLasttime(System.currentTimeMillis());
         player.setLoginip("1");
@@ -197,7 +204,7 @@ public class LoginTask extends BaseTask<LoginRequest> {
             long now = System.currentTimeMillis();
             player.setName(requestData.getName());
             player.setCreatedate(now);
-            player.setNickname(requestData.getNickName());
+            player.setNickname(requestData.getNickName() + IDManager.getInstance().getNickNameId());
             player.setUserno(IDGenerator.genId());
             player.setStatus(PlayerStatus.RUNNED.getCode());
             player.setLasttime(now);

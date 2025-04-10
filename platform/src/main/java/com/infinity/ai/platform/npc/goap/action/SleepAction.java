@@ -51,7 +51,7 @@ public class SleepAction extends Action<NpcActionRequest.SleepData> {
     public void perform(NPC npc, NpcActionRequest.SleepData params) {
         log.debug("SleepAction perform,npcId={}", npc.getId());
         //获取床的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         sendMessage(npc, "oid", mapObject.name);
@@ -102,7 +102,7 @@ public class SleepAction extends Action<NpcActionRequest.SleepData> {
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.SleepData params) {
         log.debug("TypeAction perform,npcId={}", npc.getId());
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

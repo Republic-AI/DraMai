@@ -4,16 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infinity.ai.domain.model.ActionData;
 import com.infinity.ai.domain.tables.NpcAction;
-import com.infinity.ai.domain.tables.NpcTalk;
-import com.infinity.ai.platform.entity.NpcChatData;
 import com.infinity.ai.platform.entity.NpcSpeakData;
 import com.infinity.ai.platform.manager.*;
 import com.infinity.ai.platform.map.GameMap;
 import com.infinity.ai.platform.map.object.MapObject;
 import com.infinity.ai.platform.npc.NPC;
-import com.infinity.ai.platform.repository.NpcChatDataRepository;
 import com.infinity.ai.platform.repository.NpcSpeakDataRepository;
-import com.infinity.ai.platform.task.system.BroadcastMesage;
+import com.infinity.common.base.data.GameUser;
 import com.infinity.common.base.data.GameUserMgr;
 import com.infinity.common.base.exception.BusinessException;
 import com.infinity.common.base.exception.ResultCode;
@@ -26,6 +23,7 @@ import com.infinity.common.utils.GsonUtil;
 import com.infinity.common.utils.RandomUtils;
 import com.infinity.common.utils.StringUtils;
 import com.infinity.common.utils.spring.SpringContextHolder;
+import com.infinity.network.MessageSender;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -186,6 +184,7 @@ public abstract class Action<T> {
                 NpcSpeakData chatData = new NpcSpeakData();
                 chatData.setSender(npc.getId());
                 chatData.setContent(speakContent);
+                chatData.setRoomId(npc.getRoomId());
                 chatData.setCreatedAt(now);
                 chatData.setGameTime(MapDataManager.getInstance().getGameTime());
                 SpringContextHolder.getBean(NpcSpeakDataRepository.class).save(chatData);
@@ -231,7 +230,15 @@ public abstract class Action<T> {
         data.setParams(outParams);
         request.setData(data);
         log.debug("sendMessage,msg={}", request.toString());
-        BroadcastMesage.getInstance().send(npc.getId(), null, request.toString());
+        for (long playerId : RoomManager.getInstance().getRoom(npc.getRoomId()).getPlayerList()) {
+            request.setPlayerId(playerId);
+            GameUser gameUser = GameUserMgr.getGameUser(playerId);
+            log.debug("send msg -> {},{}", gameUser, request);
+            if (gameUser != null) {
+                MessageSender.getInstance().sendMessage(gameUser.getGatewayServiceId(), request);
+            }
+        }
+        //BroadcastMesage.getInstance().send(npc.getId(), playerIds, request.toString());
     }
 
     public void sendMessage(NPC npc, ActionData actionData, List<Long> playerIds, Object... params) {
@@ -261,7 +268,15 @@ public abstract class Action<T> {
         request.setData(data);
         npc.setRequestData(data);
         log.debug("sendMessage,msg={}", request.toString());
-        BroadcastMesage.getInstance().send(npc.getId(), playerIds, request.toString());
+        for (long playerId : RoomManager.getInstance().getRoom(npc.getRoomId()).getPlayerList()) {
+            request.setPlayerId(playerId);
+            GameUser gameUser = GameUserMgr.getGameUser(playerId);
+            log.debug("send msg -> {},{}", gameUser, request);
+            if (gameUser != null) {
+                MessageSender.getInstance().sendMessage(gameUser.getGatewayServiceId(), request);
+            }
+        }
+        //BroadcastMesage.getInstance().send(npc.getId(), playerIds, request.toString());
     }
 
     private Set<String> getUserIds(int num) {
@@ -276,10 +291,9 @@ public abstract class Action<T> {
         return users;
     }
 
-    public MapObject findMapObj(String oid) {
+    public MapObject findMapObj(String oid, int roomId) {
         if (!StringUtils.isEmpty(oid)) {
-            MapDataManager mapDataManager = MapDataManager.getInstance();
-            GameMap gameMap = mapDataManager.getGameMap();
+            GameMap gameMap = RoomManager.getInstance().getRoom(roomId).getGameMap();
             if (!StringUtils.isEmpty(oid)) {
                 MapObject object = gameMap.getObject(oid);
                 if (object != null)

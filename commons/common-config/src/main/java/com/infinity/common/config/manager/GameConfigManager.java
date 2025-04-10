@@ -1,10 +1,12 @@
 package com.infinity.common.config.manager;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Data
 public class GameConfigManager implements IResource {
     private static class ConfigManagerHolder {
         private static final GameConfigManager configManager = new GameConfigManager();
@@ -16,41 +18,51 @@ public class GameConfigManager implements IResource {
 
     private String configPath = null;
 
-    @Getter
-    @Setter
+    
+    
     private TaskDataManager taskDataManager;
-    @Getter
-    @Setter
+    
+    
     private ItemBaseDataManager itemBaseDataManager;
-    @Getter
-    @Setter
+    
+    
     private DropBaseDataManager dropBaseData;
-    @Getter
-    @Setter
+    
+    
     private SysParamCfgManager sysParamCfgManager;
-    @Getter
-    @Setter
+    
+    
     private ShopCfgDataManager shopCfgDataManager;
 
-    @Getter
-    @Setter
+    
+    
     private NpcCfgManager npcCfgManager;
-    @Getter
-    @Setter
+    
+    
     private NpcActionCfgManager npcActionCfgManager;
-    @Getter
-    @Setter
+    
+    
     private NpcItemCfgManager npcItemCfgManager;
-    @Getter
-    @Setter
+    
+    
     private NpcTypeCfgManager npcTypeCfgManager;
-    @Getter
-    @Setter
+    
+    
     private GiftCfgManager giftCfgManager;
-    @Getter
-    @Setter
+    
+    
     private JoinCfgManager joinCfgManager;
+    
+    
+    private RoomCfgManager roomCfgManager;
+    
+    
+    private FurnitureCfgManager furnitureCfgManager;
+    
+    
+    private DressCfgManager dressCfgManager;
 
+    private DramaCfgManager dramaCfgManager;
 
     private GameConfigManager() {
         //PolitenessExit.addResource(this);
@@ -112,6 +124,22 @@ public class GameConfigManager implements IResource {
         final String joinCfg = "JoinCfg.json";
         this.setJoinCfgManager(new JoinCfgManager(configPath, joinCfg));
         log.info("load {} done.", joinCfg);
+
+        final String roomCfg = "RoomCfg.json";
+        this.setRoomCfgManager(new RoomCfgManager(configPath, roomCfg));
+        log.info("load {} done.", roomCfg);
+
+        final String furnitureCfg = "FurnitureCfg.json";
+        this.setFurnitureCfgManager(new FurnitureCfgManager(configPath, furnitureCfg));
+        log.info("load {} done.", furnitureCfg);
+
+        final String dressCfg = "DressCfg.json";
+        this.setDressCfgManager(new DressCfgManager(configPath, dressCfg));
+        log.info("load {} done.", dressCfg);
+
+        final String dramaCfg = "DramaCfg.json";
+        this.setDramaCfgManager(new DramaCfgManager(configPath, dramaCfg));
+        log.info("load {} done.", dramaCfg);
     }
 
 }

@@ -1,0 +1,29 @@
+
+package com.infinity.common.config.data;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+@SuppressWarnings("unused")
+public class DramaCfg {
+
+    private int id;
+
+    private int animationId;
+
+    private int section;
+
+    private int npcId;
+
+    private int action;
+
+    private String param;
+
+    private int preAction;
+}

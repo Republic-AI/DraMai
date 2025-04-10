@@ -64,7 +64,7 @@ public class CookAction extends Action<NpcActionRequest.CookData> {
     public void perform(NPC npc, NpcActionRequest.CookData params) {
         log.debug("CookAction perform,npcId={}", npc.getId());
         //获取物品的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         List<NpcActionRequest.Item> items = params.getItems() == null ? Collections.EMPTY_LIST : params.getItems();
@@ -82,7 +82,7 @@ public class CookAction extends Action<NpcActionRequest.CookData> {
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.CookData params) {
         log.debug("TypeAction perform,npcId={}", npc.getId());
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

@@ -26,9 +26,10 @@ public class TrumpNPC extends NPC {
         this.oidList.add("popcatBuy");
         this.oidList.add("satoshiDricoffee");*/
         //this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
-        this.oidList.add("elizaTree");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("elizaTree");
         //sthis.oidList.add("share");
+        this.oidList.add("check");
     }
 
     //注册NPC行为
@@ -49,6 +50,7 @@ public class TrumpNPC extends NPC {
         this.addAction(new ThinkAction(null));
         this.addAction(new ReadAction(null));
         this.addAction(new ShareAction(null));
+        this.addAction(new CheckAction(null, List.of("trumpCheck_down_1", "trumpCheck_left_2", "trumpCheck_up_3")));
     }
 
     @Override
@@ -84,24 +86,9 @@ public class TrumpNPC extends NPC {
                 Map<String, Object> params = new HashMap<>();
                 params.put("oid", oid);
                 int actionId = 0;
-                if (oid.equals("zhongbencongType")) {
-                    actionId = ActionEnumType.Type.getCode();
-                } else if (oid.equals("zhongbencongThink")) {
-                    actionId = ActionEnumType.Think.getCode();
-                } else if (oid.equals("zhongbencongFix")) {
-                        actionId = ActionEnumType.Repair.getCode();
-                } else if (oid.equals("popcatBuy")) {
-                    params.put("npcId", 10007);
-                    actionId = ActionEnumType.Buy.getCode();
-                } else if (oid.equals("satoshiDricoffee")) {
-                    actionId = ActionEnumType.DrinkCoffee.getCode();
-                } else if (oid.equals("elizaTree")) {
-                    actionId = ActionEnumType.ChristmasTree.getCode();
-                } else if (oid.equals("share")) {
-                    params.remove("oid");
-                    params.put("npcId", 10008);
-                    actionId = ActionEnumType.Share.getCode();
-                } else {
+                if (oid.equals("check")) {
+                    actionId = ActionEnumType.Check.getCode();
+                }  else {
                     actionId = ActionEnumType.Read.getCode();
                 }
                 doAction(actionId, params, true);

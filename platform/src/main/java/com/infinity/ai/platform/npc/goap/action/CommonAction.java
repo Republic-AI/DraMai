@@ -46,7 +46,7 @@ public class CommonAction extends Action<NpcActionRequest.CommonData> {
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.CommonData params) {
         log.debug("TypeAction perform,npcId={}", npc.getId());
         //获取目标对象坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());
         sendMessage(npc, actionData, null, "oid", mapObject.getName());
     }
 

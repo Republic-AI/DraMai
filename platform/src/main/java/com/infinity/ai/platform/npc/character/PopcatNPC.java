@@ -19,8 +19,8 @@ public class PopcatNPC extends NPC {
     protected void init() {
         //启动增加当前正在做的行为
         super.initAction();
-        this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         //this.oidList.add("popcatRead");
         //this.oidList.add("popcatThink");
         //this.oidList.add("popcatEat");
@@ -28,7 +28,7 @@ public class PopcatNPC extends NPC {
         //this.oidList.add("moveTo");
         //this.oidList.add("popcatBuy");
         //this.oidList.add("popcatSleep");
-        //this.oidList.add("popcatDricoffee");
+        this.oidList.add("popcatDricoffee");
     }
 
     //注册NPC行为

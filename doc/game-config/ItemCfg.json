@@ -401,5 +401,317 @@
       0
     ],
     "kind": 2
+  },
+  {
+    "name": "Painting",
+    "npcId": 10016,
+    "bag": 1,
+    "des": "Painting",
+    "icon": "item_10101031",
+    "subtype": 1,
+    "id": 10101031,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Soda",
+    "npcId": 10016,
+    "bag": 1,
+    "des": "Soda",
+    "icon": "item_10101032",
+    "subtype": 1,
+    "id": 10101032,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Brush",
+    "npcId": 10016,
+    "bag": 1,
+    "des": "Brush",
+    "icon": "item_10101033",
+    "subtype": 1,
+    "id": 10101033,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "T-Shirt",
+    "npcId": 10016,
+    "bag": 1,
+    "des": "T-Shirt",
+    "icon": "item_10101034",
+    "subtype": 1,
+    "id": 10101034,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Fruit",
+    "npcId": 10017,
+    "bag": 1,
+    "des": "Fruit",
+    "icon": "item_10101035",
+    "subtype": 1,
+    "id": 10101035,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Coffee",
+    "npcId": 10017,
+    "bag": 1,
+    "des": "Coffee",
+    "icon": "item_10101036",
+    "subtype": 1,
+    "id": 10101036,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Menu",
+    "npcId": 10017,
+    "bag": 1,
+    "des": "Menu",
+    "icon": "item_10101037",
+    "subtype": 1,
+    "id": 10101037,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Cake",
+    "npcId": 10017,
+    "bag": 1,
+    "des": "Cake",
+    "icon": "item_10101038",
+    "subtype": 1,
+    "id": 10101038,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Book",
+    "npcId": 10018,
+    "bag": 1,
+    "des": "Book",
+    "icon": "item_10101039",
+    "subtype": 1,
+    "id": 10101039,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Watch",
+    "npcId": 10018,
+    "bag": 1,
+    "des": "Watch",
+    "icon": "item_10101040",
+    "subtype": 1,
+    "id": 10101040,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Suit",
+    "npcId": 10018,
+    "bag": 1,
+    "des": "Suit",
+    "icon": "item_10101041",
+    "subtype": 1,
+    "id": 10101041,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Computer",
+    "npcId": 10018,
+    "bag": 1,
+    "des": "Computer",
+    "icon": "item_10101042",
+    "subtype": 1,
+    "id": 10101042,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Phone holder",
+    "npcId": 10019,
+    "bag": 1,
+    "des": "Phone holder",
+    "icon": "item_10101043",
+    "subtype": 1,
+    "id": 10101043,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Handbag",
+    "npcId": 10019,
+    "bag": 1,
+    "des": "Handbag",
+    "icon": "item_10101044",
+    "subtype": 1,
+    "id": 10101044,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Teddy bear",
+    "npcId": 10019,
+    "bag": 1,
+    "des": "Teddy bear",
+    "icon": "item_10101045",
+    "subtype": 1,
+    "id": 10101045,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Cosmetics",
+    "npcId": 10019,
+    "bag": 1,
+    "des": "Cosmetics",
+    "icon": "item_10101046",
+    "subtype": 1,
+    "id": 10101046,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Specimen",
+    "npcId": 10020,
+    "bag": 1,
+    "des": "Specimen",
+    "icon": "item_10101047",
+    "subtype": 1,
+    "id": 10101047,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Sunflower",
+    "npcId": 10020,
+    "bag": 1,
+    "des": "Sunflower",
+    "icon": "item_10101048",
+    "subtype": 1,
+    "id": 10101048,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Toolbox",
+    "npcId": 10020,
+    "bag": 1,
+    "des": "Toolbox",
+    "icon": "item_10101049",
+    "subtype": 1,
+    "id": 10101049,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Potted plant",
+    "npcId": 10020,
+    "bag": 1,
+    "des": "Potted plant",
+    "icon": "item_10101050",
+    "subtype": 1,
+    "id": 10101050,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Backpack",
+    "npcId": 10021,
+    "bag": 1,
+    "des": "Backpack",
+    "icon": "item_10101051",
+    "subtype": 1,
+    "id": 10101051,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Sneakers",
+    "npcId": 10021,
+    "bag": 1,
+    "des": "Sneakers",
+    "icon": "item_10101052",
+    "subtype": 1,
+    "id": 10101052,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Dumbbell",
+    "npcId": 10021,
+    "bag": 1,
+    "des": "Dumbbell",
+    "icon": "item_10101053",
+    "subtype": 1,
+    "id": 10101053,
+    "dropType": [
+      0
+    ],
+    "kind": 2
+  },
+  {
+    "name": "Trophy",
+    "npcId": 10021,
+    "bag": 1,
+    "des": "Trophy",
+    "icon": "item_10101054",
+    "subtype": 1,
+    "id": 10101054,
+    "dropType": [
+      0
+    ],
+    "kind": 2
   }
 ]

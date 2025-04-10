@@ -6,6 +6,8 @@ import com.infinity.db.db.DBEntity;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.persistence.Transient;
+
 /**
  * 玩家
  */

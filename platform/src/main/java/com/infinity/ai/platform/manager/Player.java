@@ -26,9 +26,17 @@ public class Player {
     @Getter
     private Object lock = new Object();
 
+    //@Getter
+    //@Setter
+    //private long lastTypeToEarnTime;
+
     @Getter
     @Setter
-    private long lastTypeToEarnTime;
+    private long lastNpcCommandTime;
+
+    @Setter
+    @Getter
+    private int roomId;
 
     @Getter
     @Setter

@@ -88,6 +88,7 @@ public class ChatNpcTask extends BaseTask<ChatNpcRequest> {
                 .receiver(msg.getData().getReceiver())
                 .rName(msg.getData().getRName())
                 .replyMsgId(msg.getData().getReplyMsgId())
+                .privateMsg(msg.getData().isPrivateMsg())
                 .build();
     }
 }

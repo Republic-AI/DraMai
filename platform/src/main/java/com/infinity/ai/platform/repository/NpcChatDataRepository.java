@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface NpcChatDataRepository extends JpaRepository<NpcChatData, Long> {
 
     Page<NpcChatData> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
+    Page<NpcChatData> findByRoomId(int roomId, Pageable pageable);
 }

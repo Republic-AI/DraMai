@@ -19,15 +19,15 @@ public class SatoshiNPC extends NPC {
     protected void init() {
         //启动增加当前正在做的行为
         super.initAction();
-        /*this.oidList.add("zhongbencongType");
-        this.oidList.add("zhongbencongThink");
+        //this.oidList.add("zhongbencongType");
+        //this.oidList.add("zhongbencongThink");
         this.oidList.add("zhongbencongFix");
-        this.oidList.add("zhongbencongRead");
-        this.oidList.add("popcatBuy");
-        this.oidList.add("satoshiDricoffee");*/
-        this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
-        this.oidList.add("share");
+        //this.oidList.add("zhongbencongRead");
+        //this.oidList.add("popcatBuy");
+        //this.oidList.add("satoshiDricoffee");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("share");
     }
 
     //注册NPC行为
@@ -35,7 +35,7 @@ public class SatoshiNPC extends NPC {
         this.addAction(new MoveToAction(null));
         this.addAction(new ThinkAction(null));
         this.addAction(new TypeAction(null));
-        this.addAction(new RepairAction(null));
+        this.addAction(new RepairAction(null, List.of("satoshiFix_down_1", "satoshiFix_left_2", "satoshiFix_up_3")));
         this.addAction(new ReadAction(null));
         this.addAction(new SpeakAction(null));
         this.addAction(new ReplyChatAction(null));

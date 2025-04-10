@@ -83,7 +83,7 @@ public class MapLoader {
         data.setHeight(rootNode.path("height").asInt());
 
         // 解析 objectgroup 对象
-        JsonNode objectGroup = rootNode.path("objectgroup").path("object");
+        JsonNode objectGroup = rootNode.path("objectgroup").path("objects");
         // 用于存储 linkNpcId 和 type 相同的对象
         Map<Integer, Map<String, List<MapObject>>> groupedObjects = new HashMap<>();
 

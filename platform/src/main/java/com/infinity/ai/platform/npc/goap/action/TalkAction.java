@@ -78,7 +78,7 @@ public class TalkAction extends Action<NpcActionRequest.NpcTalkData> {
         //广播给所有客户端
         //sendMessage(npc, "npcId", targetNpcId, "content", params.getContent());
         sendActionMessage(npc, actionData, ActionEnumType.Speak.getCode(), "npcId", targetNpcId, "content", params.getContent());
-        ChatManager.getInstance().talk(npc.getId(), targetNpcId, params.getContent());
+        ChatManager.getInstance().talk(npc.getId(), targetNpcId, params.getContent(), npc.getRoomId());
         if (params.getEndingTalk() == 1 || npc.getId() == targetNpcId) {
             cutTalk(npc, targetNpcId);
             return;

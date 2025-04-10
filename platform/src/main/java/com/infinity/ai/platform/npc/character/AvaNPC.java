@@ -19,8 +19,8 @@ public class AvaNPC extends NPC {
     protected void init() {
         //启动增加当前正在做的行为
         super.initAction();
-        this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         //this.oidList.add("pepeBuy");
         //this.oidList.add("muskThink");
         //this.oidList.add("muskEat");
@@ -29,6 +29,7 @@ public class AvaNPC extends NPC {
         //this.oidList.add("muskData");
         //this.oidList.add("muskDricoffee");
         //this.oidList.add("share");
+        this.oidList.add("avaCheck");
     }
 
     //注册NPC行为
@@ -52,6 +53,7 @@ public class AvaNPC extends NPC {
         this.addAction(new ChristmasTreeAction(null));
         this.addAction(new GameAction(null));
         this.addAction(new ShareAction(null));
+        this.addAction(new CheckAction(null, List.of("avaCheck_left_1", "avaCheck_down_2", "avaCheck_up_3")));
     }
 
     @Override
@@ -85,22 +87,8 @@ public class AvaNPC extends NPC {
                 Map<String, Object> params = new HashMap<>();
                 params.put("oid", oid);
                 int actionId = 0;
-                if (oid.equals("muskData")) {
-                    actionId = ActionEnumType.DataAnalysis.getCode();
-                } else if (oid.equals("muskThink")) {
-                    actionId = ActionEnumType.Think.getCode();
-                } else if (oid.equals("muskMeeting")) {
-                    actionId = ActionEnumType.Meeting.getCode();
-                } else if (oid.equals("muskEat")) {
-                    actionId = ActionEnumType.Dinning.getCode();
-                } else if (oid.equals("muskRead")){
-                    actionId = ActionEnumType.Read.getCode();
-                } else if (oid.equals("muskSleep")) {
-                    actionId = ActionEnumType.Sleep.getCode();
-                } else if (oid.equals("muskDricoffee")) {
-                    actionId = ActionEnumType.DrinkCoffee.getCode();
-                } else if (oid.equals("pepeBuy")) {
-                    actionId = ActionEnumType.Buy.getCode();
+                if (oid.equals("avaCheck")) {
+                    actionId = ActionEnumType.Check.getCode();
                 } else if (oid.equals("share")) {
                     params.remove("oid");
                     params.put("npcId", 10008);

@@ -66,7 +66,7 @@ public class QueryPlayerNpcTask extends BaseTask<QueryCharaterRequest> {
             NpcHolder npcHolder = NpcManager.getInstance().getNpcHolderIgnoreOnline(npcId);
             if (npcHolder != null) {
                 PNpc npc = npcHolder.getNpcModel();
-                NpcData myNpc = PlayerNpcSetTask.buildNpcData(npc);
+                NpcData myNpc = PlayerNpcSetTask.buildNpcData(npcHolder.getNpc(), npc);
                 data.setMyNpc(myNpc);
             }
         }
@@ -88,7 +88,7 @@ public class QueryPlayerNpcTask extends BaseTask<QueryCharaterRequest> {
                 continue;
             }
 
-            NpcData myNpc = PlayerNpcSetTask.buildNpcData(entry.getValue().getNpcModel());
+            NpcData myNpc = PlayerNpcSetTask.buildNpcData(entry.getValue().getNpc(), entry.getValue().getNpcModel());
             myNpc.setRequestData(entry.getValue().getNpc().getRequestData());
             if (npc.getType() == 0) {
                 otherPlayerNpc.add(myNpc);

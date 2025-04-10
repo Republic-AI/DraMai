@@ -26,7 +26,7 @@ public class MorpheosNPC extends NPC {
         this.oidList.add("popcatBuy");
         this.oidList.add("satoshiDricoffee");*/
         //this.oidList.add("moveTo");
-        this.oidList.add("moveTo");
+        //this.oidList.add("moveTo");
         this.oidList.add("morpheosDricoffee");
         this.oidList.add("morpheosTree");
         this.oidList.add("morpheosDraw");

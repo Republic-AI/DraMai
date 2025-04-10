@@ -49,5 +49,9 @@ public class ChatRequest extends BaseMsg<ChatRequest.RequestData> {
         public String rName;
         //回复的消息id
         public Long replyMsgId;
+        //roomId
+        public int roomId;
+        //是否私聊
+        public boolean privateMsg;
     }
 }

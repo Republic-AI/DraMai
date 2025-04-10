@@ -28,5 +28,7 @@ public class NpcChatHistoryRequest extends BaseMsg<NpcChatHistoryRequest.Request
         private int page;
 
         private int pageSize;
+
+        private int roomId;
     }
 }

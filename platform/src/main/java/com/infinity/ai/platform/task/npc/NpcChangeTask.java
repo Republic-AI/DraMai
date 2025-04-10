@@ -1,21 +1,21 @@
 package com.infinity.ai.platform.task.npc;
 
-import com.infinity.ai.PNpc;
 import com.infinity.ai.platform.manager.NpcHolder;
 import com.infinity.ai.platform.manager.NpcManager;
 import com.infinity.ai.platform.manager.Player;
 import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.npc.NPC;
 import com.infinity.ai.platform.task.system.BroadcastMesage;
+import com.infinity.common.base.thread.ThreadConst;
+import com.infinity.common.base.thread.Threads;
+import com.infinity.common.base.thread.timer.IntervalTimer;
+import com.infinity.common.config.data.DressCfg;
+import com.infinity.common.config.manager.GameConfigManager;
 import com.infinity.common.msg.ProtocolCommon;
-import com.infinity.common.msg.platform.chat.PChatNpcRequest;
 import com.infinity.common.msg.platform.npc.NpcChangeRequest;
 import com.infinity.common.msg.platform.npc.NpcChangeResponse;
-import com.infinity.common.msg.platform.npc.NpcReplyChatResponse;
-import com.infinity.manager.node.NodeConstant;
+import com.infinity.common.utils.DateUtil;
 import com.infinity.manager.task.BaseTask;
-import com.infinity.network.MessageSender;
-import com.infinity.network.RequestIDManager;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -49,15 +49,28 @@ public class NpcChangeTask extends BaseTask<NpcChangeRequest> {
         if (npcHolder == null) {
             return false;
         }
+        DressCfg dressCfg = GameConfigManager.getInstance().getDressCfgManager().get(dressId);
+        long now = System.currentTimeMillis();
+        long time = (long) dressCfg.getTime() * DateUtil.OneMinuteMs;
         NPC npc = npcHolder.getNpc();
-        PNpc pNpc = npc.getNpcModel();
-        pNpc.setDressId(dressId);
-
-
+        npc.setDressId(dressId);
+        npc.setDressEndTime(now + time);
         NpcChangeResponse npcChangeResponse = new NpcChangeResponse();
-        NpcChangeResponse.ReponseData reponseData = new NpcChangeResponse.ReponseData(dressId, npcId);
+        NpcChangeResponse.ReponseData reponseData = new NpcChangeResponse.ReponseData(dressId, npcId, time);
         npcChangeResponse.setData(reponseData);
         BroadcastMesage.getInstance().send(playerId, npcChangeResponse.toString());
+        Threads.addListener(ThreadConst.TIMER_1S, dressId,"Dress#remove", new IntervalTimer(time, 1000) {
+            @Override
+            public boolean exec0(int interval) {
+                npc.setDressId(0);
+                npc.setDressEndTime(0);
+                NpcChangeResponse npcChangeResponse = new NpcChangeResponse();
+                NpcChangeResponse.ReponseData reponseData = new NpcChangeResponse.ReponseData(0, npcId, 0);
+                npcChangeResponse.setData(reponseData);
+                BroadcastMesage.getInstance().send(npcId, npcChangeResponse.toString());
+                return true;
+            }
+        });
         return false;
     }
 }

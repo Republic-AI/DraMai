@@ -15,7 +15,6 @@ import com.infinity.common.msg.platform.npc.NpcChatVo;
 import com.infinity.common.msg.platform.npc.NpcSpeakVo;
 import com.infinity.common.utils.spring.SpringContextHolder;
 import com.infinity.manager.task.BaseTask;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,12 +61,12 @@ public class QueryNpcChatTask extends BaseTask<NpcChatHistoryRequest> {
         if (type == 1) {
             NpcSpeakDataRepository chatDataRepository =  SpringContextHolder.getBean(NpcSpeakDataRepository.class);
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
-            Page<NpcSpeakData> npcSpeakDataPage = chatDataRepository.findAll(pageable);
+            Page<NpcSpeakData> npcSpeakDataPage = chatDataRepository.findByRoomId(msg.getData().getRoomId(), pageable);
             baseMsg = buildResponse(player, msg, npcSpeakDataPage.getContent(), null);
         } else {
             NpcChatDataRepository chatDataRepository =  SpringContextHolder.getBean(NpcChatDataRepository.class);
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
-            Page<NpcChatData> npcChatDataPage = chatDataRepository.findAll(pageable);
+            Page<NpcChatData> npcChatDataPage = chatDataRepository.findByRoomId(msg.getData().getRoomId(), pageable);
             baseMsg = buildResponse(player, msg, null, npcChatDataPage.getContent());
         }
         sendMessage(baseMsg);

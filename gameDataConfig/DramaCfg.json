@@ -1,0 +1,65 @@
+[
+  {
+    "npcId": 10018,
+    "action": 112,
+    "section": 1,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "704,448",
+    "id": 1
+  },
+  {
+    "npcId": 10018,
+    "action": 110,
+    "section": 2,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "so nervous...",
+    "id": 2
+  },
+  {
+    "npcId": 10019,
+    "action": 112,
+    "section": 3,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "736,448",
+    "id": 3
+  },
+  {
+    "npcId": 10019,
+    "action": 110,
+    "section": 4,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "Kai has something to tell me...",
+    "id": 4
+  },
+  {
+    "npcId": 10018,
+    "action": 110,
+    "section": 5,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "finally you are coming",
+    "id": 5
+  },
+  {
+    "npcId": 10018,
+    "action": 110,
+    "section": 6,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "I love you!",
+    "id": 6
+  },
+  {
+    "npcId": 10019,
+    "action": 110,
+    "section": 7,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "thank you, but give me some tiime",
+    "id": 7
+  }
+]

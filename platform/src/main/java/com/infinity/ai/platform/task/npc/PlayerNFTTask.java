@@ -1,37 +1,24 @@
 package com.infinity.ai.platform.task.npc;
 
-import com.infinity.ai.PNpc;
-import com.infinity.ai.domain.tables.PlayerNpc;
 import com.infinity.ai.platform.constant.NFTConstant;
-import com.infinity.ai.platform.entity.NpcChatData;
-import com.infinity.ai.platform.entity.NpcSpeakData;
-import com.infinity.ai.platform.manager.*;
-import com.infinity.ai.platform.repository.NpcChatDataRepository;
-import com.infinity.ai.platform.repository.NpcSpeakDataRepository;
+import com.infinity.ai.platform.manager.NFTManager;
+import com.infinity.ai.platform.manager.Player;
+import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.task.system.BroadcastMesage;
 import com.infinity.common.base.data.GameUser;
 import com.infinity.common.base.data.GameUserMgr;
 import com.infinity.common.base.thread.ThreadConst;
 import com.infinity.common.base.thread.Threads;
 import com.infinity.common.base.thread.timer.IntervalTimer;
-import com.infinity.common.consts.ErrorCode;
-import com.infinity.common.msg.BaseMsg;
 import com.infinity.common.msg.ProtocolCommon;
-import com.infinity.common.msg.platform.npc.*;
-import com.infinity.common.utils.spring.SpringContextHolder;
-import com.infinity.db.db.DBManager;
+import com.infinity.common.msg.platform.npc.NFTData;
+import com.infinity.common.msg.platform.npc.PlayerNFTRequest;
+import com.infinity.common.msg.platform.npc.PlayerNFTResponse;
 import com.infinity.manager.task.BaseTask;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 /**

@@ -18,7 +18,7 @@ public class MapDataManager {
 
     //解析游戏地图数据
     public void createGameMap() {
-        gameMap = new GameMap();
+        //gameMap = new GameMap();
     }
 
     //初始化游戏数据

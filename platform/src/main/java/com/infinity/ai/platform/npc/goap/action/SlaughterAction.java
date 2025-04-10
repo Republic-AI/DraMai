@@ -53,7 +53,7 @@ public class SlaughterAction extends Action<NpcActionRequest.SlaughterData> {
     public void perform(NPC npc, NpcActionRequest.SlaughterData params) {
         log.debug("SlaughterAction perform,npcId={}", npc.getId());
         //获取屠宰对象：牛的坐标
-        MapObject mapObject = findMapObj(params.getOid());
+        MapObject mapObject = findMapObj(params.getOid(), npc.getRoomId());;
 
         //广播给所有客户端
         sendMessage(npc, "oid", mapObject.name, "itemId", GoodsConsts.ITEM_NR_ID, "count", COUNT);

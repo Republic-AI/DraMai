@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class PlayerBase {
     //玩家头像
-    private String avatar;
+    private int avatar;
     //性别 0:未知，1:男,2女
     private Integer sex;
     //时区

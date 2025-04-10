@@ -36,4 +36,6 @@ public class NpcCfg {
     private String lifestyle;
     private String livingArea;
     private String property;
+
+    private int map;
 }

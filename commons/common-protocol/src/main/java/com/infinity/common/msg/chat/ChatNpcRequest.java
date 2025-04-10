@@ -47,5 +47,7 @@ public class ChatNpcRequest extends BaseMsg<ChatNpcRequest.RequestData> {
         public String rName;
         //回复的消息id
         public Long replyMsgId;
+        //private
+        public boolean privateMsg;
     }
 }
