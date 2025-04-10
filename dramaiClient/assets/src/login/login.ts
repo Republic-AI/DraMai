@@ -175,7 +175,6 @@ export default class Index extends Component {
     mGameConfig.DesginH = view.getVisibleSize().height;
     await this.initData();
     // 获取查询参数
-    await this.goLogin()
 
     //控制台调试
     // let script = document.createElement("script");
@@ -381,29 +380,7 @@ export default class Index extends Component {
 
     return;
   }
-  /**
-   * 按钮登录点击，
-   * @returns 
-   */
-  public async goLogin() {
-    this.loading.active = true
-    if (GlobalConfig.instance.hasInitGame == false) {
-      // const debounceThings = WebUtils.debounce(()=>{
-      let app = new App();
-      app.init();
-      appInit(app);
-      Log.log(TAG, 'main init start ...')
-      mduManger.start();
-      modelMgr.configModel.loadResDir();
-      //director.addPersistRootNode(this.worldNode);
-      observer.on(EventType.SOCKET_ONOPEN, this.getlogin, this);
-      observer.on(EventType.SOCKET_ONMESSAGE, this.hasLogin, this);
-      this._isLogin = true;
-      // }, 2)
-      // debounceThings()
-    }
-    this.loading.getChildByName("lblVersion").getComponent(Label).string = version;
-  }
+
 
   setCurrentPart(data, event) {
     if (this.currentIndex + data > MAX_LENGTH || this.currentIndex + data < 0) {

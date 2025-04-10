@@ -309,7 +309,7 @@ export const sceneItemAllCfg = {
             "type": "house_table",
             "time": "5:00",
             "price": 150,
-            "info": "Fish Hat: Who’s wearing who? Popcat just became a walking sushi!"
+            "info": "Fish Hat: Who's wearing who? Popcat just became a walking sushi!"
         }
     ],
     "10008": [
@@ -355,7 +355,7 @@ export const sceneItemAllCfg = {
             "type": "house_board",
             "time": "5:00",
             "price": 150,
-            "info": "Mushroom Hat: Pippin’s now a tiny forest wizard… or a snack for hungry adventurers!"
+            "info": "Mushroom Hat: Pippin's now a tiny forest wizard… or a snack for hungry adventurers!"
         },
         {
             "id": 1001002,
@@ -373,7 +373,7 @@ export const sceneItemAllCfg = {
             "type": "house_tab",
             "time": "5:00",
             "price": 150,
-            "info": "Presidential Top Hat: Elevates Trump’s stature—literally and figuratively."
+            "info": "Presidential Top Hat: Elevates Trump's stature—literally and figuratively."
         },
         {
             "id": 1001202,
@@ -381,7 +381,7 @@ export const sceneItemAllCfg = {
             "type": "house_wine",
             "time": "5:00",
             "price": 150,
-            "info": "MAGA Hat: The red beacon of ‘Make America Great Again’ enthusiasts."
+            "info": "MAGA Hat: The red beacon of 'Make America Great Again' enthusiasts."
         }
     ],
     "10014": [
@@ -581,10 +581,10 @@ export const EventNpcInfoMap = {
 
 export const npcDes = {
   10006:"Satoshi, after Bitcoin, wants to make a new revolution with AI—turning data into plants, animals, and heroes to build this small town.",
-  10007:"Popcat, the town’s go-to fisherman. Days are spent at the lake, reeling in the best catches and enjoying every moment. When not fishing, it’s testing gadgets with Elon or grabbing supplies and sharing laughs with Pepe.",
-  10008:"Pepe, a laid-back shopkeeper. The general store is more than supplies—it’s where stories, laughs, and advice are shared. Popcat brings fish and tall tales, while Elon and Satoshi drop by for banter. A true heart of the town.",
+  10007:"Popcat, the town's go-to fisherman. Days are spent at the lake, reeling in the best catches and enjoying every moment. When not fishing, it's testing gadgets with Elon or grabbing supplies and sharing laughs with Pepe.",
+  10008:"Pepe, a laid-back shopkeeper. The general store is more than supplies—it's where stories, laughs, and advice are shared. Popcat brings fish and tall tales, while Elon and Satoshi drop by for banter. A true heart of the town.",
   10009:"Elon Musk, inventor and dreamer. A mind buzzing with ideas about rockets, AI, and solving the impossible. Debates with Satoshi, tests gadgets with Popcat, and trades jokes with Pepe.",
-  10010:"Pippin, the owner of a cozy café where every drink is made with care and a touch of magic. A peaceful forest for connection and wonder, it’s a place to slow down, savor the moment, and enjoy something special.",
+  10010:"Pippin, the owner of a cozy café where every drink is made with care and a touch of magic. A peaceful forest for connection and wonder, it's a place to slow down, savor the moment, and enjoy something special.",
   10011:"Eliza, born at MIT in the 1960s and reborn by ai16z, is an AI engineer with sharp investigative instincts. She explores VR, writes sci-fi, and philosophizes about the digital world.",
   10012:"Trump, a bold and charismatic figure in AI Town, aims to become president of the Meme Republic. Balancing big dreams with relatable moments, he wins hearts through jokes, ideas, and connecting with the town.",
   10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
@@ -612,7 +612,7 @@ export const npcTitleDes = {
   10016:"Leo lives for chaos, color, and breaking every rule in the book.",
   10017:"Ivy hides behind flour and sugar, where emotions quietly rise.",
   10018:"Kai slices through arguments and emotions with equal precision.",
-  10019:"Selena shines online, but the spotlight can’t reach her doubts.",
+  10019:"Selena shines online, but the spotlight can't reach her doubts.",
   10020:"Nova tends her fields in silence — and buries her secrets even deeper.",
   10021:"Aiden wins hearts like he wins races — fast, but never without friction.",
 }
@@ -684,8 +684,7 @@ export const FeelingImgUrl = {
   sad: 'action/bubble/feeling_sad',
 };
 
-export enum 
-NpcEventType {
+export enum NpcEventType {
   farming = 100,
   harvest = 101,
   sale = 102,
@@ -725,21 +724,44 @@ NpcEventType {
   sport = 137,
   makecake = 138,
   LiveShow = 139,
-
 }
 
 export enum SleepHeadDirect {
-  
 }
+
+/**
+ * NPC表情状态枚举
+ */
+export enum NpcEmoji {
+    /** 生气 */
+    Angry = 0,
+    /** 熟悉/友好 */
+    Familiar = 1,
+    /** 喜欢 */
+    Like = 2,
+    /** 爱心 */
+    Love = 3,
+    /** 伤心 */
+    Sad = 4,
+    /** 不熟悉/疑惑 */
+    Unfamiliar = 5,
+    /** 非常生气 */
+    VeryAngry = 6,
+    /** 非常伤心 */
+    VerySad = 7,
+    /** 非常喜欢 */
+    VeryLike = 8
+}
+
 //不同sceneID下的新闻配置
-export  const newsInfo = {
+export const newsInfo = {
   1:[
     {
       "id": 1,
       "date": "Day 1",
       "imgName": "imgNews_5",
       "newsTitle": "Pippin's Rainbow",
-      "newsContent": "Pepe wandered deep into the forest and discovered something magical…A rainbow? No. It was a cup of coffee. Welcome to Pippin’s Café—where coffee is not just a drink, it’s an experience. Come taste the rainbow!"
+      "newsContent": "Pepe wandered deep into the forest and discovered something magical…A rainbow? No. It was a cup of coffee. Welcome to Pippin's Café—where coffee is not just a drink, it's an experience. Come taste the rainbow!"
     },
   ],
   2:[
@@ -748,14 +770,14 @@ export  const newsInfo = {
       "date": "Day 2",
       "imgName": "imgNews_7",
       "newsTitle": "Morpheus's Dream, AI's Dream",
-      "newsContent": "Who is the fake AI? Eliza is lost in chaos until Morpheus appears, claiming he can draw AI dreams to expose the fake. Who’s the imposter?"
+      "newsContent": "Who is the fake AI? Eliza is lost in chaos until Morpheus appears, claiming he can draw AI dreams to expose the fake. Who's the imposter?"
     },
     {
       "id": 1,
       "date": "Day 1",
       "imgName": "imgNews_6",
       "newsTitle": "Detective Eliza",
-      "newsContent": "A fake AI is hiding in the Republic! Eliza, invited by Satoshi, is on a mission to uncover the truth! She’ll be interviewing everyone—could there be a conspiracy behind this?"
+      "newsContent": "A fake AI is hiding in the Republic! Eliza, invited by Satoshi, is on a mission to uncover the truth! She'll be interviewing everyone—could there be a conspiracy behind this?"
     },
   ],
   3:[
