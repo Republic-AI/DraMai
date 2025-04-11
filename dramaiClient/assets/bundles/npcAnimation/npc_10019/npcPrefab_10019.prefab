@@ -738,8 +738,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 38.03324784443731,
-      "height": 48
+      "width": 63.4803781587224,
+      "height": 48.845000000000006
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -778,16 +778,16 @@
     "premultipliedAlpha": false,
     "_defaultArmatureIndexValue": 0,
     "_dragonAsset": {
-      "__uuid__": "0f6ef333-6df3-4e6f-940c-a9c71c36bfbf",
+      "__uuid__": "5cdcca76-fa46-41d4-9966-f7553563082d",
       "__expectedType__": "dragonBones.DragonBonesAsset"
     },
     "_dragonAtlasAsset": {
-      "__uuid__": "eb00dadc-4ae6-4abf-878c-c5adda205b91",
+      "__uuid__": "10c3c9eb-907f-42b6-8db8-bff7d1a56350",
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",
-    "_animationName": "down_standby",
-    "_animationIndexValue": 2,
+    "_animationName": "down_walk",
+    "_animationIndexValue": 1,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -822,7 +822,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 35
@@ -877,8 +877,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 38.03324784443731,
-      "height": 48
+      "width": 63.4803781587224,
+      "height": 48.845000000000006
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -917,16 +917,16 @@
     "premultipliedAlpha": false,
     "_defaultArmatureIndexValue": 0,
     "_dragonAsset": {
-      "__uuid__": "0f6ef333-6df3-4e6f-940c-a9c71c36bfbf",
+      "__uuid__": "5cdcca76-fa46-41d4-9966-f7553563082d",
       "__expectedType__": "dragonBones.DragonBonesAsset"
     },
     "_dragonAtlasAsset": {
-      "__uuid__": "eb00dadc-4ae6-4abf-878c-c5adda205b91",
+      "__uuid__": "10c3c9eb-907f-42b6-8db8-bff7d1a56350",
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",
-    "_animationName": "send",
-    "_animationIndexValue": 9,
+    "_animationName": "message",
+    "_animationIndexValue": 10,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -1076,8 +1076,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 44,
-      "height": 36
+      "width": 46,
+      "height": 38
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1212,8 +1212,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 46,
-      "height": 36
+      "width": 48,
+      "height": 38
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

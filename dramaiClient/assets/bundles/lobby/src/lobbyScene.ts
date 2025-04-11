@@ -105,7 +105,7 @@ export class lobbyScene extends Component {
     storyItemPrefab:Prefab = null;
 
     _orignOrthoHeight = null;
-    _chooseSceneId = 1;
+    _chooseSceneId = 0;
     _pageStatus = 1
     _bannerStatus = "show"
     _sceneBannerFrame = {};
@@ -156,7 +156,6 @@ export class lobbyScene extends Component {
         this.twitterView.node.active = false;
         this.sceneItemView.node.active = true;
 
-        this.initRequestTwitter()
 
         let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
         let posY =  viewSize.height / 2  - 130;
@@ -164,8 +163,6 @@ export class lobbyScene extends Component {
         //this.btnBanner.setScale(1,-1);
 
         this.initRequestChatRecord();
-
-        this.initUserView();
 
     }
 
@@ -219,6 +216,7 @@ export class lobbyScene extends Component {
     getLobbyInfo(data){
         if(!this._lobbyRoomInfo){
             console.log("lobby data========" + JSON.stringify(data.data.data.roomDataList));
+            data.data.data.roomDataList.sort((a, b) => a.order - b.order);
             this._lobbyRoomInfo = data.data.data.roomDataList;
             GlobalConfig.instance.roomDataList = data.data.data.roomDataList;
             this._lobbyRoomInfo.forEach((scene,index)=>{
@@ -255,8 +253,11 @@ export class lobbyScene extends Component {
                 });
             })
             this.node.getComponentsInChildren(optionPrefab).forEach((option,index)=>{
-                if(option._sceneId == 1){
+                if(index == 0){
                     option.onBtnClick();
+                    this._chooseSceneId = option._sceneId;
+                    this.initRequestTwitter()
+                    this.initUserView();
                 }
                 else{
                     option.setUnChooseStatus();
@@ -571,7 +572,7 @@ export class lobbyScene extends Component {
             //let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
             let posY =  this._userViewContentPosY;
             tween(this.userViewContent)
-            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .to(0.2, { position: v3(0, posY, 0) })
             .call(() => {
 
             })
@@ -584,7 +585,7 @@ export class lobbyScene extends Component {
             //let viewSize = this.sceneItemView.getComponent(UITransform).contentSize;
             let posY =  this.userViewContent.position.y - 617;
             tween(this.userViewContent)
-            .to(0.4, { position: v3(0, posY, 0) }, { easing: 'elasticOut' })
+            .to(0.2, { position: v3(0, posY, 0) })
             .call(() => {
 
             })

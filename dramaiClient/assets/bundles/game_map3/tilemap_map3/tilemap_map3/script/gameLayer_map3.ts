@@ -237,6 +237,13 @@ export class gameLayer_map3 extends Component {
                 })
             }).start()).start()
         }
+        else{
+            //如果是由Banner进入的场景，则打开一次新闻
+            tween(this.node).delay(0.1).call(()=>{
+                let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
+                UILayerSrc.onBtnNews();
+            }).start()
+        }
         if(GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
             for(let i in GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
                 let id = GlobalConfig.instance.nowSceneData.furnitureMsgDataMap[i].id;

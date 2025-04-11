@@ -42,7 +42,6 @@ export class sceneItem extends Component {
                 }
             })
         }
-
     }
 
     onBtnEnterScene(){

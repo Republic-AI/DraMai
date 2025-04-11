@@ -168,6 +168,9 @@ export class SocketDataManager extends Component {
         if(repData.command == 10119){
             observer.post(EventType.INITSTORYINFO,repData["data"]);
         }
+        if(repData.command == 10120){
+            observer.post(EventType.GEEMOJIINFO,repData["data"]);
+        }
     }
 }
 

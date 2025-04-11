@@ -175,11 +175,12 @@ export class NpcManager extends Component {
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("right_standby",0);
         }
 
-        if(Number(this.NpcID) == 10021 && this._curTile.x == 22 && this._curTile.y == 13){
+        let curtile = this._getTilePos(v2(this.node.position.x,this.node.position.y));
+        if(curtile.x == 22 && curtile.y == 13){
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("right_standby",0);
         }
 
-        if(Number(this.NpcID) == 10019 && this._curTile.x == 23 && this._curTile.y == 13){
+        if(curtile.x == 23 && curtile.y == 13){
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("left_standby",0);
         }
     }
@@ -788,6 +789,30 @@ export class NpcManager extends Component {
         else{
             return 0;
         }
+    }
+
+    playDataAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("fillthefile",0);
+    }
+
+    playWaterAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("water",0);
+    }
+
+    playMakeCakeAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("bake",0);
+    }
+
+    playSportAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("workout",0);
+    }
+
+    playDrawAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("paint",0);
+    }
+
+    playLiveAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("message",0);
     }
 }
 

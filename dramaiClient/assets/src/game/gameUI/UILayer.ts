@@ -1,4 +1,4 @@
-import { _decorator, assetManager, Button, color, Component, director, dragonBones, EditBox, game, instantiate, Label, Layout, Node, Prefab, ProgressBar, resources, ScrollView, Sprite, SpriteFrame, sys, Tween, tween, UIOpacity, UITransform, v2, v3, view } from 'cc';
+import { _decorator, assetManager, Button, color, Component, director, dragonBones, EditBox, game, instantiate, Label, Layout, Node, Prefab, ProgressBar, resources, ScrollView, Sprite, SpriteFrame, sys, Tween, tween, UIOpacity, UITransform, v2, v3, VideoPlayer, view } from 'cc';
 import { GameScene } from '../scene/GameScene';
 import { network } from '../../model/RequestData';
 import { observer, socket } from '../App';

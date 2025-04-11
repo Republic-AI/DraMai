@@ -111,8 +111,13 @@ export class gameLayer_map4 extends Component {
     kaiFoodNode: Node = null;
 
     @property(Node)
-    speakLayer:Node = null;
+    kaiDataNode:Node = null;
 
+    @property(Node)
+    novaWaterNode:Node = null;
+
+    @property(Node)
+    speakLayer:Node = null;
 
     @property(Prefab)
     replyNode:Prefab = null;
@@ -229,6 +234,7 @@ export class gameLayer_map4 extends Component {
         tween(this.node).delay(0.1).call(()=>{
             this.initOtherNPCs(GlobalConfig.instance.nowSceneData.otherNpc);
         }).start()
+        //如果是由点击NPC进入的场景，则跟随NPC
         if(GlobalConfig.instance.chooseNpc){
             tween(this.node).repeatForever(tween(this.node).delay(0.1).call(()=>{
                 this.node.getComponentsInChildren(NpcManager).forEach(npcScript=>{
@@ -238,6 +244,13 @@ export class gameLayer_map4 extends Component {
                     }
                 })
             }).start()).start()
+        }
+        else{
+            //如果是由Banner进入的场景，则打开一次新闻
+            tween(this.node).delay(0.1).call(()=>{
+                let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
+                UILayerSrc.onBtnNews();
+            }).start()
         }
         if(GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
             for(let i in GlobalConfig.instance.nowSceneData.furnitureMsgDataMap){
@@ -348,12 +361,14 @@ export class gameLayer_map4 extends Component {
                 }
                 else if(actionData.npcId == 10018){
                     this.kaiFoodNode.active = false;
+                    this.kaiDataNode.active = false;
                 }
                 else if(actionData.npcId == 10019){
                     this.selenaFoodNode.active = false;
                 }
                 else if(actionData.npcId == 10020){
                     this.novaFoodNode.active = false;
+                    this.novaWaterNode.active = false;
                 }
                 else if(actionData.npcId == 10021){
                     this.aidenFoodNode.active = false;
@@ -634,6 +649,8 @@ export class gameLayer_map4 extends Component {
                 }
                 else if(actionData.npcId == 10018){
                     npcControl.setIdleStatus(KeyCode.KEY_W);
+                    npcControl.playDataAnimation();
+                    this.kaiDataNode.active = true;
                     // this.avaComputerEffect.active = true;
                     // this.avaComputerEffect.getComponent(dragonBones.ArmatureDisplay).armatureName = "play";
                     // this.avaComputerEffect.getComponent(dragonBones.ArmatureDisplay).playAnimation("play",0);
@@ -703,6 +720,9 @@ export class gameLayer_map4 extends Component {
             else if(actionData.actionId === NpcEventType.draw){
                 npcControl.setIdleStatus(KeyCode.KEY_W);
                 npcControl.showBubble(BubbleImgUrl.draw);
+                if(actionData.npcId == 10016){
+                    npcControl.playDrawAnimation();
+                }
             }
             else if(actionData.actionId === 127){
                 // if(actionData.npcId == 10012){
@@ -745,17 +765,30 @@ export class gameLayer_map4 extends Component {
             else if(actionData.actionId === NpcEventType.LiveShow){
                 npcControl.setIdleStatus(KeyCode.KEY_A);
                 npcControl.showBubble(BubbleImgUrl.live);
+                if(actionData.npcId == 10019){
+                    npcControl.playLiveAnimation();
+                }
             }
             else if(actionData.actionId === NpcEventType.makecake){
                 npcControl.setIdleStatus(KeyCode.KEY_W);
                 npcControl.showBubble(BubbleImgUrl.cake);
+                if(actionData.npcId == 10017){
+                    npcControl.playMakeCakeAnimation()
+                }
             }
             else if(actionData.actionId === NpcEventType.sport){
                 npcControl.setIdleStatus(KeyCode.KEY_S);
                 npcControl.showBubble(BubbleImgUrl.sport);
+                if(actionData.npcId == 10021){
+                    npcControl.playSportAnimation();
+                }
             }
             else if(actionData.actionId === NpcEventType.water){
                 npcControl.setIdleStatus(KeyCode.KEY_D);
+                if(actionData.npcId == 10018){
+                    npcControl.playWaterAnimation();
+                    this.novaWaterNode.active = true;
+                }
                 npcControl.showBubble(BubbleImgUrl.water);
             }
             else {
@@ -1001,6 +1034,7 @@ export class gameLayer_map4 extends Component {
                 item.getComponent(NpcManager)._curTile = npcTile;
                 item.setPosition(pos.x, pos.y);
                 item.getComponent(NpcManager).npcIndex = NpcIndex[NPC.id];
+                item.getComponent(NpcManager).setIdleStatus(KeyCode.KEY_S);
                 observer.post(EventType.INIT_DIR_PREFAB,NPC.id);
                 if(this._initActionData[NPC.id]){
 
@@ -1059,6 +1093,8 @@ export class gameLayer_map4 extends Component {
     // }
 
     onbtnTest1() {
+        // this.novaWaterNode.active = !this.novaWaterNode.active;
+        // this.kaiDataNode.active = !this.kaiDataNode.active;
         //console.log("testPos=====" + JSON.stringify(this.testNode.position));
         // this.startTypeComputer(1);
         // this.startTypeComputer(3);

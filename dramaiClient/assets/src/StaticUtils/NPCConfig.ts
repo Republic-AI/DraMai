@@ -593,7 +593,7 @@ export const npcDes = {
   10016:"Leo: A quiet farmer with hidden depths, drawn to DraMai Town by the promise of untold secrets.",
   10017:"Ivy: A gentle baker whose warm creations hint at a heart yearning for genuine connection.",
   10018:"Kai, a tech-savvy and adventurous AI engineer. With a knack for coding and a love for adventure, Leo is always ready to explore new ideas and share his enthusiasm with the town.",
-  10019:"Selena: A polished influencer in search of raw authenticity beyond the digital world.",
+  10019:"Qiu: A polished investor in search of raw authenticity beyond the digital world.",
   10020:"Nova: A vibrant artist ready to transform the unknown into her next masterpiece.",
   10021:"Aiden: A determined athlete with a mysterious past, seeking a fresh start in DraMai Town.",
 }
@@ -612,7 +612,7 @@ export const npcTitleDes = {
   10016:"Leo lives for chaos, color, and breaking every rule in the book.",
   10017:"Ivy hides behind flour and sugar, where emotions quietly rise.",
   10018:"Kai slices through arguments and emotions with equal precision.",
-  10019:"Selena shines online, but the spotlight can't reach her doubts.",
+  10019:"Qiu shines online, but the spotlight can’t reach her doubts.",
   10020:"Nova tends her fields in silence — and buries her secrets even deeper.",
   10021:"Aiden wins hearts like he wins races — fast, but never without friction.",
 }
@@ -736,7 +736,7 @@ export enum NpcEmoji {
     /** 生气 */
     Angry = 0,
     /** 熟悉/友好 */
-    Familiar = 1,
+    Famalier = 1,
     /** 喜欢 */
     Like = 2,
     /** 爱心 */
@@ -744,7 +744,7 @@ export enum NpcEmoji {
     /** 伤心 */
     Sad = 4,
     /** 不熟悉/疑惑 */
-    Unfamiliar = 5,
+    Unfamalier = 5,
     /** 非常生气 */
     VeryAngry = 6,
     /** 非常伤心 */

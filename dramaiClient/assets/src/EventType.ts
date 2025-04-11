@@ -161,5 +161,7 @@ export const EventType = {
     //更新我的投票信息
     UPDATEMYVOTEINFO:"UPDATEMYVOTEINFO",
     //初始化故事信息
-    INITSTORYINFO:"INITSTORYINFO"
+    INITSTORYINFO:"INITSTORYINFO",
+    //初始化表情信息
+    GEEMOJIINFO:"GEEMOJIINFO"
 }

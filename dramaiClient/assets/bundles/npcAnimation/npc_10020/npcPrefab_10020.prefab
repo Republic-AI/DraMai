@@ -786,8 +786,8 @@
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",
-    "_animationName": "",
-    "_animationIndexValue": 0,
+    "_animationName": "down_walk",
+    "_animationIndexValue": 1,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -822,7 +822,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 35
