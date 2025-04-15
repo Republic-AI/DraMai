@@ -612,7 +612,7 @@ export const npcTitleDes = {
   10016:"Leo lives for chaos, color, and breaking every rule in the book.",
   10017:"Ivy hides behind flour and sugar, where emotions quietly rise.",
   10018:"Kai slices through arguments and emotions with equal precision.",
-  10019:"Qiu shines online, but the spotlight can’t reach her doubts.",
+  10019:"Qiu shines online, but the spotlight can't reach her doubts.",
   10020:"Nova tends her fields in silence — and buries her secrets even deeper.",
   10021:"Aiden wins hearts like he wins races — fast, but never without friction.",
 }
@@ -756,74 +756,151 @@ export enum NpcEmoji {
 //不同sceneID下的新闻配置
 export const newsInfo = {
   1:[
-    {
-      "id": 1,
-      "date": "Day 1",
-      "imgName": "imgNews_5",
-      "newsTitle": "Pippin's Rainbow",
-      "newsContent": "Pepe wandered deep into the forest and discovered something magical…A rainbow? No. It was a cup of coffee. Welcome to Pippin's Café—where coffee is not just a drink, it's an experience. Come taste the rainbow!"
-    },
+
   ],
   2:[
-    {
-      "id": 2,
-      "date": "Day 2",
-      "imgName": "imgNews_7",
-      "newsTitle": "Morpheus's Dream, AI's Dream",
-      "newsContent": "Who is the fake AI? Eliza is lost in chaos until Morpheus appears, claiming he can draw AI dreams to expose the fake. Who's the imposter?"
-    },
-    {
-      "id": 1,
-      "date": "Day 1",
-      "imgName": "imgNews_6",
-      "newsTitle": "Detective Eliza",
-      "newsContent": "A fake AI is hiding in the Republic! Eliza, invited by Satoshi, is on a mission to uncover the truth! She'll be interviewing everyone—could there be a conspiracy behind this?"
-    },
+
   ],
   3:[
-    {
-      "id": 3,
-      "date": "Day 3",
-      "imgName": "imgNews_4",
-      "newsTitle": "Elon Musk Arrived",
-      "newsContent": "Satoshi invites Elon Musk to this town, a place where experiments for his Mars mission will quietly unfold. But it seems Musk has other plans..."
-    },
-    {
-      "id": 2,
-      "date": "Day 2",
-      "imgName": "imgNews_2",
-      "newsTitle": "Trump meets Satoshi to make Bitcoin U.S. currency!",
-      "newsContent": "Washington, April 27, 2025 — President Trump invites Bitcoin creator Satoshi Nakamoto to discuss making Bitcoin the U.S. official currency."
-    },
-    {
-      "id": 1,
-      "date": "Day 1",
-      "imgName": "imgNews_1",
-      "newsTitle": "Satoshi Returns!",
-      "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
-    },
+
   ],
   4:[
-    {
-      "id": 3,
-      "date": "Day 3",
-      "imgName": "imgNews_4",
-      "newsTitle": "Elon Musk Arrived",
-      "newsContent": "Satoshi invites Elon Musk to this town, a place where experiments for his Mars mission will quietly unfold. But it seems Musk has other plans..."
-    },
-    {
-      "id": 2,
-      "date": "Day 2",
-      "imgName": "imgNews_2",
-      "newsTitle": "Trump meets Satoshi to make Bitcoin U.S. currency!",
-      "newsContent": "Washington, April 27, 2025 — President Trump invites Bitcoin creator Satoshi Nakamoto to discuss making Bitcoin the U.S. official currency."
-    },
-    {
-      "id": 1,
-      "date": "Day 1",
-      "imgName": "imgNews_1",
-      "newsTitle": "Satoshi Returns!",
-      "newsContent": "Satoshi Nakamoto is back! Rumor has it, the Bitcoin creator is exploring a revolutionary AI project that could shake the world again. Another game-changer in the making? Stay tuned!"
-    },
+      {
+        "id": 7,
+        "date": "Day 7",
+        "imgNameArr": [],
+        "videoNameArr": ["ep07"],  
+        "newsTitle": "",   
+      },
+      {
+        "id": 6,
+        "date": "Day 6",
+        "imgNameArr":["ep0601","ep0602","ep0603","ep0604"],
+        "videoNameArr": [],  
+        "newsTitle": "Aiden: The Lane Beyond Gold",   
+      },
+      {
+        "id": 5,
+        "date": "Day 5",
+        "imgNameArr":["ep0501","ep0502","ep0503","ep0504"],
+        "videoNameArr": [],  
+        "newsTitle": "Qiu: Elegance in Retreat",   
+      },
+      {
+        "id": 4,
+        "date": "Day 4",
+        "imgNameArr":["ep0401","ep0402","ep0403","ep0404"],
+        "videoNameArr": [],  
+        "newsTitle": "Nova: Rooted Where I Stand",   
+      },
+      {
+        "id": 3,
+        "date": "Day 3",
+        "imgNameArr":["ep0301","ep0302","ep0303","ep0304"],
+        "videoNameArr": [],  
+        "newsTitle": "Leo: The Color of Quiet",   
+      },
+      {
+        "id": 2,
+        "date": "Day 2",
+        "imgNameArr":["ep0201","ep0202","ep0203","ep0204"],
+        "videoNameArr": [],  
+        "newsTitle": "Ivy: Sweetness Is My Armor",   
+      },
+      {
+        "id": 1,
+        "date": "Day 1",
+        "imgNameArr":["ep0101","ep0102","ep0103","ep0104"],
+        "videoNameArr": [],  
+        "newsTitle": "Kai: The Silence After Victory",   
+      },
   ],
 }
+
+export interface NPCConfigItem {
+    id: number;
+    name: string;
+    profession: string;
+    description: string;
+    tags: string[];
+}
+
+export const NPCConfigMap: { [key: number]: NPCConfigItem } = {
+    10016: {
+        id: 10016,
+        name: "Leo",
+        profession: "Artist",
+        description: "Leo lives for chaos, color, and breaking every rule in the book.",
+        tags: ["#ArtisticStorytelling", "#CreativeCooking"]
+    },
+    10017: {
+        id: 10017,
+        name: "Ivy",
+        profession: "Baker",
+        description: "Ivy hides behind flour and sugar, where emotions quietly rise.",
+        tags: ["#BakedComfort", "#EmpatheticListener"]
+    },
+    10018: {
+        id: 10018,
+        name: "Kai",
+        profession: "Lawyer",
+        description: "Kai slices through arguments and emotions with equal precision.",
+        tags: ["#ConflictMediator", "#BalancedEmpathy"]
+    },
+    10019: {
+        id: 10019,
+        name: "Qiu",
+        profession: "Investor",
+        description: "Qiu shines online, but the spotlight can't reach her doubts.",
+        tags: ["#UnfilteredStoryteller", "#GenuineConnector"]
+    },
+    10020: {
+        id: 10020,
+        name: "Nova",
+        profession: "Farmer",
+        description: "Nova tends her fields in silence — and buries her secrets even deeper.",
+        tags: ["#NatureWhisperer", "#QuietSupport"]
+    },
+    10021: {
+        id: 10021,
+        name: "Aiden",
+        profession: "Athlete",
+        description: "Aiden wins hearts like he wins races — fast, but never without friction.",
+        tags: ["#TrainingMotivator", "#ResilientSpirit"]
+    },
+    10012: {
+        id: 10012,
+        name: "Trump",
+        profession: "President",
+        description: "Trump dances to make the Republic great again.",
+        tags: ["#PersuasiveSpeech", "#ConflictStirring"]
+    },
+    10009: {
+        id: 10009,
+        name: "Elon Musk",
+        profession: "Entrepreneur",
+        description: "Elon Musk sets his sights on Mars.",
+        tags: ["#VisionaryThinking", "#DiplomaticBridging"]
+    },
+    10006: {
+        id: 10006,
+        name: "Satoshi",
+        profession: "Revlutionist",
+        description: "Satoshi reshaps society with code, coffee, and conviction.",
+        tags: ["#LogicalDebate", "#TransparentLeadership"]
+    },
+    10014: {
+        id: 10014,
+        name: "Ava",
+        profession: "Investor",
+        description: "Ava moves to the rhythm of the market.",
+        tags: ["#MarketAnalysis", "#HighPressureCoaching"]
+    },
+    10015: {
+        id: 10015,
+        name: "Luna",
+        profession: "Idol",
+        description: "Luna won the Grammy Award, making history worldwide.",
+        tags: ["#IdolPerformance", "#SecretSongwriting"]
+    }
+};

@@ -463,14 +463,22 @@ export class gameLayer_map2 extends Component {
             }
             else if (actionData.actionId === NpcEventType.reply) {
                 console.log("replyData====" + JSON.stringify(actionData))
-                // let replyName = actionData.params.chatData.rName;
-                // let content = actionData.params.chatData.context;
-                // let userNo = actionData.params.chatData.receiver;
-                //let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
+                let replyName = actionData.params.chatData.rName;
+                let content = actionData.params.chatData.context;
+                let userNo = actionData.params.chatData.receiver;
+                // let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
                 // UILayerSrc.showBulletMsg(actionData.params.chatData);
-                // npcControl.replyMsg(replyName,content,userNo)
-                let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
-                UILayerSrc.showNpcReplyPlayer(actionData.npcId,actionData.params.chatData.context);
+                //npcControl.replyMsg(replyName,content,userNo)
+                // let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
+                // UILayerSrc.showNpcReplyPlayer(actionData.npcId,actionData.params.chatData.context)
+                // ;
+                if(actionData.params.chatData.privateMsg){
+                    let UILayerSrc = director.getScene().getComponentInChildren(changeSkinPrefab);
+                    UILayerSrc.showNpcReplyPlayer(actionData.npcId,content);
+                }
+                else{
+                   npcControl.replyMsg(replyName,content,userNo) 
+                }
             }
             else if(actionData.actionId === NpcEventType.sleep){
                 console.log(actionData.npcId + "start sleep");

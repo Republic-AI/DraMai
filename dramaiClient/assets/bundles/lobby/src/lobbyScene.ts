@@ -552,6 +552,7 @@ export class lobbyScene extends Component {
        this.sceneItemView.node.active = false;
        this.twitterView.node.active = false;
        this.bannerNode.active = false;
+       this.btnPageNode.active = true;
        this.chatRecordView.active = false;
        this.userView.active = true;
        

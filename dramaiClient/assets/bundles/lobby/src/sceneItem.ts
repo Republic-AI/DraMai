@@ -1,5 +1,5 @@
-import { _decorator, assetManager, Component, director, Label, Node, Sprite, SpriteFrame, UITransform } from 'cc';
-import { npcTitleDes } from '../../../src/StaticUtils/NPCConfig';
+import { _decorator, assetManager, Component, director, instantiate, Label, Node, Prefab, Sprite, SpriteFrame, UITransform } from 'cc';
+import { NPCConfigMap, npcTitleDes } from '../../../src/StaticUtils/NPCConfig';
 import { network } from '../../../src/model/RequestData';
 import { observer, socket } from '../../../src/game/App';
 import { GlobalConfig } from '../../../src/game/config/GlobalConfig';
@@ -14,6 +14,15 @@ export class sceneItem extends Component {
     @property(Label)
     lblSceneName:Label = null;
 
+    @property(Prefab)
+    tagNode:Prefab = null;
+
+    @property(Node)
+    textLayout:Node = null;
+
+    @property(Label)
+    lblNameEx:Label = null;
+
     _npcId = null;
     _sceneId = null;
     start() {
@@ -27,7 +36,7 @@ export class sceneItem extends Component {
     initData(npcId,sceneId){
         this._npcId = npcId;
         this._sceneId = sceneId;
-        let str = npcTitleDes[npcId];
+        let str = NPCConfigMap[npcId].description;
         //str = str.split('').join('\u200B');
         this.node.getComponentInChildren(Label).string = str;
         let lobbyBundle = assetManager.getBundle("lobby")
@@ -42,6 +51,13 @@ export class sceneItem extends Component {
                 }
             })
         }
+
+        this.lblNameEx.string = NPCConfigMap[npcId].name + " / " + NPCConfigMap[npcId].profession;
+        NPCConfigMap[npcId].tags.forEach(tag=>{
+            let tagNode = instantiate(this.tagNode);
+            tagNode.getComponentInChildren(Label).string = tag;
+            this.textLayout.addChild(tagNode);
+        })
     }
 
     onBtnEnterScene(){

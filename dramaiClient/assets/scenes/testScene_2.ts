@@ -1,10 +1,17 @@
-import { _decorator, Component, dragonBones, KeyCode, Node } from 'cc';
+import { _decorator, Component, dragonBones, KeyCode, Node, Sprite, SpriteFrame } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('testScene_2')
 export class testScene_2 extends Component {
-    // @property(Node)
-    // npcNode:Node = null;
+    @property(dragonBones.ArmatureDisplay)
+    npcNode:dragonBones.ArmatureDisplay = null;
+
+    @property(Node)
+    itemNode:Node = null;
+
+    @property(SpriteFrame)
+    itemSpriteFrame:SpriteFrame[] = [];
+
     protected onLoad(): void {
         
     }
@@ -19,6 +26,25 @@ export class testScene_2 extends Component {
     NpcID = 0;
 
     _inde = 0
+
+    onBtnTest1(){
+        this.itemNode.active = false;
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("down_standby",0);
+    }
+
+    onBtnTest2(){
+        this.itemNode.active = true;
+        this.itemNode.getComponent(Sprite).spriteFrame = this.itemSpriteFrame[0];
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("send",0);
+    }
+
+    onBtnTest3(){
+        this.itemNode.active = true;
+        this.itemNode.getComponent(Sprite).spriteFrame = this.itemSpriteFrame[1];
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("send",0);
+    }
+
+
     //设置静止状态朝向
     // setIdleStatus(dir:number){
     //     if(dir == KeyCode.KEY_S){

@@ -785,7 +785,7 @@ export class gameLayer_map4 extends Component {
             }
             else if(actionData.actionId === NpcEventType.water){
                 npcControl.setIdleStatus(KeyCode.KEY_D);
-                if(actionData.npcId == 10018){
+                if(actionData.npcId == 10020){
                     npcControl.playWaterAnimation();
                     this.novaWaterNode.active = true;
                 }

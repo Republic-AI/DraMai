@@ -501,7 +501,6 @@ export class UILayer extends Component {
         })
 
         this.initVoteInfo()
-
     }
 
     initVoteInfo(){
@@ -656,10 +655,18 @@ export class UILayer extends Component {
     }
 
     onBtnTest(){
+        console.log("onBtnTest");
         let canvas = director.getScene().getChildByName("Canvas");
-        canvas.getComponentsInChildren(NpcManager).forEach(npcScript=>{
-            npcScript.testFunction();
-        })
+        let videoPlayer = canvas.getComponentInChildren(VideoPlayer);
+        videoPlayer.node.on(Node.EventType.TOUCH_START, (event) => {
+           console.log("onBtnTest");
+        });
+        if(videoPlayer.isPlaying){
+            videoPlayer.pause();
+        }
+        else{
+            videoPlayer.play();
+        }
         // canvas.getComponent(JietuComponent).startRecording("123123");
         // tween(this.node).delay(60).call(()=>{
         //     canvas.getComponent(JietuComponent).stopRecording();

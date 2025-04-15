@@ -91,7 +91,7 @@ const CowPos = [
  * 5.微信qq 分享文案
  */
 
-let version = "v0.3.8"
+let version = "v0.4.5"
 const TAG = 'Index'
 @ccclass("Index")
 export default class Index extends Component {
@@ -380,6 +380,7 @@ export default class Index extends Component {
 
     return;
   }
+
 
   setCurrentPart(data, event) {
     if (this.currentIndex + data > MAX_LENGTH || this.currentIndex + data < 0) {
