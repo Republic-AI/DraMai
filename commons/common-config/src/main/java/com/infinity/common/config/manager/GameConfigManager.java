@@ -64,6 +64,8 @@ public class GameConfigManager implements IResource {
 
     private DramaCfgManager dramaCfgManager;
 
+    private RelationCfgManager relationCfgManager;
+
     private GameConfigManager() {
         //PolitenessExit.addResource(this);
     }
@@ -140,6 +142,10 @@ public class GameConfigManager implements IResource {
         final String dramaCfg = "DramaCfg.json";
         this.setDramaCfgManager(new DramaCfgManager(configPath, dramaCfg));
         log.info("load {} done.", dramaCfg);
+
+        final String relationCfg = "RelationCfg.json";
+        this.setRelationCfgManager(new RelationCfgManager(configPath, relationCfg));
+        log.info("load {} done.", relationCfg);
     }
 
 }

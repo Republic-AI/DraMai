@@ -9,4 +9,6 @@ public class RoomCfg {
     private String name;
     private String map;
     private String banner;
+    private int show;
+    private int order;
 }

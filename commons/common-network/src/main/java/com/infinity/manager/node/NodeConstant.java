@@ -14,6 +14,8 @@ public final class NodeConstant {
     public final static char kQuartzService = 'Q';
     //python Ai服务
     public final static char kPythonService = 'A';
+    //后台管理节点
+    public final static char kAdminService = 'M';
 
     public final static String NODE_ID_SEP = ".";//游戏ID.N区.N服.节点ID(app.z1.s1.P1) serverId=游戏ID.N区.N服
 }

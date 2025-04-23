@@ -52,6 +52,7 @@ public class KaiNPC extends NPC {
         this.addAction(new ShareAction(null));
         this.addAction(new CheckAction(null, List.of("trumpCheck_down_1", "trumpCheck_left_2", "trumpCheck_up_3")));
         this.addAction(new DataAnalysisAction(null));
+        this.addAction(new ShareAction(null));
     }
 
     @Override

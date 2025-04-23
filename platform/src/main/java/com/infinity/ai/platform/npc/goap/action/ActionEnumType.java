@@ -49,7 +49,9 @@ public enum ActionEnumType {
     Water(136, "Water"),
     Sport(137, "Sport"),
     MakeCake(138, "MakeCake"),
-    LiveShow(139, "LiveShow"),;
+    LiveShow(139, "LiveShow"),
+    PlaceItem(140, "PlaceItem")
+    ;
 
     /**
      * 100	耕种	ploughSow

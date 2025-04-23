@@ -50,8 +50,11 @@ public class NpcCommandTask extends BaseTask<NpcCommandRequest> {
             return false;
         }
         player.setLastNpcCommandTime(now);
-
-        player.getBag().addGoods(GoodsConsts.ITEM_MONEY_ID, -msg.getData().getReward(), false, GoodsSource.TYPE_TO_EARN);
+        int reward = msg.getData().getReward();
+        if (reward == 0) {
+            reward = 1;
+        }
+        player.getBag().addGoods(GoodsConsts.ITEM_MONEY_ID, -reward, false, GoodsSource.TYPE_TO_EARN);
 
         long npcId = msg.getData().getNpcId();
 

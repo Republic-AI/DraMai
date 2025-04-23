@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ShareData extends BaseData {
-    //动作目标
-    private Long npcId;
+public class PlaceItemData extends BaseData {
     private int itemId;
-    private String content;
+    private int gridX;
+    private int gridY;
+    private int time;
 }

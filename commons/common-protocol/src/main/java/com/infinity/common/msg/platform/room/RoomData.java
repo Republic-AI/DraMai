@@ -14,4 +14,6 @@ public class RoomData {
     private int playerCount;
     
     private String bannerUrl;
+
+    private int order;
 }

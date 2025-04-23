@@ -55,7 +55,7 @@ public class NPCFactory {
             case Aiden:
                 return new AidenNPC(npc.getId(), npc.getName());
             case Selena:
-                return new SelenaNPC(npc.getId(), npc.getName());
+                return new QiuNPC(npc.getId(), npc.getName());
             default:
                 throw new IllegalArgumentException("Unknown npc type: " + type);
         }

@@ -259,6 +259,16 @@ public class NpcDataListener {
         return npcData;
     }
 
+    public NpcData queryNpcData() {
+        talk();
+        innerVoice();
+        return npcData;
+    }
+
+    public void innerVoice() {
+        npcData.setInnverVoice(npc.fetchCommand());
+    }
+
     //NPC数据变动通知
     public void notifyProperty(boolean reload) {
         if (isSync) {

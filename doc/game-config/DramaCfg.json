@@ -46,11 +46,11 @@
   },
   {
     "npcId": 10018,
-    "action": 110,
+    "action": 133,
     "section": 6,
     "animationId": 1,
     "preAction": 0,
-    "param": "I love you!",
+    "param": "I love you!,1000001",
     "id": 6
   },
   {
@@ -61,5 +61,14 @@
     "preAction": 0,
     "param": "thank you, but give me some tiime",
     "id": 7
+  },
+  {
+    "npcId": 10019,
+    "action": 140,
+    "section": 8,
+    "animationId": 1,
+    "preAction": 0,
+    "param": "1000001,736,448,5",
+    "id": 8
   }
 ]

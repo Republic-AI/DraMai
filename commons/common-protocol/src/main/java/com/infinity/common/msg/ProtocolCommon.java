@@ -42,6 +42,7 @@ public class ProtocolCommon {
     public static final int kChatNotifyCommand = 10018;
 
     public static final int kSignCommand = 10019;
+    public static final int KAdminCommand = 10020;
     public static final int kGmCommand = 10023;
 
     public static final int PLAYER_MOVE_COMMAND = 10024;
@@ -87,6 +88,10 @@ public class ProtocolCommon {
     public static final int VOTE_NOTIFY_COMMAND = 10118;
     //投票历史
     public static final int VOTE_HISTORY_COMMAND = 10119;
+    //查询关系
+    public static final int QUERY_RELATION_COMMAND = 10120;
+    //场景道具改变
+    public static final int ROOM_ITEM_CHANGE_COMMAND = 10121;
 
     public static final int QUARTZ_GETUP_COMMAND = 10013;
 

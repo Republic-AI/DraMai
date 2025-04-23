@@ -5,6 +5,8 @@ import com.infinity.common.msg.chat.*;
 import com.infinity.common.msg.cluster.RefreshPlayerMessage;
 import com.infinity.common.msg.common.RefreshMsg;
 import com.infinity.common.msg.common.ResponseOk;
+import com.infinity.common.msg.platform.admin.AdminReponse;
+import com.infinity.common.msg.platform.admin.AdminRequest;
 import com.infinity.common.msg.platform.chat.PChatNpcRequest;
 import com.infinity.common.msg.platform.chat.QueryNpcPlayerRequest;
 import com.infinity.common.msg.platform.chat.QueryNpcPlayerResponse;
@@ -16,10 +18,7 @@ import com.infinity.common.msg.platform.map.QueryMapDataRequest;
 import com.infinity.common.msg.platform.map.QueryMapDataResponse;
 import com.infinity.common.msg.platform.npc.*;
 import com.infinity.common.msg.platform.player.*;
-import com.infinity.common.msg.platform.room.QueryRoomListReponse;
-import com.infinity.common.msg.platform.room.QueryRoomListRequest;
-import com.infinity.common.msg.platform.room.RoomChangeReponse;
-import com.infinity.common.msg.platform.room.RoomChangeRequest;
+import com.infinity.common.msg.platform.room.*;
 import com.infinity.common.msg.platform.sys.BroadcastRequest;
 import com.infinity.common.msg.platform.sys.HeartRequest;
 import com.infinity.common.msg.platform.task.*;
@@ -159,6 +158,13 @@ public class MsgFactory {
         dataMap.put(MsgType.Request.value + VoteHistoryRequest.getCmd(), VoteHistoryRequest.class);
         dataMap.put(MsgType.Response.value + VoteHistoryResponse.getCmd(), VoteHistoryResponse.class);
 
+        dataMap.put(MsgType.Request.value + QueryRelationRequest.getCmd(), QueryRelationRequest.class);
+        dataMap.put(MsgType.Response.value + QueryRelationResponse.getCmd(), QueryRelationResponse.class);
+
+        dataMap.put(MsgType.Request.value + AdminRequest.getCmd(), AdminRequest.class);
+        dataMap.put(MsgType.Response.value + AdminReponse.getCmd(), AdminReponse.class);
+
+        dataMap.put(MsgType.Response.value + RoomItemChangeResponse.getCmd(), RoomItemChangeResponse.class);
     }
 
     public static Class<? extends BaseMsg> getMsgClass(final MsgType type, final int command) {

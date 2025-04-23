@@ -1,12 +1,12 @@
 package com.infinity.ai.platform.npc.live;
 
+import com.infinity.ai.domain.entity.MapItemData;
+import com.infinity.ai.domain.tables.VMap;
 import com.infinity.ai.platform.constant.VoteConstant;
 import com.infinity.ai.platform.entity.vote.UserVoteData;
 import com.infinity.ai.platform.entity.vote.VoteData;
 import com.infinity.ai.platform.event.ActionTypeEnum;
-import com.infinity.ai.platform.manager.MapManager;
-import com.infinity.ai.platform.manager.NpcHolder;
-import com.infinity.ai.platform.manager.NpcManager;
+import com.infinity.ai.platform.manager.*;
 import com.infinity.ai.platform.map.GameMap;
 import com.infinity.ai.platform.map.MapUtil;
 import com.infinity.ai.platform.npc.NPC;
@@ -20,6 +20,8 @@ import com.infinity.common.base.thread.Threads;
 import com.infinity.common.base.thread.timer.IntervalTimer;
 import com.infinity.common.config.data.DramaCfg;
 import com.infinity.common.config.manager.GameConfigManager;
+import com.infinity.common.msg.platform.room.RoomItemChangeResponse;
+import com.infinity.common.msg.platform.room.RoomItemData;
 import com.infinity.common.msg.platform.vote.NotifyVoteResponse;
 import com.infinity.common.utils.spring.SpringContextHolder;
 import com.infinity.network.MessageSender;
@@ -28,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Data
 @Slf4j
@@ -79,7 +82,7 @@ public class NpcRoom {
                     npcRoom.setState(VoteConstant.VOTE_STATE_END);
                     SpringContextHolder.getBean(VoteDataRepository.class).save(voteData1);
                     change = true;
-                    if (voteData1.getAnimationId() != 0) {
+                    if (voteData1.getAnimationId() != 0 && voteData1.getYesCount() >= voteData1.getNoCount()) {
                         startDrama(voteData1.getAnimationId(), npcRoom);
                     }
                 }
@@ -109,6 +112,33 @@ public class NpcRoom {
                 return false;
             }
         });
+        Threads.addListener(ThreadConst.TIMER_1S, roomId,"RoomItem#check", new IntervalTimer(10000, 10000){
+            @Override
+            public boolean exec0(int interval) {
+                VMap vMap = MapDataManager.getInstance().getMap().get_v();
+                List<MapItemData> list = vMap.getMapItemData().computeIfAbsent(roomId, k -> new CopyOnWriteArrayList<>());
+                for (MapItemData mapItemData : new ArrayList<>(list)) {
+                    if (mapItemData.getEndTime() < System.currentTimeMillis()) {
+                        list.remove(mapItemData);
+                        RoomItemChangeResponse response = new RoomItemChangeResponse();
+                        RoomItemChangeResponse.ResponseData responseData = new RoomItemChangeResponse.ResponseData();
+                        RoomItemData roomItemData = new RoomItemData();
+                        roomItemData.setId(mapItemData.getId());
+                        responseData.setRoomItemData(roomItemData);
+                        response.setData(responseData);
+                        for (long playerId : npcRoom.getPlayerList()) {
+                            response.setPlayerId(playerId);
+                            GameUser gameUser = GameUserMgr.getGameUser(playerId);
+                            log.debug("send msg -> {},{}", gameUser, response);
+                            if (gameUser != null) {
+                                MessageSender.getInstance().sendMessage(gameUser.getGatewayServiceId(), response);
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     public void startDrama(int animationId, NpcRoom npcRoom) {
@@ -130,6 +160,12 @@ public class NpcRoom {
                     }
                     if (!sectionEnd) {
                         return false;
+                    }
+                } else {
+                    for (long npcId : npcList) {
+                        NpcHolder npcHolder = NpcManager.getInstance().getOnlineNpcHolder(npcId);
+                        NPC npc = npcHolder.getNpc();
+                        npc.clear();
                     }
                 }
                 section[0]++;
@@ -160,6 +196,17 @@ public class NpcRoom {
             params.put("gridY", Integer.parseInt(strings[1])/32);
         } else if (actionId == ActionEnumType.Speak.getCode()) {
             params.put("content", param);
+        } else if (actionId == ActionEnumType.Share.getCode()) {
+            String[] strings = param.split(",");
+            params.put("npcId", strings[2]);
+            params.put("content", strings[0]);
+            params.put("itemId", strings[1]);
+        } else if (actionId == ActionEnumType.PlaceItem.getCode()) {
+            String[] strings = param.split(",");
+            params.put("gridX", Integer.parseInt(strings[1])/32);
+            params.put("gridY", Integer.parseInt(strings[2])/32);
+            params.put("itemId", Integer.parseInt(strings[0]));
+            params.put("time", Integer.parseInt(strings[3]));
         }
         return params;
     }
@@ -185,6 +232,7 @@ public class NpcRoom {
         ret.setContent(voteData.getContent());
         ret.setYesConent(voteData.getYesConent());
         ret.setNoContent(voteData.getNoContent());
+        ret.setAnimationId(voteData.getAnimationId());
         return ret;
     }
 }

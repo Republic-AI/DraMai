@@ -1,6 +1,8 @@
 package com.infinity.ai.platform.task.live;
 
 import com.infinity.ai.PNpc;
+import com.infinity.ai.domain.entity.MapItemData;
+import com.infinity.ai.domain.tables.VMap;
 import com.infinity.ai.platform.manager.*;
 import com.infinity.ai.platform.npc.NPC;
 import com.infinity.ai.platform.npc.live.FurnitureData;
@@ -11,7 +13,9 @@ import com.infinity.common.msg.ProtocolCommon;
 import com.infinity.common.msg.platform.live.SwithLiveRequest;
 import com.infinity.common.msg.platform.live.SwithLiveResponse;
 import com.infinity.common.msg.platform.npc.NpcData;
+import com.infinity.common.msg.platform.npcdata.ItemsData;
 import com.infinity.common.msg.platform.room.FurnitureMsgData;
+import com.infinity.common.msg.platform.room.RoomItemData;
 import com.infinity.manager.task.BaseTask;
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
@@ -80,6 +84,20 @@ public class SwithLiveTask extends BaseTask<SwithLiveRequest> {
         }
         responseData.setFurnitureMsgDataMap(furnitureMap);
 
+        VMap vMap = MapDataManager.getInstance().getMap().get_v();
+        List<MapItemData> list = vMap.getMapItemData().get(roomId);
+        List<RoomItemData> roomItemDataList = new ArrayList<>();
+        if (list != null) {
+            for (MapItemData mapItemData : list) {
+                RoomItemData roomItemData = new RoomItemData();
+                roomItemData.setId(mapItemData.getId());
+                roomItemData.setItemId(mapItemData.getItemId());
+                roomItemData.setGridX(mapItemData.getGridX());
+                roomItemData.setGridY(mapItemData.getGridY());
+                roomItemDataList.add(roomItemData);
+            }
+        }
+        responseData.setRoomItemDataList(roomItemDataList);
         swithLiveResponse.setData(responseData);
         swithLiveResponse.setPlayerId(playerId);
         sendMessage(swithLiveResponse);

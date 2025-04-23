@@ -246,6 +246,16 @@ public class NpcActionRequest extends BaseMsg<Map<String, Object>> {
     @Data
     public static class ShareData {
         //目标地：物品ID
-        public Long npcId;
+        private Long npcId;
+        private int itemId;
+        private String content;
+    }
+
+    @Data
+    public static class PlaceItemData {
+        private int itemId;
+        private int gridX;
+        private int gridY;
+        private int time;
     }
 }

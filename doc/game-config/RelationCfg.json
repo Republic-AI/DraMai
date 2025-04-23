@@ -1,0 +1,230 @@
+[
+  {
+    "npcId1": 10016,
+    "relation": "Famalier",
+    "npcId2": 10020,
+    "id": 1
+  },
+  {
+    "npcId1": 10020,
+    "relation": "Unfamalier",
+    "npcId2": 10016,
+    "id": 2
+  },
+  {
+    "npcId1": 10016,
+    "relation": "Angry",
+    "npcId2": 10019,
+    "id": 3
+  },
+  {
+    "npcId1": 10019,
+    "relation": "VeryAngry",
+    "npcId2": 10016,
+    "id": 4
+  },
+  {
+    "npcId1": 10016,
+    "relation": "Sad",
+    "npcId2": 10021,
+    "id": 5
+  },
+  {
+    "npcId1": 10021,
+    "relation": "VerySad",
+    "npcId2": 10016,
+    "id": 6
+  },
+  {
+    "npcId1": 10016,
+    "relation": "Like",
+    "npcId2": 10018,
+    "id": 7
+  },
+  {
+    "npcId1": 10018,
+    "relation": "VeryLike",
+    "npcId2": 10016,
+    "id": 8
+  },
+  {
+    "npcId1": 10016,
+    "relation": "Love",
+    "npcId2": 10017,
+    "id": 9
+  },
+  {
+    "npcId1": 10017,
+    "relation": "VeryLike",
+    "npcId2": 10016,
+    "id": 10
+  },
+  {
+    "npcId1": 10020,
+    "relation": "Famalier",
+    "npcId2": 10016,
+    "id": 11
+  },
+  {
+    "npcId1": 10019,
+    "relation": "Unfamalier",
+    "npcId2": 10020,
+    "id": 12
+  },
+  {
+    "npcId1": 10020,
+    "relation": "Angry",
+    "npcId2": 10021,
+    "id": 13
+  },
+  {
+    "npcId1": 10021,
+    "relation": "VeryAngry",
+    "npcId2": 10020,
+    "id": 14
+  },
+  {
+    "npcId1": 10020,
+    "relation": "Sad",
+    "npcId2": 10018,
+    "id": 15
+  },
+  {
+    "npcId1": 10018,
+    "relation": "VerySad",
+    "npcId2": 10020,
+    "id": 16
+  },
+  {
+    "npcId1": 10020,
+    "relation": "Like",
+    "npcId2": 10017,
+    "id": 17
+  },
+  {
+    "npcId1": 10017,
+    "relation": "VeryLike",
+    "npcId2": 10020,
+    "id": 18
+  },
+  {
+    "npcId1": 10018,
+    "relation": "Sad",
+    "npcId2": 10016,
+    "id": 19
+  },
+  {
+    "npcId1": 10019,
+    "relation": "VerySad",
+    "npcId2": 10018,
+    "id": 20
+  },
+  {
+    "npcId1": 10018,
+    "relation": "Like",
+    "npcId2": 10021,
+    "id": 21
+  },
+  {
+    "npcId1": 10021,
+    "relation": "VeryLike",
+    "npcId2": 10018,
+    "id": 22
+  },
+  {
+    "npcId1": 10018,
+    "relation": "Love",
+    "npcId2": 10017,
+    "id": 23
+  },
+  {
+    "npcId1": 10017,
+    "relation": "VeryLike",
+    "npcId2": 10018,
+    "id": 24
+  },
+  {
+    "npcId1": 10017,
+    "relation": "Famalier",
+    "npcId2": 10016,
+    "id": 25
+  },
+  {
+    "npcId1": 10019,
+    "relation": "Unfamalier",
+    "npcId2": 10017,
+    "id": 26
+  },
+  {
+    "npcId1": 10017,
+    "relation": "Angry",
+    "npcId2": 10021,
+    "id": 27
+  },
+  {
+    "npcId1": 10021,
+    "relation": "veryAngry",
+    "npcId2": 10017,
+    "id": 28
+  },
+  {
+    "npcId1": 10019,
+    "relation": "Love",
+    "npcId2": 10021,
+    "id": 29
+  },
+  {
+    "npcId1": 10021,
+    "relation": "VeryLike",
+    "npcId2": 10019,
+    "id": 30
+  },
+  {
+    "npcId1": 10012,
+    "relation": "Sad",
+    "npcId2": 10009,
+    "id": 31
+  },
+  {
+    "npcId1": 10009,
+    "relation": "VerySad",
+    "npcId2": 10012,
+    "id": 32
+  },
+  {
+    "npcId1": 10012,
+    "relation": "Like",
+    "npcId2": 10006,
+    "id": 33
+  },
+  {
+    "npcId1": 10006,
+    "relation": "VeryLike",
+    "npcId2": 10012,
+    "id": 34
+  },
+  {
+    "npcId1": 10009,
+    "relation": "Angry",
+    "npcId2": 10006,
+    "id": 35
+  },
+  {
+    "npcId1": 10006,
+    "relation": "VeryAngry",
+    "npcId2": 10009,
+    "id": 36
+  },
+  {
+    "npcId1": 10014,
+    "relation": "Sad",
+    "npcId2": 10015,
+    "id": 37
+  },
+  {
+    "npcId1": 10015,
+    "relation": "VerySad",
+    "npcId2": 10014,
+    "id": 38
+  }
+]

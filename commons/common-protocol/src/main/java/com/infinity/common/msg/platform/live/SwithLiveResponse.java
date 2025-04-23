@@ -4,6 +4,7 @@ import com.infinity.common.msg.BaseMsg;
 import com.infinity.common.msg.ProtocolCommon;
 import com.infinity.common.msg.platform.npc.NpcData;
 import com.infinity.common.msg.platform.room.FurnitureMsgData;
+import com.infinity.common.msg.platform.room.RoomItemData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,5 +39,7 @@ public class SwithLiveResponse extends BaseMsg<SwithLiveResponse.ResponseData> {
         private List<NpcData> otherNpc;
 
         private Map<String, FurnitureMsgData> furnitureMsgDataMap;
+
+        private List<RoomItemData> roomItemDataList;
     }
 }

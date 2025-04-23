@@ -1,5 +1,6 @@
 package com.infinity.ai.platform.application;
 
+import com.infinity.ai.platform.task.admin.AdminTask;
 import com.infinity.ai.platform.task.chat.QueryPlayerNpcChatTask;
 import com.infinity.ai.platform.task.frame.FrameSyncTask;
 import com.infinity.ai.platform.task.gm.GmTask;
@@ -12,6 +13,7 @@ import com.infinity.ai.platform.task.player.LoginTask;
 import com.infinity.ai.platform.task.player.LogoutTask;
 import com.infinity.ai.platform.task.player.RefreshGameUserTask;
 import com.infinity.ai.platform.task.quartz.EveryDayZeroTimerTask;
+import com.infinity.ai.platform.task.room.QueryRelationTask;
 import com.infinity.ai.platform.task.room.QueryRoomListTask;
 import com.infinity.ai.platform.task.room.RoomChangeTask;
 import com.infinity.ai.platform.task.sign.SignTask;
@@ -100,6 +102,11 @@ public class NewTaskFactory implements ITaskFactory {
         NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.OP_VOTE_COMMAND, OpVoteTask::new);
 
         NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.VOTE_HISTORY_COMMAND, VoteHistoryTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.QUERY_RELATION_COMMAND, QueryRelationTask::new);
+
+        NewTaskFactory.register(com.infinity.common.msg.ProtocolCommon.KAdminCommand, AdminTask::new);
+
         log.info("total commands: {}", creator_.size());
     }
 

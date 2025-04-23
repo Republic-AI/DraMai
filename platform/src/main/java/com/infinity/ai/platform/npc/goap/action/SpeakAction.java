@@ -67,7 +67,7 @@ public class SpeakAction extends Action<NpcActionRequest.SpeakData> {
         //广播给所有客户端
         sendMessage(npc, "npcId", targetNpcId, "content", params.getContent());
 
-        actionData.getParams().put("npcId", targetNpcId);
+        /*actionData.getParams().put("npcId", targetNpcId);
 
         //正在说话
         NpcTalk talk = npc.getNpcModel().get_v().getTalk();
@@ -98,7 +98,7 @@ public class SpeakAction extends Action<NpcActionRequest.SpeakData> {
         targetTalkContent.setSender(npc.id);
         targetTalkContent.setTarget(targetNpcId);
         targetTalkContent.setTime(System.currentTimeMillis());
-        targetTalkContent.setContent(params.getContent());
+        targetTalkContent.setContent(params.getContent());*/
 
 
     }
@@ -106,7 +106,7 @@ public class SpeakAction extends Action<NpcActionRequest.SpeakData> {
     @Override
     public void afterPerform(NPC npc, ActionData params) {
         log.debug("afterPerform npc={}, bid={}, params={}", npc.getId(), params, params.getId());
-        ActionData actionData = npc.getNpcModel().get_v().getAction().getBehavior().get(params.getId());
+        /*ActionData actionData = npc.getNpcModel().get_v().getAction().getBehavior().get(params.getId());
         if (actionData == null) {
             return;
         }
@@ -120,7 +120,7 @@ public class SpeakAction extends Action<NpcActionRequest.SpeakData> {
                 //targetHolder.getNpc().getNpcDataListener().notifyProperty(false);
                 talk(npc.getId(), targetHolder.getNpc());
             }
-        }
+        }*/
     }
 
     public void talk(Long npcId, NPC npc) {

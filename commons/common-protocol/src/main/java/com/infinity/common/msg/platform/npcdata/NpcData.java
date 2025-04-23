@@ -18,6 +18,7 @@ public class NpcData {
     public List<MapData> mapData;
     public Surroundings surroundings;
     public TalkData talk;
+    public String innverVoice;
 
     public NpcData(Long npcId) {
         this.npcId = npcId;

@@ -1,7 +1,10 @@
 package com.infinity.ai.platform.task.npc;
 
+import com.infinity.ai.platform.constant.VoteConstant;
 import com.infinity.ai.platform.manager.NpcHolder;
 import com.infinity.ai.platform.manager.NpcManager;
+import com.infinity.ai.platform.manager.RoomManager;
+import com.infinity.ai.platform.npc.live.NpcRoom;
 import com.infinity.common.base.exception.ResultCode;
 import com.infinity.common.consts.ActionStatus;
 import com.infinity.common.msg.ProtocolCommon;
@@ -52,6 +55,11 @@ public class NpcAtionTask extends BaseTask<NpcActionRequest> {
 
         //执行行为
         try {
+            NpcRoom npcRoom = RoomManager.getInstance().getRoom(npcHolder.getNpc().getRoomId());
+            if (npcRoom.getState() == VoteConstant.VOTE_STATE_DRAMA) {
+                log.debug("NpcAtionTask in drama, roomId = {}, npcId = {}", npcRoom.getRoomId(), npcId);
+                return false;
+            }
             npcHolder.getNpc().doAction(msg.getActionId(), msg, npcActionResponse, false);
             sendMessageToPython(npcActionResponse);
         } catch (Exception e) {

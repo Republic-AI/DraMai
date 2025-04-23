@@ -4,6 +4,7 @@ import com.infinity.ai.platform.manager.Player;
 import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.manager.RoomManager;
 import com.infinity.ai.platform.npc.live.NpcRoom;
+import com.infinity.common.config.data.RoomCfg;
 import com.infinity.common.config.manager.GameConfigManager;
 import com.infinity.common.config.manager.RoomCfgManager;
 import com.infinity.common.msg.ProtocolCommon;
@@ -37,13 +38,17 @@ public class QueryRoomListTask extends BaseTask<QueryRoomListRequest> {
         }
         RoomCfgManager roomCfgManager = GameConfigManager.getInstance().getRoomCfgManager();
         List<RoomData> list = new ArrayList<>();
-        for (NpcRoom npcRoom : RoomManager.getInstance().getRoomMap().values()) {
-            RoomData roomData = new RoomData();
-            roomData.setId(npcRoom.getRoomId());
-            roomData.setNpcList(npcRoom.getNpcList());
-            roomData.setPlayerCount(npcRoom.playerCount());
-            roomData.setBannerUrl(roomCfgManager.get(npcRoom.getRoomId()).getBanner());
-            list.add(roomData);
+        for (RoomCfg roomCfg : roomCfgManager.getAllJoinCfg()) {
+            NpcRoom npcRoom = RoomManager.getInstance().getRoom(roomCfg.getId());
+            if (roomCfg.getShow() == 1) {
+                RoomData roomData = new RoomData();
+                roomData.setId(npcRoom.getRoomId());
+                roomData.setNpcList(npcRoom.getNpcList());
+                roomData.setPlayerCount(npcRoom.playerCount());
+                roomData.setBannerUrl(roomCfg.getBanner());
+                roomData.setOrder(roomCfg.getOrder());
+                list.add(roomData);
+            }
         }
         QueryRoomListReponse queryRoomListReponse = new QueryRoomListReponse();
         queryRoomListReponse.setPlayerId(playerId);

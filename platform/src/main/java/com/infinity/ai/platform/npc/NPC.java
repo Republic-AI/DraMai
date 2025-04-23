@@ -142,12 +142,12 @@ public abstract class NPC extends MapElement implements EventListener {
             }
         });
         //启动innervoice服务
-        Threads.addListener(ThreadConst.TIMER_1S, 0,"npc#innerVoice", new IntervalTimer(5000, 10000) {
+        /*Threads.addListener(ThreadConst.TIMER_1S, 0,"npc#innerVoice", new IntervalTimer(5000, 10000) {
             @Override
             public boolean exec0(int interval) {
                 return innerVoice();
             }
-        });
+        });*/
     }
 
     public boolean innerVoice() {
@@ -304,7 +304,7 @@ public abstract class NPC extends MapElement implements EventListener {
                     curActionType = curActionData.getAid();
                     action = actions.get(curActionData.getAid());
                     Map<String, Object> params = GsonUtil.toMap(curActionData.getContent());
-                    if (action.getActionType() != ActionEnumType.ReplyChat && action.getActionType() != ActionEnumType.Move && action.getActionType() != ActionEnumType.GotoNpc && !checkPosition(params, this.getRoomId())) {
+                    if (action.getActionType() != ActionEnumType.PlaceItem && action.getActionType() != ActionEnumType.Speak && action.getActionType() != ActionEnumType.ReplyChat && action.getActionType() != ActionEnumType.Move && action.getActionType() != ActionEnumType.GotoNpc && !checkPosition(params, this.getRoomId())) {
                         action.beforePerform(this, curActionData);
                         doAction(ActionEnumType.Move.getCode(), params, curActionData.isServerAction());
                         curActionData.setMoveCount(curActionData.getMoveCount() + 1);

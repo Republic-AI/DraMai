@@ -8,5 +8,6 @@ excelToData.exe ./room.xlsx ./
 excelToData.exe ./furniture.xlsx ./
 excelToData.exe ./dress.xlsx ./
 excelToData.exe ./drama.xlsx ./
+excelToData.exe ./relation.xlsx ./
 
 pause

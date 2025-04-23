@@ -15,6 +15,7 @@ com\infinity\db\util\Pair.class
 com\infinity\db\cache\CacheWorker$1.class
 com\infinity\db\util\ObjRef.class
 com\infinity\db\util\Snowflake.class
+com\infinity\db\db\JsonConverter.class
 com\infinity\db\db\DBoptType.class
 com\infinity\db\cache\CacheStrategy.class
 com\infinity\db\db\DBManager.class

@@ -19,7 +19,7 @@ public class ShareAction extends Action<NpcActionRequest.ShareData> {
 
     @Override
     public String content(NPC npc, NpcActionRequest.ShareData params) {
-        return ShareData.builder().npcId(params.npcId).build().toJsonString();
+        return ShareData.builder().npcId(params.getNpcId()).content(params.getContent()).itemId(params.getItemId()).build().toJsonString();
     }
 
     public ShareAction(List<Action> preActions) {
@@ -40,7 +40,7 @@ public class ShareAction extends Action<NpcActionRequest.ShareData> {
     public void firstPerform(NPC npc, ActionData actionData, NpcActionRequest.ShareData params) {
         log.debug("ShareAction perform,npcId={}", npc.getId());
         //获取目标对象坐标
-        sendMessage(npc, actionData, null, "npcId", params.getNpcId());
+        sendMessage(npc, actionData, null, "npcId", String.valueOf(params.getNpcId()), "itemId", String.valueOf(params.getItemId()), "content", params.getContent());
     }
 }
 

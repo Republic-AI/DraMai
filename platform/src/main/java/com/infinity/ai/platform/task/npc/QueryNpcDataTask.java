@@ -61,7 +61,7 @@ public class QueryNpcDataTask extends BaseTask<QueryNpcDataRequest> {
         }
         npc.getNpcDataListener().notifyProperty(true);
         NpcDataListener npcDataListener = npc.getNpcDataListener();
-        npcs.add(npcDataListener.getNpcData());
+        npcs.add(npcDataListener.queryNpcData());
 
         //世界数据
         data.setWorld(npcManager.getWorldDataListener().getWorldData());

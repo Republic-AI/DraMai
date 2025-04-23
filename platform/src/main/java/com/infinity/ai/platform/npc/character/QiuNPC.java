@@ -9,9 +9,9 @@ import com.infinity.ai.platform.npc.goap.action.*;
 import java.util.*;
 
 //农夫NPC
-public class SelenaNPC extends NPC {
+public class QiuNPC extends NPC {
 
-    public SelenaNPC(Long id, String name) {
+    public QiuNPC(Long id, String name) {
         super(id, name);
     }
 
@@ -52,6 +52,7 @@ public class SelenaNPC extends NPC {
         this.addAction(new ShareAction(null));
         this.addAction(new CheckAction(null, List.of("trumpCheck_down_1", "trumpCheck_left_2", "trumpCheck_up_3")));
         this.addAction(new LiveShowAction(null));
+        this.addAction(new PlaceItemAction(null));
     }
 
     @Override
