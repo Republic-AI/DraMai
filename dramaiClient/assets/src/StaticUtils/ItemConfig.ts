@@ -85,125 +85,105 @@ export const ItemConfigMap: { [key: string]: ItemInfo } = {
         name: "Stage Outfit",
         des: "Glamorous, tailored, and soulless—the costume of a character she plays for the world."
     },
-    "1001601": {
+   "1001601": {
         id: "1001601",
-        name: "Painting",
-        des: "A dawn-lit canvas capturing DraMai Town's morning glow and Leo's fiery energy."
+        name: "Sketchboard",
+        des: "His first sketch in town—Nova's back amid lilacs, drawn in secret."
     },
     "1001602": {
         id: "1001602",
-        name: "Soda",
-        des: "A bubbly pick-me-up that keeps him awake during late-night painting marathons."
+        name: "Palette",
+        des: "Colors of escape and new beginnings, still fresh with emotion."
     },
     "1001603": {
         id: "1001603",
-        name: "Brush",
-        des: "A paint-stained companion, shaped by countless dawn-to-dusk art sessions."
+        name: "Folding Easel",
+        des: "Carried on his back as he left fame behind."
     },
     "1001604": {
         id: "1001604",
-        name: "T-Shirt",
-        des: "A comfy shirt splattered with color—each stain telling its own creative tale."
+        name: "Old Phone",
+        des: "Buzzing endlessly with messages he no longer answers."
     },
     "1001701": {
         id: "1001701",
-        name: "Fruit",
-        des: "Fresh orchard picks that brighten Ivy's pastries and echo the sweetness of DraMai Town."
+        name: "Pastry Bag and Tip",
+        des: "Her essential tools for creating sweet treats for others."
     },
     "1001702": {
         id: "1001702",
-        name: "Coffee",
-        des: "Ivy's cozy morning boost, fueling her gentle spirit before the oven roars to life."
+        name: "Cat-Shaped Cookie Cutter",
+        des: "Used to make treats for stray cats near the university."
     },
     "1001703": {
         id: "1001703",
-        name: "Menu",
-        des: "A handwritten list of daily treats, capturing her evolving baking magic in every word."
-    },
-    "1001704": {
-        id: "1001704",
-        name: "Cake",
-        des: "The pride of her oven: light, lovely, and made to share comfort with every slice."
+        name: "Flour-Dusted Apron",
+        des: "Shows her dedication and work as a pastry chef."
     },
     "1001801": {
         id: "1001801",
-        name: "Book",
-        des: "Kai's worn law guide, enriched with handwritten notes and years of insight."
+        name: "Old Deed",
+        des: "A valuable town deed tying him to Nina and the past."
     },
     "1001802": {
         id: "1001802",
-        name: "Watch",
-        des: "A quiet reminder of time's importance, guiding Kai through each legal matter."
+        name: "High-End Wristwatch",
+        des: "A gift from a grateful client after winning a major case."
     },
     "1001803": {
         id: "1001803",
-        name: "Suit",
-        des: "A polished outfit symbolizing his commitment to justice and compassion in every case."
-    },
-    "1001804": {
-        id: "1001804",
-        name: "Computer",
-        des: "A digital hub for storing case files, schedules, and Kai's personal reflections."
+        name: "Legal Document",
+        des: "A case file worth tens of millions, currently under review."
     },
     "1001901": {
         id: "1001901",
-        name: "Phone holder",
-        des: "Keeps her phone steady during every live stream, so Selena can capture DraMai Town's magic hands-free."
+        name: "Town Redevelopment Blueprints",
+        des: "Represents her leadership in planning the town's future."
     },
     "1001902": {
         id: "1001902",
-        name: "Handbag",
-        des: "A stylish stash for her daily must-haves—camera, notebook, and a sprinkle of confidence."
+        name: "A Work Notebook",
+        des: "Contains notes and plans for the development project"
     },
     "1001903": {
         id: "1001903",
-        name: "Teddy bear",
-        des: "A soft echo of home that comforts her when the online lights go off."
-    },
-    "1001904": {
-        id: "1001904",
-        name: "Cosmetics",
-        des: "Just enough to highlight her natural glow—real beauty needs no heavy filter."
+        name: "Old Town Photograph",
+        des: "Nina took this photo in her childhood."
     },
     "1002001": {
         id: "1002001",
-        name: "Specimen",
-        des: "A small cutting from a midnight walk, quietly holding secrets of the land."
+        name: "Old Watering Can",
+        des: "The can she held when Yves first saw her."
     },
     "1002002": {
         id: "1002002",
-        name: "Sunflower",
-        des: "A bright bloom greeting each morning, a gentle promise of hope."
+        name: "Gardening Gloves",
+        des: "Worn from daily care of the town's flowers."
     },
     "1002003": {
         id: "1002003",
-        name: "Toolbox",
-        des: "A dented box of trusty tools, steady through every season."
-    },
-    "1002004": {
-        id: "1002004",
-        name: "Potted plant",
-        des: "A tiny green friend by her chair, whispering calm when words fail."
+        name: "Lilac Flowers",
+        des: "Picked in the lilac field where Yves sketched her."
     },
     "1002101": {
         id: "1002101",
-        name: "Backpack",
-        des: "His trusty bag from old glory days, stuffed with training logs and silent ambitions."
+        name: "Box of Desserts",
+        des: "Gift from Ivy, assisting his recovery and hinting at romance."
     },
     "1002102": {
         id: "1002102",
-        name: "Sneakers",
-        des: "Scuffed from countless laps in DraMai Town, each step fueling his comeback."
+        name: "Crutches or Brace",
+        des: "Necessary due to his injury from the game."
     },
     "1002103": {
         id: "1002103",
-        name: "Dumbbell",
-        des: "A heavy reminder of his past burdens—every rep forging a stronger spirit."
+        name: "Team Jersey",
+        des: "Symbolizes his identity as a basketball star."
     },
     "1002104": {
         id: "1002104",
-        name: "Trophy",
-        des: "A shiny symbol of an old victory, quietly pushing him to aim even higher."
+        name: "Basketball",
+        des: "Represents his sport, interrupted by injury."
     },
     "1001201": {
         id: "1001201",

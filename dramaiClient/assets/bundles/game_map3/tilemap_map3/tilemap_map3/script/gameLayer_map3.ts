@@ -795,7 +795,7 @@ export class gameLayer_map3 extends Component {
                     let npcTile = npcControl.getNpcTile();
                     let talkNpcTile = talkNpc.getComponent(NpcManager).getNpcTile();
                     let scaleX = npcTile.x < talkNpcTile.x ? 1 : -1;
-                    npcControl.playSendItemAction(scaleX);
+                    //npcControl.playSendItemAction(scaleX);
                 }
                 else{
                     console.log("no npcId======" + JSON.stringify(actionData.params));

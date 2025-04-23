@@ -77,15 +77,15 @@ export const NpcName = {
   10010: "pippin",
   10011: "eliza",
   10012: "trump",
-  10013:"morpheus",
-  10014:"ava",
+  10013: "morpheus",
+  10014: "ava",
   10015: "luna",
-  10016: "leo",
+  10016: "yves",
   10017: "ivy",
-  10018: "kai",
-  10019: "qiu",
+  10018: "liam",
+  10019: "nina",
   10020: "nova",
-  10021: "aiden",
+  10021: "ryan"
 }
 
 export const npcSkinCfg = {
@@ -590,12 +590,12 @@ export const npcDes = {
   10013:"Morpheus, a painter and poet in AI Town, is a mysterious figure invited by Eliza. Named after the Greek god of dreams, Morpheus delves into the dreams of NPCs, asking about their dreams last night and transforming them into paintings.",
   10014:"AVA, a clever hedge fund investor, works tirelessly analyzing markets. She loves exploring trendy spots and thrives in the bustling city life.",
   10015:"Luna, a dazzling super idol known for her captivating performances, powerful vocals, and global influence.",
-  10016:"Leo: A quiet farmer with hidden depths, drawn to DraMai Town by the promise of untold secrets.",
-  10017:"Ivy: A gentle baker whose warm creations hint at a heart yearning for genuine connection.",
-  10018:"Kai, a tech-savvy and adventurous AI engineer. With a knack for coding and a love for adventure, Leo is always ready to explore new ideas and share his enthusiasm with the town.",
-  10019:"Qiu: A polished investor in search of raw authenticity beyond the digital world.",
-  10020:"Nova: A vibrant artist ready to transform the unknown into her next masterpiece.",
-  10021:"Aiden: A determined athlete with a mysterious past, seeking a fresh start in DraMai Town.",
+  10016:"Yves: A reclusive art genius whose silence speaks volumes—his lonely brilliance echoes through every stroke of his brush.",
+  10017:"Ivy: A sunshine-hearted baker whose smile softens the town—her sweetness is genuine, her kindness effortless.",
+  10018:"Liam: A composed lawyer with commanding presence, known for precision in court and restraint in love—hiding warmth beneath a cool exterior.",
+  10019:"Nina: An elegant investor with quiet wisdom and dry humor—respected, admired, but never fully known.",
+  10020:"Nova: A quiet farmer with a deep love for nature and a gentle strength that grows with time—rooted, real, and reliable.",
+  10021:"Ryan: A charming athlete with a golden-boy smile, stepping out of his family's shadow to chase his own truth and identity.",
 }
 
 export const npcTitleDes = {
@@ -765,56 +765,71 @@ export const newsInfo = {
 
   ],
   4:[
-      {
-        "id": 7,
-        "date": "Day 7",
-        "imgNameArr": [],
-        "videoNameArr": ["ep07"],  
-        "newsTitle": "",   
-      },
-      {
-        "id": 6,
-        "date": "Day 6",
-        "imgNameArr":["ep0601","ep0602","ep0603","ep0604"],
-        "videoNameArr": [],  
-        "newsTitle": "Aiden: The Lane Beyond Gold",   
-      },
-      {
-        "id": 5,
-        "date": "Day 5",
-        "imgNameArr":["ep0501","ep0502","ep0503","ep0504"],
-        "videoNameArr": [],  
-        "newsTitle": "Qiu: Elegance in Retreat",   
-      },
-      {
-        "id": 4,
-        "date": "Day 4",
-        "imgNameArr":["ep0401","ep0402","ep0403","ep0404"],
-        "videoNameArr": [],  
-        "newsTitle": "Nova: Rooted Where I Stand",   
-      },
-      {
-        "id": 3,
-        "date": "Day 3",
-        "imgNameArr":["ep0301","ep0302","ep0303","ep0304"],
-        "videoNameArr": [],  
-        "newsTitle": "Leo: The Color of Quiet",   
-      },
-      {
-        "id": 2,
-        "date": "Day 2",
-        "imgNameArr":["ep0201","ep0202","ep0203","ep0204"],
-        "videoNameArr": [],  
-        "newsTitle": "Ivy: Sweetness Is My Armor",   
-      },
-      {
-        "id": 1,
-        "date": "Day 1",
-        "imgNameArr":["ep0101","ep0102","ep0103","ep0104"],
-        "videoNameArr": [],  
-        "newsTitle": "Kai: The Silence After Victory",   
-      },
-  ],
+    {
+      id: 8,
+      date: "EP 8",
+      imgNameArr: [],
+      videoNameArr: ["ep0801"],
+      newsTitle: "Under the Surface",
+      newsText: "Words unspoken linger between two lives quietly entangled."
+    },
+    {
+      id: 7,
+      date: "EP 7",
+      imgNameArr: [],
+      videoNameArr: ["ep0701"],
+      newsTitle: "The Tension Builds",
+      newsText: "Familiar faces, unfamiliar roles. Silence speaks the loudest."
+    },
+    {
+      id: 6,
+      date: "EP 6",
+      imgNameArr: [],
+      videoNameArr: ["ep0601"],
+      newsTitle: "The Quiet Return",
+      newsText: "Liam arrives—city grace meets countryside wounds."
+    },
+    {
+      id: 5,
+      date: "EP 5",
+      imgNameArr: [],
+      videoNameArr: ["ep0501"],
+      newsTitle: "The Wound and the Will",
+      newsText: "Liam sees a headline that changes everything."
+    },
+    {
+      id: 4,
+      date: "EP 4",
+      imgNameArr: ["ep0401", "ep0402", "ep0403", "ep0404"],
+      videoNameArr: [],
+      newsTitle: "A Dessert That Healed",
+      newsText: "Where a shortcake became more than comfort—it became connection."
+    },
+    {
+      id: 3,
+      date: "EP 3",
+      imgNameArr: ["ep0301", "ep0302", "ep0303", "ep0304"],
+      videoNameArr: [],
+      newsTitle: "The Gaze Beyond the Game",
+      newsText: "In the crowd's roar, he saw only her gentle light."
+    },
+    {
+      id: 2,
+      date: "EP 2",
+      imgNameArr: ["ep0201", "ep0202", "ep0203", "ep0204"],
+      videoNameArr: [],
+      newsTitle: "The Auction of Intentions",
+      newsText: "A power play masked as coincidence, where silence says everything."
+    },
+    {
+      id: 1,
+      date: "EP 1",
+      imgNameArr: ["ep0101", "ep0102", "ep0103", "ep0104"],
+      videoNameArr: [],
+      newsTitle: "Lilacs and Silence",
+      newsText: "A gentle romance born from solitude, nature, and quiet longing."
+    }
+  ]
 }
 
 export interface NPCConfigItem {
@@ -828,9 +843,9 @@ export interface NPCConfigItem {
 export const NPCConfigMap: { [key: number]: NPCConfigItem } = {
     10016: {
         id: 10016,
-        name: "Leo",
+        name: "Yves",
         profession: "Artist",
-        description: "Leo lives for chaos, color, and breaking every rule in the book.",
+        description: "Yves lives for chaos, color, and breaking every rule in the book.",
         tags: ["#ArtisticStorytelling", "#CreativeCooking"]
     },
     10017: {
@@ -842,16 +857,16 @@ export const NPCConfigMap: { [key: number]: NPCConfigItem } = {
     },
     10018: {
         id: 10018,
-        name: "Kai",
+        name: "Liam",
         profession: "Lawyer",
-        description: "Kai slices through arguments and emotions with equal precision.",
+        description: "Liam slices through arguments and emotions with equal precision.",
         tags: ["#ConflictMediator", "#BalancedEmpathy"]
     },
     10019: {
         id: 10019,
-        name: "Qiu",
+        name: "Nina",
         profession: "Investor",
-        description: "Qiu shines online, but the spotlight can't reach her doubts.",
+        description: "Nina shines online, but the spotlight can't reach her doubts.",
         tags: ["#UnfilteredStoryteller", "#GenuineConnector"]
     },
     10020: {
@@ -863,9 +878,9 @@ export const NPCConfigMap: { [key: number]: NPCConfigItem } = {
     },
     10021: {
         id: 10021,
-        name: "Aiden",
+        name: "Ryan",
         profession: "Athlete",
-        description: "Aiden wins hearts like he wins races — fast, but never without friction.",
+        description: "Ryan wins hearts like he wins races — fast, but never without friction.",
         tags: ["#TrainingMotivator", "#ResilientSpirit"]
     },
     10012: {

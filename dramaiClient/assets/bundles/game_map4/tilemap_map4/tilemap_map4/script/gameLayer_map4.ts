@@ -49,6 +49,7 @@ import WebUtils from "../../../../../src/utils/WebUtils";
 import { changeSkinPrefab } from "../../../../../src/game/gameUI/changeSkinPrefab";
 import { furnitureNode } from "../../../../../src/game/gameUI/furnitureNode";
 import { UILayer } from "db://assets/src/game/gameUI/UILayer";
+import { scenItemNode } from "db://assets/src/common/scenItemNode";
 export const sleepFramePosX = [40, -61];
 export const sleepFrameTime = 0.45;
 export const bubbleTime = 0.7;
@@ -128,6 +129,12 @@ export class gameLayer_map4 extends Component {
     @property(Prefab)
     speakNode_Ex:Prefab = null;
 
+    @property(Node)
+    itemLayer:Node = null;
+
+    @property(Prefab)
+    scneneItemNode:Prefab = null;
+
     private _layerFloor: TiledLayer = null!;
 
     _npcSpeakObj = {};
@@ -157,6 +164,7 @@ export class gameLayer_map4 extends Component {
         observer.on(EventType.SCENE_ACTION, this.playSceneAction, this);
         observer.on(EventType.RELOGIN, this.reconect, this);
         observer.on(EventType.RECONECTSCENE,this.reEnterRoom,this);
+        observer.on(EventType.UPDATE_SCENE_ITEM,this.updateSceneItem,this);
         // observer.on(EventType.CREATEPLAYER,this.createPlayer,this);
         // observer.on(EventType.DESTROYPLAYER,this.destroyPlayer,this);
         // observer.on(EventType.GETALLNFTSTATUS,this.initAllNftStatus,this);
@@ -172,6 +180,7 @@ export class gameLayer_map4 extends Component {
         observer.off(EventType.SCENE_ACTION, this.playSceneAction, this);
         observer.off(EventType.RELOGIN, this.reconect, this);
         observer.off(EventType.RECONECTSCENE,this.reEnterRoom,this);
+        observer.off(EventType.UPDATE_SCENE_ITEM,this.updateSceneItem,this);
         // observer.off(EventType.CREATEPLAYER,this.createPlayer,this);
         // observer.off(EventType.DESTROYPLAYER,this.destroyPlayer,this);
         // observer.off(EventType.GETALLNFTSTATUS,this.initAllNftStatus,this);
@@ -263,6 +272,24 @@ export class gameLayer_map4 extends Component {
                 })
             }
         }
+
+        //{"id":"2517XK045A18DD","gridX":23,"gridY":14,"itemId":1000001,"startTime":0,"endTime":0}        
+        if(GlobalConfig.instance.nowSceneData.roomItemDataList){
+            GlobalConfig.instance.nowSceneData.roomItemDataList.forEach(item=>{
+                let sceneItemPrefab = instantiate(this.scneneItemNode);
+                sceneItemPrefab.getComponent(scenItemNode).initData(item);
+                this.itemLayer.addChild(sceneItemPrefab);
+                
+                let itemTile = new Vec2();
+                itemTile = this._getTilePos(
+                    new Vec2(item.gridX * 32 * PosAdapt, this._height - (item.gridY + 1) * 32* PosAdapt)
+                );
+                const pos = this._layerFloor.getPositionAt(itemTile)!;
+                sceneItemPrefab.setPosition(pos.x + 16, pos.y + 16);
+                
+            })
+        }
+        
     }
 
     setNPCPos(NPCs: any) {
@@ -427,12 +454,12 @@ export class gameLayer_map4 extends Component {
                 if(actionData.params.npcId && actionData.params.npcId != actionData.npcId){
                     const talkNpc = _.find(this.otherNPCarr, (item) => {
                         console.log("NpcID====" + item.getComponent(NpcManager).NpcID)
-                        console.log("datID=====" + actionData.npcId)
                         return (
-                            item.getComponent(NpcManager).NpcID === actionData.params.npcId
+                            item.getComponent(NpcManager).NpcID == actionData.params.npcId
                         );
                     });
                     if(!talkNpc){
+                        console.log("talkNpc error======" + actionData.params.npcId)
                         return;
                     }
                     let npcTile = npcControl.getNpcTile();
@@ -743,20 +770,26 @@ export class gameLayer_map4 extends Component {
             } 
             else if(actionData.actionId === NpcEventType.sendItem){
                 if(actionData.params.npcId && actionData.params.npcId != actionData.npcId){
+                        console.log("send start");
                         const talkNpc = _.find(this.otherNPCarr, (item) => {
                         console.log("NpcID====" + item.getComponent(NpcManager).NpcID)
                         console.log("datID=====" + actionData.npcId)
                         return (
-                            item.getComponent(NpcManager).NpcID === actionData.params.npcId
+                            item.getComponent(NpcManager).NpcID == actionData.params.npcId
                         );
                     });
                     if(!talkNpc){
+                        console.log("talkNpc error======" + actionData.params.npcId)
                         return;
                     }
                     let npcTile = npcControl.getNpcTile();
                     let talkNpcTile = talkNpc.getComponent(NpcManager).getNpcTile();
                     let scaleX = npcTile.x < talkNpcTile.x ? 1 : -1;
-                    npcControl.playSendItemAction(scaleX);
+                    
+                    npcControl.playSendItemAction(scaleX,actionData.params.itemId);
+                    if(actionData.params.content){
+                        npcControl.speak(actionData.params.content);
+                    }
                 }
                 else{
                     console.log("no npcId======" + JSON.stringify(actionData.params));
@@ -1320,6 +1353,7 @@ export class gameLayer_map4 extends Component {
     async reEnterRoom(){
         await this.playerLayer.destroyAllChildren();
         await this.speakLayer.destroyAllChildren();
+        await this.itemLayer.destroyAllChildren();
         this.otherNPCarr = [];
         this._initActionData = {};
         this._npcSpeakObj = {};
@@ -1484,6 +1518,30 @@ export class gameLayer_map4 extends Component {
         const worldPosition = new Vec3();
         director.getScene().getComponentInChildren(Camera).screenToWorld(new Vec3(screenPosition.x, screenPosition.y, 0), worldPosition);
         return worldPosition;
+    }
+
+    updateSceneItem(data){
+        console.log("updateSceneItem======" + JSON.stringify(data.data));
+        let itemInfo = data.data.roomItemData
+        let isHave = false
+        this.itemLayer.getComponentsInChildren(scenItemNode).forEach(itemScript=>{
+            if(itemScript._uniqid == itemInfo.id){
+                isHave = true;
+                itemScript.initData(itemInfo);
+            }
+        })
+        if(!isHave){
+            let sceneItemPrefab = instantiate(this.scneneItemNode);
+            sceneItemPrefab.getComponent(scenItemNode).initData(itemInfo);
+            this.itemLayer.addChild(sceneItemPrefab);
+
+            let itemTile = new Vec2();
+            itemTile = this._getTilePos(
+                new Vec2(itemInfo.gridX * 32 * PosAdapt, this._height - (itemInfo.gridY + 1) * 32* PosAdapt)
+            );
+            const pos = this._layerFloor.getPositionAt(itemTile)!;
+            sceneItemPrefab.setPosition(pos.x + 16, pos.y + 16);
+        }
     }
 
     // destroyPlayer(repData){

@@ -38,7 +38,7 @@ export class sceneItem extends Component {
         this._sceneId = sceneId;
         let str = NPCConfigMap[npcId].description;
         //str = str.split('').join('\u200B');
-        this.node.getComponentInChildren(Label).string = str;
+        this.lblSceneName.string = str;
         let lobbyBundle = assetManager.getBundle("lobby")
         if(lobbyBundle){
             lobbyBundle.load("image/imgNpc_" + this._npcId+"/spriteFrame",(err,spr:SpriteFrame)=>{

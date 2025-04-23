@@ -163,5 +163,7 @@ export const EventType = {
     //初始化故事信息
     INITSTORYINFO:"INITSTORYINFO",
     //初始化表情信息
-    GEEMOJIINFO:"GEEMOJIINFO"
+    GEEMOJIINFO:"GEEMOJIINFO",
+    //更新场景物品信息
+    UPDATE_SCENE_ITEM:"UPDATE_SCENE_ITEM"
 }

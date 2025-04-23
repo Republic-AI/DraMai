@@ -33,22 +33,22 @@ export const NPCSkillMap: { [key: string]: NPCSkillInfo } = {
     "10017": {
         skills: ["#BakedComfort", "#EmpatheticListener"],
         MBTI: [0.3, 0.85, 0.9, 0.6],
-        itemIds: ["1001701", "1001702", "1001703", "1001704"]
+        itemIds: ["1001701", "1001702", "1001703"]
     },
     "10018": {
         skills: ["#ConflictMediator", "#BalancedEmpathy"],
         MBTI: [0.4, 0.6, 0.55, 0.9],
-        itemIds: ["1001801", "1001802", "1001803", "1001804"]
+        itemIds: ["1001801", "1001802", "1001803"]
     },
     "10019": {
         skills: ["#UnfilteredStoryteller", "#GenuineConnector"],
         MBTI: [0.95, 0.7, 0.5, 0.3],
-        itemIds: ["1001901", "1001902", "1001903", "1001904"]
+        itemIds: ["1001901", "1001902", "1001903"]
     },
     "10020": {
         skills: ["#NatureWhisperer", "#QuietSupport"],
         MBTI: [0.9, 1.0, 0.7, 0.8],
-        itemIds: ["1002001", "1002002", "1002003", "1002004"]
+        itemIds: ["1002001", "1002002", "1002003"]
     },
     "10021": {
         skills: ["#TrainingMotivator", "#ResilientSpirit"],

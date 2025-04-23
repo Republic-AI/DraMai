@@ -1,4 +1,4 @@
-import { _decorator, Camera, Component, director, dragonBones, KeyCode, Label, Node, RichText, Sprite, SpriteFrame, TiledLayer, tween, Tween, UIOpacity, UITransform, v2, v3, Vec2, Vec3, view } from 'cc';
+import { _decorator, Camera, Component, director, dragonBones, KeyCode, Label, Node, resources, RichText, Sprite, SpriteFrame, TiledLayer, tween, Tween, UIOpacity, UITransform, v2, v3, Vec2, Vec3, view } from 'cc';
 import WebUtils from '../utils/WebUtils';
 import { observer } from '../game/App';
 import { EventType } from '../EventType';
@@ -180,7 +180,7 @@ export class NpcManager extends Component {
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("right_standby",0);
         }
 
-        if(curtile.x == 23 && curtile.y == 13){
+        if(curtile.x == 24 && curtile.y == 13){
             this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("left_standby",0);
         }
     }
@@ -469,6 +469,11 @@ export class NpcManager extends Component {
 
     //点击回调
     onBtnNpcClick(){
+        //testFUNC
+        // let testScale = Math.random() > 0.5 ? 1 : -1;
+        // let testItemId = Math.random() > 0.5 ? "test01" : "test02";
+        // this.playSendItemAction(testScale,testItemId);
+        // return;
         const currentUrl = window.location.href;
         const url = new URL(currentUrl);
         // 获取查询参数
@@ -721,7 +726,8 @@ export class NpcManager extends Component {
         })
     }
 
-    playSendItemAction(scaleX){
+    playSendItemAction(scaleX,itemId){
+        console.log("playSendItemAction======" + scaleX + " " + itemId);
         if(this.sendItemNode){
             if(scaleX > 0){
                 this.setIdleStatus(KeyCode.KEY_D);
@@ -737,6 +743,13 @@ export class NpcManager extends Component {
                     this.sendItemNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("send",0);
                 }
             })
+            resources.load("common/image/item_" + itemId + "/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
+                if(err){
+                    console.log("item load error" + err);
+                    return;
+                }
+                this.sendItemNode.getComponentInChildren(Sprite).spriteFrame = spr;
+            });
         }
     }
 
