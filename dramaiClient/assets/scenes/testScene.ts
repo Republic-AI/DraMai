@@ -113,11 +113,11 @@
 //                 console.log(`Wallet balance: ${balance / solanaWeb3.LAMPORTS_PER_SOL} SOL`);
 //             })
 //             .catch((err:any) => {
-//                 console.error("获取余额失败:", err);
+//                 console.log("获取余额失败:", err);
 //             });
 //             //console.log(`Account balance: ${balance / 10 ** 9} SOL`); // 转换为 SOL 单位
 //         } catch (error) {
-//             console.error("Error fetching balancesssssssss:", error);
+//             console.log("Error fetching balancesssssssss:", error);
 //         }
 //     }
 
@@ -127,7 +127,7 @@
 //         // console.log('Connection established:', connection);
 //         assetManager.loadAny({ url: 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js', ext: '.js' }, (err, script) => {
 //             if (err) {
-//                 console.error("加载 solana-web3.js 失败:", err);
+//                 console.log("加载 solana-web3.js 失败:", err);
 //                 return;
 //             }
 //             console.log("solanaWeb3 已加载:", solanaWeb3); // 此时 solanaWeb3 已可用
@@ -151,7 +151,7 @@
 //             const wallet =  await window.solana.connect();
 //             console.log('钱包已连接:', wallet.publicKey.toString());
 //         } else {
-//             console.error('未检测到 Phantom 钱包');
+//             console.log('未检测到 Phantom 钱包');
 //         }
 //     }
 
@@ -182,7 +182,7 @@
 //             // userPublicKey = window.solana.publicKey;
 //             // console.log('钱包已连接:', wallet.publicKey.toString());
 //         } else {
-//             console.error('未检测到 Phantom 钱包');
+//             console.log('未检测到 Phantom 钱包');
 //             return;
 //         }
 //         //userPublicKey =  new solanaWeb3.Keypair.generate().publicKey;
@@ -280,7 +280,7 @@
 //                 // 模拟交易
 //                 // const simulationResult = await connection.simulateTransaction(transaction);
 //                 // if (simulationResult.value.err) {
-//                 //     console.error("Simulation failed:", simulationResult.value.logs);
+//                 //     console.log("Simulation failed:", simulationResult.value.logs);
 //                 //     throw new Error("Transaction simulation failed.");
 //                 // }
 //                 // return;
@@ -296,7 +296,7 @@
 //                         console.log("error=====" + JSON.stringify(error));
 //                         // const txId = error.transactionId;
 //                         // if (!txId) {
-//                         //   console.error("No transaction ID found in error");
+//                         //   console.log("No transaction ID found in error");
 //                         //   return;
 //                         // }
 //                         // const transactionDetails = await connection.getTransaction(txId, { commitment: 'confirmed' });
@@ -306,10 +306,10 @@
 //                         //   console.log('Logs:', transactionDetails.meta.logMessages);
 //                         // }
 //                       } catch (logError) {
-//                         console.error('Failed to fetch logs:', logError);
+//                         console.log('Failed to fetch logs:', logError);
 //                       }
 //                     } else {
-//                       console.error('Unexpected error:', error);
+//                       console.log('Unexpected error:', error);
 //                     }
 //                 }
 //         // const signature   = await connection.sendTransaction(transaction, [wallet]);
@@ -332,7 +332,7 @@
 //         // // 获取最新区块哈希
 //         // try {
 //         // } catch (error) {
-//         //     console.error('获取区块哈希失败:', error);
+//         //     console.log('获取区块哈希失败:', error);
 //         //     return;
 //         // }
 
@@ -349,7 +349,7 @@
 //         //     const confirmation = await connection.confirmTransaction(signature);
 //         //     console.log("交易确认:", confirmation);
 //         // } catch (error) {
-//         //     console.error("交易签名或发送失败:", error);
+//         //     console.log("交易签名或发送失败:", error);
 //         // }
         
 //         // 使用 Phantom 钱包
@@ -367,7 +367,7 @@
 // //             resolve();
 // //         };
 // //         script.onerror = (error) => {
-// //             console.error('Failed to load Solana Web3.js via CDN:', error);
+// //             console.log('Failed to load Solana Web3.js via CDN:', error);
 // //             reject(error);
 // //         };
 // //         document.head.appendChild(script);
@@ -375,7 +375,7 @@
 // // }
 
 // // initialize().catch((error) => {
-// //     console.error('Initialization failed:', error);
+// //     console.log('Initialization failed:', error);
 // // });
 
 

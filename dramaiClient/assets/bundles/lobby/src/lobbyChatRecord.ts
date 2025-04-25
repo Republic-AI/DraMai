@@ -23,6 +23,8 @@ export class lobbyChatRecord extends Component {
 
     _data = null;
     _npcId = null;
+    private _isValid: boolean = true;
+
     start() {
 
     }
@@ -50,7 +52,13 @@ export class lobbyChatRecord extends Component {
         this._npcId = npcId;
         if(npcId){
             resources.load("gameUI/image/headDir_" + npcId + "/spriteFrame",SpriteFrame,(error,spr:SpriteFrame)=>{
-                this.imgNpcHead.spriteFrame = spr;
+                if (!this._isValid) return;
+                if(error){
+                    console.log(error);
+                }
+                else{
+                    this.imgNpcHead.spriteFrame = spr;
+                }
             })
             this.lblNpcName.string = NpcName[npcId];
             let input = this.truncateString(chatInfo.content)
@@ -86,6 +94,10 @@ export class lobbyChatRecord extends Component {
           return input.slice(0, maxLength) + '...';
         }
         return input;
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 }
 

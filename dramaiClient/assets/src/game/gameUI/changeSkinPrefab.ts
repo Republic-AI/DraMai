@@ -101,6 +101,9 @@ export class changeSkinPrefab extends Component {
     _skinIndex = 0;
     _skinFrameArr = null;
     _isInit = false;
+
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
         // resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{
         //     if(error){
@@ -208,6 +211,7 @@ export class changeSkinPrefab extends Component {
         }
         this.updateTwitterContent(npcId);
         resources.load("json/itemCfg",(error,itemCfg:JsonAsset)=>{
+            if (!this._isValid) return;
             if(error){
                 console.log("load item Cfg error:" + error);
                 return
@@ -574,6 +578,10 @@ export class changeSkinPrefab extends Component {
 
     hideHelpNode(){
         this.helpNode.active = false;
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 }
 

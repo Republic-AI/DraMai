@@ -58,7 +58,7 @@ export class AudioManager {
         }
         WebUtils.loadRes(audioPath, AudioClip, (err, clip) => {
             if (err) {
-                console.error(err);
+                console.log(err);
                 return;
             }
             AudioManager._audioSource.clip = clip;
@@ -68,14 +68,14 @@ export class AudioManager {
     loadAndPlayRemoteAudio(audioUrl: string) {
         assetManager.loadRemote(audioUrl, { ext: '.mp3' }, (err, asset) => {
             if (err) {
-                console.error('Error loading audio:', err);
+                console.log('Error loading audio:', err);
                 return;
             }
             if (asset instanceof AudioClip) {
                 AudioManager._audioSource.clip = asset;
                 AudioManager._audioSource.play();
             } else {
-                console.error('Loaded asset is not an audio clip:', asset);
+                console.log('Loaded asset is not an audio clip:', asset);
             }
         });
     }

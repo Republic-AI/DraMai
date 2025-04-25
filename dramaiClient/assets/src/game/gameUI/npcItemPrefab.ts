@@ -8,6 +8,13 @@ export class npcItemPrefab extends Component {
 
     @property(Label)
     lblItem:Label = null;
+
+    private _isValid: boolean = true;
+
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
+
     start() {
 
     }
@@ -16,14 +23,16 @@ export class npcItemPrefab extends Component {
         
     }
 
-    initData(data){
-        console.log("data======" + JSON.stringify(data));
+    initData(data) {
+        this.lblItem.string = data.count;
         resources.load("gameUI/image/item_" + data.itemId + "/spriteFrame",(error,itemSpr:SpriteFrame)=>{
+            if (!this._isValid) return;
             if(error){
                 console.log("load itemspr error:" + error)
             }
-            this.imgItem.spriteFrame = itemSpr;
-            this.lblItem.string = data.count;
+            else{
+                this.imgItem.spriteFrame = itemSpr;
+            }
         })
     }
 }

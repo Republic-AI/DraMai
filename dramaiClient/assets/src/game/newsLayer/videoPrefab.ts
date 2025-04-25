@@ -39,7 +39,7 @@ export class videoPrefab extends Component {
                 // 如果 bundle 不存在，先加载 bundle
                 assetManager.loadBundle("newsCfg", (err, bundle) => {
                     if (err) {
-                        console.error("Failed to load newsCfg bundle:", err);
+                        console.log("Failed to load newsCfg bundle:", err);
                         this.onVideoError(err);
                         return;
                     }
@@ -51,7 +51,7 @@ export class videoPrefab extends Component {
 
             this.loadVideoFromBundle(cfgBundle, data);
         } catch (error) {
-            console.error('Error loading video:', error);
+            console.log('Error loading video:', error);
             this.onVideoError(error);
         }
         AudioManager.instance.stop();
@@ -64,8 +64,8 @@ export class videoPrefab extends Component {
 
         bundle.load(videoPath, VideoClip, (err, asset: VideoClip) => {
             if (err) {
-                console.error("News video error:", err);
-                console.error("Failed path:", videoPath);
+                console.log("News video error:", err);
+                console.log("Failed path:", videoPath);
                 this.onVideoError(err);
                 return;
             }
@@ -81,7 +81,7 @@ export class videoPrefab extends Component {
                 this.btnOperate.node.active = true;
                 this.updateBtnState();
             } catch (error) {
-                console.error("Error playing video:", error);
+                console.log("Error playing video:", error);
                 this.onVideoError(error);
             }
         });
@@ -110,12 +110,12 @@ export class videoPrefab extends Component {
     }
 
     onVideoError(event) {
-        console.error('Video loading error:', event);
+        console.log('Video loading error:', event);
         if (event.message) {
-            console.error('Error message:', event.message);
+            console.log('Error message:', event.message);
         }
         if (event.stack) {
-            console.error('Error stack:', event.stack);
+            console.log('Error stack:', event.stack);
         }
         // 隐藏操作按钮
         this.btnOperate.node.active = false;

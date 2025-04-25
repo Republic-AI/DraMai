@@ -168,7 +168,7 @@ export class nftPrefab extends Component {
             //         let downLoadUrl = "https://phantom.app/download"
             //         window.location.href = downLoadUrl
             //     });
-            //     console.error('未检测到 Phantom 钱包');
+            //     console.log('未检测到 Phantom 钱包');
             //     return;
             // }
             let json2 = new network.GetAllNPCRequest();

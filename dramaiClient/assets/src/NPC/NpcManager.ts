@@ -62,6 +62,7 @@ export class NpcManager extends Component {
     _skinId = 0;
     _skinEndTime = 0;
     _skinRecordTime = 0;
+    private _isValid: boolean = true;
     protected onLoad(): void {
         this.initData()
         observer.on(EventType.CHANGESKIN,this.changeSkinData,this);
@@ -71,6 +72,7 @@ export class NpcManager extends Component {
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         observer.off(EventType.CHANGESKIN,this.changeSkinData,this);
     }
 
@@ -744,10 +746,11 @@ export class NpcManager extends Component {
                 }
             })
             resources.load("common/image/item_" + itemId + "/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
-                if(err){
+                if(err || !this._isValid){
                     console.log("item load error" + err);
                     return;
                 }
+
                 this.sendItemNode.getComponentInChildren(Sprite).spriteFrame = spr;
             });
         }
@@ -826,6 +829,18 @@ export class NpcManager extends Component {
 
     playLiveAnimation(){
         this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("message",0);
+    }
+
+    loadItemImage(itemId: number, callback: (spriteFrame: SpriteFrame) => void) {
+        resources.load("common/image/item_" + itemId + "/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
+            if (!this._isValid) return;
+            if(err){
+                console.log(err);
+            }
+            else{
+                callback(spr);
+            }
+        })
     }
 }
 

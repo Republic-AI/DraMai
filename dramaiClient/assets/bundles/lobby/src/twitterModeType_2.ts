@@ -58,11 +58,14 @@ export class twitterModeType_2 extends Component {
     _data = null;
     _roomId = null;
     _twitterId = null;
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
         observer.on(EventType.UPDATETWITTER,this.updateTwitter,this);
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         observer.off(EventType.UPDATETWITTER,this.updateTwitter,this);
     }
     start() {
@@ -183,7 +186,13 @@ export class twitterModeType_2 extends Component {
 
         if(data.npcId){
             resources.load("gameUI/image/headDir_" + data.npcId + "/spriteFrame",SpriteFrame,(error,spr:SpriteFrame)=>{
-                this.imgNpcHead.spriteFrame = spr;
+                if (!this._isValid || !this.imgNpcHead || !this.imgNpcHead.isValid) return;
+                if(error){
+                    console.log(error);
+                }
+                else{
+                    this.imgNpcHead.spriteFrame = spr;
+                }
             })
             this.lblNpcName.string = NpcName[data.npcId];
         }

@@ -15,6 +15,9 @@ export class itemPrefab extends Component {
     helpNode: Node = null;
 
     _id = null;
+    _data = null;
+    private _isValid: boolean = true;
+
     start() {
         // 注册触摸事件
         this.helpNode.on(Node.EventType.TOUCH_START, this.onHelpPress, this);
@@ -26,8 +29,8 @@ export class itemPrefab extends Component {
         
     }
 
-    onDestroy() {
-        // 移除事件监
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 
     private onHelpPress() {
@@ -42,12 +45,10 @@ export class itemPrefab extends Component {
         //director.getScene().getComponentInChildren(changeSkinPrefab).hideHelpNode();
     }
 
-    initData(data){
-        console.log("itemID=====" +data)
-        this._id = data;
-        let itemInfo = ItemConfigMap[this._id];
-        this.lblItemName.string = itemInfo.name;
+    initData(id: any) {
+        this._id = id;
         resources.load("gameUI/image/item_"+this._id+"/spriteFrame",SpriteFrame,(err,spriteFrame:SpriteFrame)=>{
+            if (!this._isValid) return;
             if(err){
                 console.log(err);
             }
@@ -55,6 +56,8 @@ export class itemPrefab extends Component {
                 this.itemFrame.spriteFrame = spriteFrame;
             }
         })
+        this.lblItemName.string = ItemConfigMap[this._id].name;
+
     }
 }
 

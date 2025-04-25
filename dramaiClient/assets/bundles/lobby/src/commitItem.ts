@@ -30,12 +30,14 @@ export class commitItem extends Component {
 
     _data = null;
     _twitterId = null;
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
         
     }
 
     protected onDestroy(): void {
-        
+        this._isValid = false;
     }
     start() {
 
@@ -56,8 +58,9 @@ export class commitItem extends Component {
             let randomIndex = Math.floor(Math.random() * 160) + 1
             //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
             headBundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                if(error){
+                if(error || !this._isValid || !this.imgPlayerHeadFrame || !this.imgPlayerHeadFrame.isValid){
                     console.log("loadHeadError" + error)
+                    return;
                 }
                 else{
                     this.imgPlayerHeadFrame.spriteFrame = spFrame
@@ -66,11 +69,16 @@ export class commitItem extends Component {
         }
         else{
             assetManager.loadBundle("headFrame",{},(error,bundle)=>{
+                if(error || !this._isValid || !this.imgPlayerHeadFrame || !this.imgPlayerHeadFrame.isValid){
+                    console.log("loadHeadError" + error)
+                    return;
+                }
                 let randomIndex = Math.floor(Math.random() * 160) + 1
                 //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
                 bundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                    if(error){
+                    if(error || !this._isValid || !this.imgPlayerHeadFrame || !this.imgPlayerHeadFrame.isValid){
                         console.log("loadHeadError" + error)
+                        return;
                     }
                     else{
                         this.imgPlayerHeadFrame.spriteFrame = spFrame

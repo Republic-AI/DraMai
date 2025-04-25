@@ -20,8 +20,13 @@ export class replyItem extends Component {
     _data = null;
     _twitterId = null;
     _replyId = null;
+    private _isValid: boolean = true;
     start() {
 
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 
     update(deltaTime: number) {
@@ -44,8 +49,9 @@ export class replyItem extends Component {
             let randomIndex = Math.floor(Math.random() * 160) + 1
             //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
             headBundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                if(error){
+                if(error||!this._isValid || !this.imgPlayerHeadFrame || !this.imgPlayerHeadFrame.isValid){
                     console.log("loadHeadError" + error)
+                    return;
                 }
                 else{
                     this.imgPlayerHeadFrame.spriteFrame = spFrame
@@ -57,8 +63,9 @@ export class replyItem extends Component {
                 let randomIndex = Math.floor(Math.random() * 160) + 1
                 //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
                 bundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                    if(error){
+                    if(error||!this._isValid || !this.imgPlayerHeadFrame || !this.imgPlayerHeadFrame.isValid){
                         console.log("loadHeadError" + error)
+                        return;
                     }
                     else{
                         this.imgPlayerHeadFrame.spriteFrame = spFrame

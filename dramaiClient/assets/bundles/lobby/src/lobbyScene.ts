@@ -230,13 +230,13 @@ export class lobbyScene extends Component {
                 })
                 assetManager.loadRemote<ImageAsset>(scene.bannerUrl, { ext: '.png' }, (err, imageAsset) => {
                     if (err) {
-                        console.error("图片加载失败:", err);
+                        console.log("图片加载失败:", err);
                         return;
                     }
                 
                     // 确保 imageAsset 有效
                     if (!(imageAsset instanceof ImageAsset)) {
-                        console.error("imageAsset 不是 ImageAsset 类型");
+                        console.log("imageAsset 不是 ImageAsset 类型");
                         return;
                     }
                 
@@ -328,7 +328,7 @@ export class lobbyScene extends Component {
 
     showMaskNode(){
         this.maskNode.active = true;
-        tween(this.maskNode).delay(15).call(()=>{
+        tween(this.maskNode).delay(30).call(()=>{
             this.maskNode.active = false;
         }).start();
     }

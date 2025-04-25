@@ -146,9 +146,10 @@ export class gameLayer_map4 extends Component {
     _playerArr = [];
     _createTimeInfo = {};
     _coffeeNodeStatus = {};
+    private _isValid: boolean = true;
     protected onLoad(): void {
         if (!this.speakLayer || !this.replyNode || !this.speakNode || !this.speakNode_Ex) {
-            console.error('Required properties are not set in the editor:', {
+            console.log('Required properties are not set in the editor:', {
                 speakLayer: !!this.speakLayer,
                 replyNode: !!this.replyNode,
                 speakNode: !!this.speakNode,
@@ -174,6 +175,7 @@ export class gameLayer_map4 extends Component {
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         AudioManager.instance.stop();
         observer.off(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
         observer.off(EventType.SOCKET_NPC_ACTION, this.playNPCAction, this);
@@ -1042,7 +1044,7 @@ export class gameLayer_map4 extends Component {
         let item: Node = null;
         let npcBundle =  assetManager.getBundle("npcAnimation");
         npcBundle.load("npc_" + NPC.id + "/npcPrefab_" + NPC.id,(error,npcPrefab:Prefab)=>{
-            if(error){
+            if(error || !this._isValid){
                 console.log("load npc prefab error====" + error);
                 return;
             }

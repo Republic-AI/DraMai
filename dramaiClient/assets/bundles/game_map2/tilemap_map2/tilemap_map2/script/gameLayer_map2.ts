@@ -125,6 +125,7 @@ export class gameLayer_map2 extends Component {
     _playerArr = [];
     _createTimeInfo = {};
     _coffeeNodeStatus = {};
+    private _isValid: boolean = true;
     protected onLoad(): void {
         this.startScrollNum();;
         AudioManager.instance.init()
@@ -144,6 +145,7 @@ export class gameLayer_map2 extends Component {
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         // 停止当前播放的音频
         AudioManager.instance.stop();
         observer.off(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
@@ -998,22 +1000,22 @@ export class gameLayer_map2 extends Component {
 
     initOtherNPC(NPC: NPCServerD) {
         if (!this.speakLayer) {
-            console.error('speakLayer is not assigned in the editor!');
+            console.log('speakLayer is not assigned in the editor!');
             return;
         }
 
         if (!this.replyNode) {
-            console.error('replyNode prefab is not assigned in the editor!');
+            console.log('replyNode prefab is not assigned in the editor!');
             return;
         }
 
         if (!this.speakNode) {
-            console.error('speakNode prefab is not assigned in the editor!');
+            console.log('speakNode prefab is not assigned in the editor!');
             return;
         }
 
         if (!this.speakNode_Ex) {
-            console.error('speakNode_Ex prefab is not assigned in the editor!');
+            console.log('speakNode_Ex prefab is not assigned in the editor!');
             return;
         }
 
@@ -1039,7 +1041,7 @@ export class gameLayer_map2 extends Component {
         let item: Node = null;
         let npcBundle =  assetManager.getBundle("npcAnimation");
         npcBundle.load("npc_" + NPC.id + "/npcPrefab_" + NPC.id,(error,npcPrefab:Prefab)=>{
-            if(error){
+            if(error || !this._isValid){
                 console.log("load npc prefab error====" + error);
                 return;
             }

@@ -132,10 +132,11 @@ export class gameLayer_map3 extends Component {
     _playerArr = [];
     _createTimeInfo = {};
     _coffeeNodeStatus = {};
+    private _isValid: boolean = true;
     protected onLoad(): void {
         // 检查必要的组件和节点是否存在
         if (!this.speakLayer || !this.replyNode || !this.speakNode || !this.speakNode_Ex) {
-            console.error('Required properties are not set in the editor:', {
+            console.log('Required properties are not set in the editor:', {
                 speakLayer: !!this.speakLayer,
                 replyNode: !!this.replyNode,
                 speakNode: !!this.speakNode,
@@ -158,6 +159,7 @@ export class gameLayer_map3 extends Component {
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         // 停止当前播放的音频
         AudioManager.instance.stop();
         observer.off(EventType.SOCKET_GETALL_NPCS, this.setNPCPos, this);
@@ -1028,22 +1030,22 @@ export class gameLayer_map3 extends Component {
 
     initOtherNPC(NPC: NPCServerD) {
         if (!this.speakLayer) {
-            console.error('speakLayer is not assigned in the editor!');
+            console.log('speakLayer is not assigned in the editor!');
             return;
         }
 
         if (!this.replyNode) {
-            console.error('replyNode prefab is not assigned in the editor!');
+            console.log('replyNode prefab is not assigned in the editor!');
             return;
         }
 
         if (!this.speakNode) {
-            console.error('speakNode prefab is not assigned in the editor!');
+            console.log('speakNode prefab is not assigned in the editor!');
             return;
         }
 
         if (!this.speakNode_Ex) {
-            console.error('speakNode_Ex prefab is not assigned in the editor!');
+            console.log('speakNode_Ex prefab is not assigned in the editor!');
             return;
         }
 
@@ -1069,7 +1071,7 @@ export class gameLayer_map3 extends Component {
         let item: Node = null;
         let npcBundle =  assetManager.getBundle("npcAnimation");
         npcBundle.load("npc_" + NPC.id + "/npcPrefab_" + NPC.id,(error,npcPrefab:Prefab)=>{
-            if(error){
+            if(error || !this._isValid){
                 console.log("load npc prefab error====" + error);
                 return;
             }

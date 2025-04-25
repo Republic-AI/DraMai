@@ -13,6 +13,13 @@ export class chatRecordItem extends Component {
 
     @property(Sprite)
     imgHead:Sprite = null;
+
+    private _isValid: boolean = true;
+
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
+
     start() {
 
     }
@@ -27,7 +34,13 @@ export class chatRecordItem extends Component {
         // console.log("serverTime====="  + gameNowTime);
         let chatRecordBundle = assetManager.getBundle("chatRecord");
         chatRecordBundle.load("image/head_" + data.sender +"/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
-            this.imgHead.spriteFrame = spr;
+            if (!this._isValid) return;
+            if(err){
+                console.log(err);
+            }
+            else{
+                this.imgHead.spriteFrame = spr;
+            }
         })
 
         let nowGameDate = new Date(gameNowTime).getDate();

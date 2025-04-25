@@ -45,14 +45,15 @@ export default class RedManager {
     setkeyState(arg0: string, tasklist: any) {
         let state: boolean = false;
         if (arg0 == RedManager.KEY.renwutabred) {//任务列表数据刷新
-            let da = (tasklist as network.taskListResponse).data;
-            for (let index = 0; index < da.length; index++) {
-                const element = da[index];
-                if (element.status == 2) {
-                    state = true;
-                    break;
+            let da = (tasklist as network.taskListResponse)?.data;
+            if (da && Array.isArray(da)) {
+                for (let index = 0; index < da.length; index++) {
+                    const element = da[index];
+                    if (element?.status == 2) {
+                        state = true;
+                        break;
+                    }
                 }
-
             }
             this.keystate[RedManager.KEY.renwutabred_main] = state;
         }

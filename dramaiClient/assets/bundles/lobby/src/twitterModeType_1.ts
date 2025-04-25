@@ -57,11 +57,14 @@ export class twitterModeType_1 extends Component {
     _roomId = null;
     _twitterId = null;
 
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
         observer.on(EventType.UPDATETWITTER,this.updateTwitter,this);
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         observer.off(EventType.UPDATETWITTER,this.updateTwitter,this);
     }
     start() {
@@ -144,19 +147,19 @@ export class twitterModeType_1 extends Component {
             //     this.imgContent.spriteFrame = spriteFrame
             // };
             // image.onerror = (err) => {
-            //     console.error("图片加载失败:", err);
+            //     console.log("图片加载失败:", err);
             // };
 
             
             assetManager.loadRemote<ImageAsset>(data.imgUrl, { ext: '.png' }, (err, imageAsset) => {
-                if (err) {
-                    console.error("图片加载失败:", err);
+                if (err || !this._isValid || !this.imgContent || !this.imgContent.isValid) {
+                    console.log("图片加载失败:", err);
                     return;
                 }
             
                 // 确保 imageAsset 有效
                 if (!(imageAsset instanceof ImageAsset)) {
-                    console.error("imageAsset 不是 ImageAsset 类型");
+                    console.log("imageAsset 不是 ImageAsset 类型");
                     return;
                 }
             
@@ -172,7 +175,7 @@ export class twitterModeType_1 extends Component {
                 if (this.imgContent) {
                     this.imgContent.spriteFrame = spriteFrame;
                 } else {
-                    console.error("this.imgContent 为空");
+                    console.log("this.imgContent 为空");
                 }
             });
         }
@@ -213,7 +216,13 @@ export class twitterModeType_1 extends Component {
 
         if(data.npcId){
             resources.load("gameUI/image/headDir_" + data.npcId + "/spriteFrame",SpriteFrame,(error,spr:SpriteFrame)=>{
-                this.imgNpcHead.spriteFrame = spr;
+                if (!this._isValid || !this.imgNpcHead || !this.imgNpcHead.isValid) return;
+                if(error){
+                    console.log(error);
+                }
+                else{
+                    this.imgNpcHead.spriteFrame = spr;
+                }
             })
             this.lblNpcName.string = NpcName[data.npcId];
         }

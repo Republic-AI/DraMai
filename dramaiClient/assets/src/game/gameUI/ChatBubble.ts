@@ -16,7 +16,7 @@ export class ChatBubble extends Component {
 
     onLoad() {
         if (!this.label || !this.background) {
-            console.error("Label 或 Background 未正确绑定！");
+            console.log("Label 或 Background 未正确绑定！");
             return;
         }
     }

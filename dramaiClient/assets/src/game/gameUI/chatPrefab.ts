@@ -26,8 +26,13 @@ export class chatPrefab extends Component {
     @property(Sprite)
     imgNpcHeadFrame_2:Sprite = null;
 
+    @property(Label)
+    lblChatContent: Label = null;
+
     toNpcId = 0;
     _npcId = 0;
+    private _isValid: boolean = true;
+
     start() {
 
     }
@@ -45,44 +50,35 @@ export class chatPrefab extends Component {
             this.node.getComponent(UITransform).setContentSize(500,90);
         }
     }
-    initData(npcId,content){
-        this._npcId = npcId
-        if(!content){
-            this.imgNpcHeadBox.active = false;
-            this.imgPlayerHeadBox.active = false;
 
-            this.imgNpcTypeNode.active = true;
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
 
-            resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
-                if(error){
-                    return;
-                }
-                this.imgNpcHeadFrame_2.spriteFrame = sprFrame
-            })
-        }
-        else if(npcId){
-            console.log("111111111111")
-            this.imgNpcHeadBox.active = true;
-            this.imgPlayerHeadBox.active = false;
-            resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
-                if(error){
-                    return;
-                }
-                this.imgNpcHeadFrame.spriteFrame = sprFrame
-            })
+    initData(npcId: any, chatContent: string) {
+        this._npcId = npcId;
+        this.lblChatContent.string = chatContent;
+        resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
+            if (!this._isValid) return;
+            if(error){
+                console.log(error);
+            }
+            else{
+                this.imgNpcHeadFrame.spriteFrame = sprFrame;
+            }
+        })
+    }
 
-            this.imgNpcHeadBox.getComponentInChildren(ChatBubble).setText(content);
-        }
-        else{
-            console.log("222222222222")
-            this.imgNpcHeadBox.active = false;
-            this.imgPlayerHeadBox.active = true;
-            let spFrame = director.getScene().getComponentInChildren(UILayer).getHeadFrame();
-            this.imgPlayerHeadFrame.spriteFrame = spFrame;
-            console.log("spFrame====" + spFrame.name)
-            // this.node.getComponent(Sprite).spriteFrame = this.playerChatFrame;
-            this.imgPlayerHeadBox.getComponentInChildren(ChatBubble).setText(content);
-        }
+    onBtnChat() {
+        resources.load("gameUI/image/headDir_" + this._npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
+            if (!this._isValid) return;
+            if(error){
+                console.log(error);
+            }
+            else{
+                this.imgNpcHeadFrame.spriteFrame = sprFrame;
+            }
+        })
     }
 
     setToNpcId(npcId){

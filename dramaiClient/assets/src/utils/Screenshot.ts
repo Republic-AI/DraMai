@@ -9,7 +9,7 @@ export class ScreenshotUploader extends Component {
     // 截图并上传到服务器
     async takeScreenshotAndUpload(serverUrl: string) {
         if (!this.camera) {
-            console.error("Camera 未绑定！");
+            console.log("Camera 未绑定！");
             return;
         }
 
@@ -38,7 +38,7 @@ export class ScreenshotUploader extends Component {
         // })
         const pixels = renderTexture.readPixels();
         if (!pixels) {
-            console.error("无法读取像素数据");
+            console.log("无法读取像素数据");
             return;
         }
         const width = view.getVisibleSize().width;
@@ -48,7 +48,7 @@ export class ScreenshotUploader extends Component {
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         if (!ctx) {
-            console.error("无法获取 Canvas 上下文");
+            console.log("无法获取 Canvas 上下文");
             return null;
         }
 
@@ -94,11 +94,11 @@ export class ScreenshotUploader extends Component {
             if (response.ok) {
                 console.log("截图上传成功！");
             } else {
-                console.error("截图上传失败:", await response.text());
+                console.log("截图上传失败:", await response.text());
             }
             //const file = new File([blob], filename, { type: blob.type });
         } catch (error) {
-            console.error("上传过程中发生错误:", error);
+            console.log("上传过程中发生错误:", error);
         }
     }
 
@@ -113,7 +113,7 @@ export class ScreenshotUploader extends Component {
             if (xhr.status === 200) {
                 console.log('Upload Success:', xhr.responseText);
             } else {
-                console.error('Upload Failed:', xhr.responseText);
+                console.log('Upload Failed:', xhr.responseText);
             }
             this.camera.targetTexture = null;
         };
@@ -129,7 +129,7 @@ export class ScreenshotUploader extends Component {
         // 获取 Canvas 的 2D 上下文
         const ctx = canvas.getContext('2d');
         if (!ctx) {
-            console.error("无法获取 Canvas 上下文");
+            console.log("无法获取 Canvas 上下文");
             return;
         }
 
@@ -140,7 +140,7 @@ export class ScreenshotUploader extends Component {
         // 将 Canvas 转换为 Base64 并下载图片
         canvas.toBlob((blob) => {
             if (!blob) {
-                console.error("无法生成 Blob");
+                console.log("无法生成 Blob");
                 return;
             }
             const link = document.createElement('a');

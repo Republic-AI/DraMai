@@ -27,7 +27,7 @@ export class DissolveEffect extends Component {
         // 获取Sprite组件
         this._sprite = this.getComponent(Sprite);
         if (!this._sprite) {
-            console.error('DissolveEffect: No Sprite component found!');
+            console.log('DissolveEffect: No Sprite component found!');
             return;
         }
 
@@ -47,7 +47,7 @@ export class DissolveEffect extends Component {
             // 应用材质到精灵
             this._sprite.customMaterial = matInstance;
         } else {
-            console.error('DissolveEffect: Material not assigned!');
+            console.log('DissolveEffect: Material not assigned!');
         }
     }
 

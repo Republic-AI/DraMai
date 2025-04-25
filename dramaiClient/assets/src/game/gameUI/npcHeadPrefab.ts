@@ -10,6 +10,8 @@ export class npcHeadPrefab extends Component {
 
     public _npcId: string = null;
 
+    private _isValid: boolean = true;
+
     start() {
     }
 
@@ -30,8 +32,9 @@ export class npcHeadPrefab extends Component {
 
         const headPath = `gameUI/image/headDir_${this._npcId}`;
         resources.load(headPath + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
+            if (!this._isValid) return;
             if (err) {
-                console.error(`Failed to load NPC head image: ${headPath}`, err);
+                console.log(`Failed to load NPC head image: ${headPath}`, err);
                 return;
             }
             
@@ -46,6 +49,10 @@ export class npcHeadPrefab extends Component {
 
     onBtnClick(){
         observer.post(EventType.CHOOSENPCHEAD, this._npcId);
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 }
 

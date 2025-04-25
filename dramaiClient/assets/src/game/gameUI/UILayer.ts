@@ -208,6 +208,8 @@ export class UILayer extends Component {
     _voteInfo = null;
     _voteCreateTime = 0;
     _voteEndTime = 0;
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
         //director.root.pipeline.profiler.enabled = false;
         observer.on(EventType.GETCHAT_BYID,this.initChatDataInfo,this);
@@ -225,6 +227,7 @@ export class UILayer extends Component {
     }
 
     protected onDestroy(): void {
+        this._isValid = false;
         observer.off(EventType.GETCHAT_BYID,this.initChatDataInfo,this);
         observer.off(EventType.UPDATE_CHAT,this.updateChat,this);
         observer.off(EventType.UPDATE_ITEM,this.updateItem,this);
@@ -590,8 +593,9 @@ export class UILayer extends Component {
             let randomIndex = Number(localStorage.getItem("avatarId"))
             //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
             headBundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                if(error){
+                if(error||!this._isValid){
                     console.log("loadHeadError" + error)
+                    return;
                 }
                 else{
                     this.imgHeadFrame.spriteFrame = spFrame
@@ -603,8 +607,9 @@ export class UILayer extends Component {
                 let randomIndex = Number(localStorage.getItem("avatarId"));
                 //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
                 bundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
-                    if(error){
+                    if(error||!this._isValid){
                         console.log("loadHeadError" + error)
+                        return;
                     }
                     else{
                         this.imgHeadFrame.spriteFrame = spFrame
@@ -730,7 +735,7 @@ export class UILayer extends Component {
         //         localStorage.setItem("walletID", accounts[0]);
         //         return accounts[0];
         //     } catch (error) {
-        //         console.error('连接钱包失败:', error);
+        //         console.log('连接钱包失败:', error);
         //         WebUtils.showToast("Link wallet failed");
         //     }
         // } else {
@@ -817,7 +822,7 @@ export class UILayer extends Component {
 
         const targetSprite = eventTarget.target.getComponent(Sprite);
         if (!targetSprite) {
-            console.error('Target node does not have Sprite component');
+            console.log('Target node does not have Sprite component');
             return;
         }
 
@@ -835,7 +840,7 @@ export class UILayer extends Component {
     async onBtnVote(){
         let voteBundle = assetManager.getBundle("voteLayer");
         await voteBundle.load("voteLayer",Prefab,(err,voteLayerPrafb:Prefab)=>{
-            if(err){
+            if(err || !this._isValid){
                 console.log("votelayer lode===" + err);
                 return;
             }
@@ -866,7 +871,7 @@ export class UILayer extends Component {
    async showCreatePlayer(){
         let createBundle = assetManager.getBundle("createPlayer");
         await createBundle.load("createPlayerLayer",async (error,createLayer:Prefab)=>{
-            if(this.node.getComponentInChildren(createPlayerLayer)){
+            if(!this._isValid || this.node.getComponentInChildren(createPlayerLayer)){
                 return;
             }
             let createPlayerNode = instantiate(createLayer);
@@ -930,7 +935,7 @@ export class UILayer extends Component {
     async onBtnChatRecord(){
         let chatBundle = assetManager.getBundle("chatRecord");
         await chatBundle.load("chatRecordLayer",Prefab,(err,chatRecordPrefab:Prefab)=>{
-            if(err){
+            if(err || !this._isValid){
                 console.log("votelayer lode===" + err);
                 return;
             }
@@ -950,7 +955,7 @@ export class UILayer extends Component {
         const url = new URL(currentUrl);
         if(currentUrl.includes("aitown_pc")){
             await linkBundle.load("linkLayer_pc",Prefab,(err,linkLayerPrefab:Prefab)=>{
-                if(err){
+                if(err || !this._isValid){
                     console.log("votelayer lode===" + err);
                     return;
                 }
@@ -964,7 +969,7 @@ export class UILayer extends Component {
         }
         else{
             await linkBundle.load("linkLayer",Prefab,(err,linkLayerPrefab:Prefab)=>{
-                if(err){
+                if(err || !this._isValid){
                     console.log("votelayer lode===" + err);
                     return;
                 }
@@ -1042,12 +1047,18 @@ export class UILayer extends Component {
             this.getNftNode.getComponentInChildren(Label).color = color(0,0,0,255);
         }
         this.getNftNode.getComponentInChildren(Label).string = nftDes[nftId];
+        this.initNftImage(nftId);
+    }
+
+    initNftImage(nftId) {
         resources.load("common/image/imgNft_" + nftId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
+            if (!this._isValid) return;
             if(error){
-                console.log("load nft frame error" + error);
-                return;
+                console.log(error);
             }
-            this.imgNftContent.spriteFrame = sprFrame;
+            else{
+                this.imgNftContent.spriteFrame = sprFrame;
+            }
         })
     }
 
@@ -1213,7 +1224,7 @@ export class UILayer extends Component {
 
         const targetSprite = eventTarget.target.getComponent(Sprite);
         if (!targetSprite) {
-            console.error('Target node does not have Sprite component');
+            console.log('Target node does not have Sprite component');
             return;
         }
         let layoutNode = this.giftProgressBar_1.node.getComponentInChildren(Layout).node;
@@ -1233,7 +1244,7 @@ export class UILayer extends Component {
 
         const targetSprite = eventTarget.target.getComponent(Sprite);
         if (!targetSprite) {
-            console.error('Target node does not have Sprite component');
+            console.log('Target node does not have Sprite component');
             return;
         }
         let layoutNode = this.giftProgressBar_2.node.getComponentInChildren(Layout).node;

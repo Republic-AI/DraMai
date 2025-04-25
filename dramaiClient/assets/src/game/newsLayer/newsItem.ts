@@ -26,6 +26,8 @@ export class newsItem extends Component {
     @property(Prefab)
     videoPrefab:Prefab = null;
 
+    private _isValid: boolean = true;
+
     protected onLoad(): void {
 
     }
@@ -48,32 +50,24 @@ export class newsItem extends Component {
             this.lblNewsTitle.string = data.newsTitle;
             let cfgBundle = assetManager.getBundle("newsCfg");
             cfgBundle.load("image/" + data.imgName +"/spriteFrame" ,SpriteFrame,(err,spr:SpriteFrame)=>{
-                if(err){
+                if(err || !this._isValid){
                     console.log("news image error" + err);
+                    return;
                 }
+                this.imgVideoContent.active = true;
+                this.imgVideoContent.getComponent(Sprite).spriteFrame = spr;
             })
         }
         else{
             this.lblNewsTitle.node.active = false;
         }
-        if(data.imgNameArr.length > 0){
-            data.imgNameArr.forEach(element => {
-                let cfgBundle = assetManager.getBundle("newsCfg");
-                cfgBundle.load("image/" + element +"/spriteFrame" ,SpriteFrame,(err,spr:SpriteFrame)=>{
-                    if(err){
-                        console.log("news image error" + err);
-                        return;
-                    }
-                    let newsImageNode = instantiate(this.newsImageNode);
-                    newsImageNode.getComponent(Sprite).spriteFrame = spr;
-                    this.contentsLayout.addChild(newsImageNode);
-                })
-            });
+        if (data.imgNameArr && data.imgNameArr.length > 0) {
+            this.loadImagesSequentially(data.imgNameArr);
         }
         if(data.videoNameArr.length > 0){
             let cfgBundle = assetManager.getBundle("newsCfg");
             cfgBundle.load("video/" + data.videoNameArr[0] +"/spriteFrame" ,SpriteFrame,(err,spr:SpriteFrame)=>{
-                if(err){
+                if(err || !this._isValid){
                     console.log("news image error" + err);
                     return;
                 }
@@ -101,6 +95,57 @@ export class newsItem extends Component {
         videoPrefabNode.getComponent(videoPrefab).initData(this._data.videoNameArr[0]);
         let canvas = director.getScene().getChildByName("Canvas");
         canvas.addChild(videoPrefabNode);
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
+
+    private async loadImagesSequentially(imgNameArr: string[]) {
+        for (const element of imgNameArr) {
+            if (!this._isValid) {
+                console.log("Component destroyed, stopping image loading");
+                return;
+            }
+            try {
+                const spr = await this.loadImage(element);
+                if (spr && this._isValid) {
+                    let newsImageNode = instantiate(this.newsImageNode);
+                    newsImageNode.getComponent(Sprite).spriteFrame = spr;
+                    this.contentsLayout.addChild(newsImageNode);
+                }
+            } catch (err) {
+                console.log("Failed to load image:", element, err);
+            }
+        }
+    }
+
+    private loadImage(element: string): Promise<SpriteFrame> {
+        return new Promise((resolve, reject) => {
+            if (!this._isValid) {
+                reject(new Error("Component destroyed"));
+                return;
+            }
+
+            let cfgBundle = assetManager.getBundle("newsCfg");
+            if (!cfgBundle) {
+                reject(new Error("newsCfg bundle not found"));
+                return;
+            }
+            
+            cfgBundle.load("image/" + element + "/spriteFrame", SpriteFrame, (err, spr: SpriteFrame) => {
+                if (!this._isValid) {
+                    reject(new Error("Component destroyed"));
+                    return;
+                }
+                if (err) {
+                    console.log("news image error:", err);
+                    reject(err);
+                    return;
+                }
+                resolve(spr);
+            });
+        });
     }
 
 }

@@ -38,6 +38,8 @@ export function showMsgPanel(msg: string, _par: Node = null) {
 export default class MessageManager {
     private showGroup: Node;
     private static _instance: MessageManager;
+    private _isValid: boolean = true;
+
     constructor() {
         let self = this;
     }
@@ -85,9 +87,14 @@ export default class MessageManager {
             s.addmmessage();
         }
     }
-    loadcom(err, prefab) {
+    loadcom(err: Error, data: Prefab) {
+        if (!this._isValid) return;
+        if (err) {
+            console.log(err);
+            return;
+        }
         let s = this;
-        s.recovMessage = instantiate(prefab);
+        s.recovMessage = instantiate(data);
         s.addmmessage();
     }
 
@@ -200,4 +207,8 @@ export default class MessageManager {
     //     }
     //     return message;
     // }
+
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
 }

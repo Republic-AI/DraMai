@@ -1,17 +1,27 @@
-import { _decorator, Component, Node, resources, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Canvas, Component, director, instantiate, Node, Prefab, resources, Sprite, SpriteFrame } from 'cc';
+import { popItemPrefab } from '../game/gameUI/popItemPrefab';
 const { ccclass, property } = _decorator;
 
 @ccclass('scenItemNode')
 export class scenItemNode extends Component {
 
+    @property(Prefab)
+    private popItemPrefab:Prefab = null;
+
     _itemId:number = 0;
     _uniqid:number = 0;
+    private _isValid: boolean = true;
+
     start() {
 
     }
 
     update(deltaTime: number) {
         
+    }
+
+    protected onDestroy(): void {
+        this._isValid = false;
     }
 
     initData(itemData:any){
@@ -22,12 +32,21 @@ export class scenItemNode extends Component {
         this._itemId = itemData.itemId;
         this._uniqid = itemData.id;
         resources.load("common/image/item_" + itemData.itemId + "/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
+            if (!this._isValid) return;
             if(err){
                 console.log("item load error" + err);
-                return;
             }
-            this.node.getComponent(Sprite).spriteFrame = spr;
+            else{
+                this.node.getComponent(Sprite).spriteFrame = spr;
+            }
         });
+    }
+
+    onBtnClick(){
+        let popItemPrefabNode = instantiate(this.popItemPrefab);
+        popItemPrefabNode.getComponent(popItemPrefab).initData(this._itemId);
+        let canvas =  director.getScene().getComponentInChildren(Canvas);
+        canvas.node.addChild(popItemPrefabNode);
     }
 }
 

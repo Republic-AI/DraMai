@@ -224,7 +224,7 @@ export class JietuComponent extends Component {
             if (xhr.status === 200) {
                 console.log('Upload Success:', xhr.responseText);
             } else {
-                console.error('Upload Failed:', xhr.responseText);
+                console.log('Upload Failed:', xhr.responseText);
             }
             this.camera.targetTexture = null;
         };
@@ -313,7 +313,7 @@ export class JietuComponent extends Component {
                     requestAnimationFrame(drawFrame); // 每帧调用
                 }
             } catch (error) {
-                console.error('Error during frame drawing:', error);
+                console.log('Error during frame drawing:', error);
             }
         };
         // 开始录制
@@ -383,7 +383,7 @@ export class JietuComponent extends Component {
             if (xhr.status === 200) {
                 console.log('Upload Success3333:', xhr.responseText);
             } else {
-                console.error('Upload Failed:', xhr.responseText);
+                console.log('Upload Failed:', xhr.responseText);
             }
             //this.camera.targetTexture = null;
         };

@@ -12,6 +12,8 @@ export class npcDirPrefab extends Component {
     imgNpcHead:Sprite = null;
 
     _npcId:number = null;
+    private _isValid: boolean = true;
+
     start() {
 
     }
@@ -20,10 +22,20 @@ export class npcDirPrefab extends Component {
         
     }
 
+    protected onDestroy(): void {
+        this._isValid = false;
+    }
+
     initData(npcID:number){
         this._npcId = npcID;
         resources.load("gameUI/image/headDir_" + this._npcId + "/spriteFrame",SpriteFrame,(error,spr:SpriteFrame)=>{
-            this.imgNpcHead.spriteFrame = spr;
+            if (!this._isValid) return;
+            if(error){
+                console.log(error);
+            }
+            else{
+                this.imgNpcHead.spriteFrame = spr;
+            }
         })
     }
 

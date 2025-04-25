@@ -111,7 +111,7 @@ export class createPlayerLayer extends Component {
             this._isConfirming = true;
             await assetManager.loadAny({ url: 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js', ext: '.js' },async (err, script) => {
                 if (err) {
-                    console.error("加载 solana-web3.js 失败:", err);
+                    console.log("加载 solana-web3.js 失败:", err);
                     return;
                 }
                 await console.log("solanaWeb3 已加载:", solanaWeb3); // 此时 solanaWeb3 已可用
@@ -136,7 +136,7 @@ export class createPlayerLayer extends Component {
                     // 获取账户信息
                 // const accountInfo = await connection.getAccountInfo(userPublicKey);
                 // if (!accountInfo) {
-                //     console.error("Account not found!");
+                //     console.log("Account not found!");
                 //     return;
                 // }
 
@@ -149,7 +149,7 @@ export class createPlayerLayer extends Component {
 
                 //     // 检查数据长度
                 // if (data.length < 165) {
-                //     console.error(`Account data size is too small: ${data.length}`);
+                //     console.log(`Account data size is too small: ${data.length}`);
                 //     return;
                 // }
                 // // 解析代币余额 (uint64 是 8 字节小端表示)
@@ -193,7 +193,7 @@ export class createPlayerLayer extends Component {
                     // 检查数据长度是否足够（SPL Token 账户固定为 165 字节）
                     const TOKEN_ACCOUNT_SIZE = 165;
                     if (data.length < TOKEN_ACCOUNT_SIZE) {
-                        console.error(`Account data size is too small: ${data.length}`);
+                        console.log(`Account data size is too small: ${data.length}`);
                         return;
                     }
             
@@ -215,7 +215,7 @@ export class createPlayerLayer extends Component {
                             isHaveMint = true;
                         }
                     } catch (error) {
-                        console.error("Error decoding account data:", error);
+                        console.log("Error decoding account data:", error);
                     }
                 });
                 if(isHaveMint){
@@ -249,7 +249,7 @@ export class createPlayerLayer extends Component {
                 // }
                 window.location.href = downLoadUrl
             });
-            console.error('未检测到 Phantom 钱包');
+            console.log('未检测到 Phantom 钱包');
         }
     }
 
@@ -302,7 +302,7 @@ export class createPlayerLayer extends Component {
             console.log('Phantom 钱包已检测到');
             await assetManager.loadAny({ url: 'https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js', ext: '.js' },async (err, script) => {
                 if (err) {
-                    console.error("加载 solana-web3.js 失败:", err);
+                    console.log("加载 solana-web3.js 失败:", err);
                     return;
                 }
                 await console.log("solanaWeb3 已加载:", solanaWeb3); // 此时 solanaWeb3 已可用
@@ -327,7 +327,7 @@ export class createPlayerLayer extends Component {
                     // 获取账户信息
                 // const accountInfo = await connection.getAccountInfo(userPublicKey);
                 // if (!accountInfo) {
-                //     console.error("Account not found!");
+                //     console.log("Account not found!");
                 //     return;
                 // }
 
@@ -340,7 +340,7 @@ export class createPlayerLayer extends Component {
 
                 //     // 检查数据长度
                 // if (data.length < 165) {
-                //     console.error(`Account data size is too small: ${data.length}`);
+                //     console.log(`Account data size is too small: ${data.length}`);
                 //     return;
                 // }
                 // // 解析代币余额 (uint64 是 8 字节小端表示)
@@ -384,7 +384,7 @@ export class createPlayerLayer extends Component {
                     // 检查数据长度是否足够（SPL Token 账户固定为 165 字节）
                     const TOKEN_ACCOUNT_SIZE = 165;
                     if (data.length < TOKEN_ACCOUNT_SIZE) {
-                        console.error(`Account data size is too small: ${data.length}`);
+                        console.log(`Account data size is too small: ${data.length}`);
                         return;
                     }
             
@@ -406,7 +406,7 @@ export class createPlayerLayer extends Component {
                             return true;
                         }
                     } catch (error) {
-                        console.error("Error decoding account data:", error);
+                        console.log("Error decoding account data:", error);
                     }
                 });
                 console.log(`User does not own the token: ${tokenMintAddress}`);
@@ -425,7 +425,7 @@ export class createPlayerLayer extends Component {
                 // }
                 window.location.href = downLoadUrl
             });
-            console.error('未检测到 Phantom 钱包');
+            console.log('未检测到 Phantom 钱包');
         }
     }
 }

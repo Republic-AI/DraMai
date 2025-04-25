@@ -205,4 +205,10 @@ export const ItemConfigMap: { [key: string]: ItemInfo } = {
         name: "Hat",
         des: "Campaign gear with a slogan—his crown of charisma."
     },
+    "1000001": {
+        id: "1000001",
+        name: "Rose",
+        des: "The rose Kai prepared for Qiu."
+    },
+    
 }; 
