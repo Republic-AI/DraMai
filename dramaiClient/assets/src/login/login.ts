@@ -91,7 +91,7 @@ const CowPos = [
  * 5.微信qq 分享文案
  */
 
-let version = "v0.5.3"
+let version = "v0.5.5"
 const TAG = 'Index'
 @ccclass("Index")
 export default class Index extends Component {

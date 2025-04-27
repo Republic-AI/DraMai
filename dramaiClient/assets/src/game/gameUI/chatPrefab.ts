@@ -1,4 +1,4 @@
-import { _decorator, Component, director, Label, Node, resources, Sprite, SpriteFrame, UITransform } from 'cc';
+import { _decorator, assetManager, Component, director, Label, Node, resources, Sprite, SpriteFrame, UITransform } from 'cc';
 import { UILayer } from './UILayer';
 import { ChatBubble } from './ChatBubble';
 const { ccclass, property } = _decorator;
@@ -57,16 +57,47 @@ export class chatPrefab extends Component {
 
     initData(npcId: any, chatContent: string) {
         this._npcId = npcId;
-        this.lblChatContent.string = chatContent;
-        resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
-            if (!this._isValid) return;
-            if(error){
+        if(chatContent && npcId){
+            this.imgNpcHeadBox.active = true;
+            this.imgNpcHeadBox.getComponentInChildren(ChatBubble).setText(chatContent);
+        }
+        else{
+            if(npcId){
+                this.imgNpcTypeNode.active = true;
+            }
+            else{
+                this.imgPlayerHeadBox.active = true;
+                this.imgPlayerHeadBox.getComponentInChildren(ChatBubble).setText(chatContent);
+            }
+        }
+        if(npcId){
+            resources.load("gameUI/image/headDir_" + npcId +"/spriteFrame",(error,sprFrame:SpriteFrame)=>{
+                if (!this._isValid) return;
+                if(error){
                 console.log(error);
             }
             else{
                 this.imgNpcHeadFrame.spriteFrame = sprFrame;
+                this.imgNpcHeadFrame_2.spriteFrame = sprFrame;
             }
         })
+        }
+        else{
+            assetManager.loadBundle("headFrame",{},(error,bundle)=>{
+                let randomIndex = Number(localStorage.getItem("avatarId"));
+                //console.log("headFrame/imgHeadFrame_" + randomIndex + "/spriteFrame");
+                bundle.load("imgHeadFrame_" + randomIndex + "/spriteFrame",SpriteFrame,(error,spFrame)=>{
+                    if(error||!this._isValid){
+                        console.log("loadHeadError" + error)
+                        return;
+                    }
+                    else{
+                        this.imgPlayerHeadFrame.spriteFrame = spFrame
+                    }
+                })
+            })
+        }
+
     }
 
     onBtnChat() {

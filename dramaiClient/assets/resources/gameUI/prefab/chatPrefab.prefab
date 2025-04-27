@@ -2511,6 +2511,9 @@
     "imgNpcHeadFrame_2": {
       "__id__": 82
     },
+    "lblChatContent": {
+      "__id__": 60
+    },
     "_id": ""
   },
   {
