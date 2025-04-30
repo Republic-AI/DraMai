@@ -12,6 +12,8 @@ public class TweetVo {
 
     private String imgUrl;
 
+    private String videoUrl;
+
     private List<TweetCommentVo> tweetCommentVoList;
 
     private int commentCount;

@@ -4,6 +4,8 @@ import com.infinity.common.utils.DateUtil;
 
 public class VoteConstant {
 
+    public static final int VOTE_TYPE_READY = -1;
+
     public static final int VOTE_STATE_NORMAL = 0;
 
     public static final int VOTE_STATE_END = 1;

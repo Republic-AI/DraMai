@@ -14,21 +14,5 @@
     "name": "The Mad Scientist",
     "order": 2,
     "id": 3
-  },
-  {
-    "banner": "https://dramai.world/img/banner2.png",
-    "map": "map2",
-    "show": 1,
-    "name": "Urban Idol Life",
-    "order": 3,
-    "id": 2
-  },
-  {
-    "banner": "https://dramai.world/img/banner1.png",
-    "map": "map1",
-    "show": 0,
-    "name": "Ranch Love Story",
-    "order": 4,
-    "id": 1
   }
 ]

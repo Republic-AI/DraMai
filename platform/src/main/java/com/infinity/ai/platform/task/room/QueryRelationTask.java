@@ -3,6 +3,7 @@ package com.infinity.ai.platform.task.room;
 import com.infinity.ai.platform.constant.VoteConstant;
 import com.infinity.ai.platform.entity.vote.UserVoteData;
 import com.infinity.ai.platform.entity.vote.VoteData;
+import com.infinity.ai.platform.manager.MapDataManager;
 import com.infinity.ai.platform.manager.Player;
 import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.manager.RoomManager;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class QueryRelationTask extends BaseTask<QueryRelationRequest> {
@@ -52,13 +54,19 @@ public class QueryRelationTask extends BaseTask<QueryRelationRequest> {
         }
         List<RelationData> relationDataList = new ArrayList<>();
         List<RelationCfg> list = GameConfigManager.getInstance().getRelationCfgManager().getAllRelationCfg();
+        Map<String, String> relationMap = MapDataManager.getInstance().getMap().get_v().getRelationConfig();
         for (long npcId : npcRoom.getNpcList()) {
             for (RelationCfg relationCfg : list) {
                 if (relationCfg.getNpcId1() == npcId) {
+                    String relation = relationCfg.getRelation();
+                    String key = relationCfg.getNpcId1() + "_" + relationCfg.getNpcId2();
+                    if (relationMap.containsKey(key)) {
+                        relation = relationMap.get(key);
+                    }
                     RelationData data = new RelationData();
                     data.setNpcId1(relationCfg.getNpcId1());
                     data.setNpcId2(relationCfg.getNpcId2());
-                    data.setRelation(relationCfg.getRelation());
+                    data.setRelation(relation);
                     relationDataList.add(data);
                 }
             }

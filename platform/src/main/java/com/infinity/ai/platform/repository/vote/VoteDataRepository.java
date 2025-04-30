@@ -23,4 +23,5 @@ public interface VoteDataRepository extends JpaRepository<VoteData, Long> {
 
 
     Page<VoteData> findByRoomIdAndState(int room, int state, Pageable pageable);
+
 }

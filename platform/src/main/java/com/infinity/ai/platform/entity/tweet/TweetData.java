@@ -25,6 +25,8 @@ public class TweetData {
 
     private String imgUrl;
 
+    private String videoUrl;
+
     @Convert(converter = JsonConverter.class)
     @Column(name = "choose_list", columnDefinition = "TEXT")
     private List<String> chooseList;

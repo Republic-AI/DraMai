@@ -64,6 +64,7 @@ public class QueryTweetTask extends BaseTask<QueryTweetRequest> {
             tweetVo.setNpcId(tweetData.getNpcId());
             tweetVo.setRoomId(tweetData.getRoomId());
             tweetVo.setChooseList(tweetData.getChooseList());
+            tweetVo.setVideoUrl(tweetData.getVideoUrl());
             List<TweetCommentVo> tweetCommentVos = new ArrayList<>();
             for (TweetCommentData tweetCommentData : tweetData.getTweetCommentDataList()) {
                  if (tweetCommentData.getReplyId() != 0) {

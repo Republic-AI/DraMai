@@ -29,5 +29,7 @@ public class AdminRequest extends BaseMsg<AdminRequest.RequestData> {
     public static class RequestData {
         //GM 命令
         public String cmd;
+        //参数
+        public String content;
     }
 }

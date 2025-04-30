@@ -1,5 +1,7 @@
 package com.infinity.ai.platform.task.room;
 
+import com.infinity.ai.domain.tables.VMap;
+import com.infinity.ai.platform.manager.MapDataManager;
 import com.infinity.ai.platform.manager.Player;
 import com.infinity.ai.platform.manager.PlayerManager;
 import com.infinity.ai.platform.manager.RoomManager;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class QueryRoomListTask extends BaseTask<QueryRoomListRequest> {
@@ -37,6 +40,8 @@ public class QueryRoomListTask extends BaseTask<QueryRoomListRequest> {
             return true;
         }
         RoomCfgManager roomCfgManager = GameConfigManager.getInstance().getRoomCfgManager();
+        VMap vMap = MapDataManager.getInstance().getMap().get_v();
+        Map<Integer, String> bannerMap = vMap.getBannerConfig();
         List<RoomData> list = new ArrayList<>();
         for (RoomCfg roomCfg : roomCfgManager.getAllJoinCfg()) {
             NpcRoom npcRoom = RoomManager.getInstance().getRoom(roomCfg.getId());
@@ -45,7 +50,11 @@ public class QueryRoomListTask extends BaseTask<QueryRoomListRequest> {
                 roomData.setId(npcRoom.getRoomId());
                 roomData.setNpcList(npcRoom.getNpcList());
                 roomData.setPlayerCount(npcRoom.playerCount());
-                roomData.setBannerUrl(roomCfg.getBanner());
+                if (bannerMap.containsKey(roomCfg.getId())) {
+                    roomData.setBannerUrl(bannerMap.get(roomCfg.getId()));
+                } else {
+                    roomData.setBannerUrl(roomCfg.getBanner());
+                }
                 roomData.setOrder(roomCfg.getOrder());
                 list.add(roomData);
             }

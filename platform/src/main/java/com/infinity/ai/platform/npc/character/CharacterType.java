@@ -29,7 +29,8 @@ public enum CharacterType {
     Kai(17, "Kai"),
     Selena(18, "Selena"),
     Nova(19, "Nova"),
-    Aiden(20, "Aiden");
+    Aiden(20, "Aiden"),
+    Altman(21, "Altman");
 
 
     private final int code;

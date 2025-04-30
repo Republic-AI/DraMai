@@ -50,7 +50,8 @@ public enum ActionEnumType {
     Sport(137, "Sport"),
     MakeCake(138, "MakeCake"),
     LiveShow(139, "LiveShow"),
-    PlaceItem(140, "PlaceItem")
+    PlaceItem(140, "PlaceItem"),
+    ToAi(141, "ToAi")
     ;
 
     /**
