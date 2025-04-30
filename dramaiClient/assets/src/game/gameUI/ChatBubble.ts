@@ -21,6 +21,12 @@ export class ChatBubble extends Component {
         }
     }
 
+    update(deltaTime: number) {
+        if(this.label.string.length > 0){
+            this.updateBubbleSize();
+        }
+    }
+
     /**
      * 设置聊天气泡的内容
      * @param text 需要显示的文本

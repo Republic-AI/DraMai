@@ -87,7 +87,9 @@ export class SocketDataManager extends Component {
             let sceneName = director.getScene().name
             GlobalConfig.instance.nowSceneData = repData["data"];
             this._actionData = []
-            if(sceneName == "lobbyScene"){
+            let targetSceneName = "game_map" + GlobalConfig.instance.chooseScene;
+            if(sceneName != targetSceneName){
+                console.log("go to scene=====" + targetSceneName);
                 let bundle = assetManager.getBundle("game_map"+ GlobalConfig.instance.chooseScene);
                 if(bundle){
                     bundle.loadScene("game_map" + GlobalConfig.instance.chooseScene,(err,scene:SceneAsset)=>{

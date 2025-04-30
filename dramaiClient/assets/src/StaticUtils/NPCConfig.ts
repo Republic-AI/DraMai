@@ -63,6 +63,7 @@ export const NpcRoomIndex = {
   10019: 4,
   10020: 4,
   10021: 4,
+  10022: 3,
 }
 
 export const NpcName = {
@@ -85,7 +86,8 @@ export const NpcName = {
   10018: "liam",
   10019: "nina",
   10020: "nova",
-  10021: "ryan"
+  10021: "ryan",
+  10022: "sam altman",
 }
 
 export const npcSkinCfg = {
@@ -109,6 +111,7 @@ export const npcSkinCfg = {
   10019: [0],
   10020: [0],
   10021: [0],
+  10022: [0],
 }
 
 export const npcSceneItemCfg = {
@@ -132,6 +135,7 @@ export const npcSceneItemCfg = {
   10019: [0],
   10020: [0],
   10021: [0],
+  10022: [0],
 }
 
 export const sceneItemAllCfg = {
@@ -290,6 +294,8 @@ export const sceneItemAllCfg = {
       "10020": [
       ],
       "10021": [
+      ],
+      "10022": [
       ]
   }
 
@@ -450,6 +456,8 @@ export const sceneItemAllCfg = {
     ],
     "10021": [
     ],
+    "10022": [
+    ],
 }
 export const NPCPartDisplayInfo = {
   body: [
@@ -596,6 +604,7 @@ export const npcDes = {
   10019:"Nina: An elegant investor with quiet wisdom and dry humor—respected, admired, but never fully known.",
   10020:"Nova: A quiet farmer with a deep love for nature and a gentle strength that grows with time—rooted, real, and reliable.",
   10021:"Ryan: A charming athlete with a golden-boy smile, stepping out of his family's shadow to chase his own truth and identity.",
+  10022:"Sam Altman: A pragmatic visionary, leading the AI revolution with a focus on the future and potential challenges.",
 }
 
 export const npcTitleDes = {
@@ -615,6 +624,7 @@ export const npcTitleDes = {
   10019:"Qiu shines online, but the spotlight can't reach her doubts.",
   10020:"Nova tends her fields in silence — and buries her secrets even deeper.",
   10021:"Aiden wins hearts like he wins races — fast, but never without friction.",
+  10022:"Sam Altman leads the charge in AI, shaping the future with every innovation",
 }
 export const BubbleImgUrl = {
   sleep: 'action/bubble/sleep',
@@ -724,6 +734,7 @@ export enum NpcEventType {
   sport = 137,
   makecake = 138,
   LiveShow = 139,
+  toAI = 141,
 }
 
 export enum SleepHeadDirect {
@@ -762,7 +773,38 @@ export const newsInfo = {
 
   ],
   3:[
-
+    {
+      id: 4,
+      date: "EP 4",
+      imgNameArr: ["3ep0401", "3ep0402", "3ep0403", "3ep0404"],
+      videoNameArr: [],
+      newsTitle: "",
+      newsText: "Altman’s Ticket to Survival"
+    },
+    {
+      id: 3,
+      date: "EP 3",
+      imgNameArr: ["3ep0301", "3ep0302", "3ep0303", "3ep0304"],
+      videoNameArr: [],
+      newsTitle: "",
+      newsText: "Bitcoin’s Key to Mars"
+    },
+    {
+      id: 2,
+      date: "EP 2",
+      imgNameArr: ["3ep0201", "3ep0202", "3ep0203", "3ep0204"],
+      videoNameArr: [],
+      newsTitle: "",
+      newsText: "Musk’s Final Rebellion"
+    },
+    {
+      id: 1,
+      date: "EP 1",
+      imgNameArr: ["3ep0101", "3ep0102", "3ep0103", "3ep0104"],
+      videoNameArr: [],
+      newsTitle: "",
+      newsText: "Musk, You are fired!"
+    },
   ],
   4:[
     {
@@ -917,5 +959,12 @@ export const NPCConfigMap: { [key: number]: NPCConfigItem } = {
         profession: "Idol",
         description: "Luna won the Grammy Award, making history worldwide.",
         tags: ["#IdolPerformance", "#SecretSongwriting"]
+    },
+    10022: {
+        id: 10022,
+        name: "Sam Altman",
+        profession: "Researcher",
+        description: "Leads the charge in AI, shaping the future with every innovation",
+        tags: ["#Technologist", "#FutureofAI"]
     }
 };

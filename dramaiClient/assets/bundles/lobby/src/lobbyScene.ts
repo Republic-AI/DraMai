@@ -125,10 +125,30 @@ export class lobbyScene extends Component {
     _isInit
     start() {
         console.log("address=========" + GlobalConfig.instance.address)
+        const currentUrl = window.location.href;
+        if(currentUrl){
+            if(currentUrl.includes("webframe")){
+                GlobalConfig.instance.isWebFrame = true;
+                this.node.getChildByName("testWebFrameNode").active = true;
+                // let json = new network.GetAllNPCRequest();
+                // json.command = 10012;
+                // json.type = 1;
+                // json["data"] = {};
+                // json["data"]["roomId"] = 4;
+                // GlobalConfig.instance.chooseNpc = 0
+                // GlobalConfig.instance.chooseScene = 4;
+                // socket.sendWebSocketBinary(json);
+                // return;
+                return
+            }
+        }
         this._initData()
     }
 
     update(deltaTime: number) {
+        if(GlobalConfig.instance.isWebFrame){
+            return;
+        }
         if(this._sceneBannerFrame[this._chooseSceneId]){
             this.imgBannerContent.spriteFrame = this._sceneBannerFrame[this._chooseSceneId];
         }

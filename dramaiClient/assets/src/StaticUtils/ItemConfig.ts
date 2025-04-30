@@ -210,5 +210,19 @@ export const ItemConfigMap: { [key: string]: ItemInfo } = {
         name: "Rose",
         des: "The rose Kai prepared for Qiu."
     },
-    
+    "1002201": {
+        id: "1002201",
+        name: "Score Band",
+        des: "Wristband showing Mars eligibility score."
+    },
+    "1002202": {
+        id: "1002202",
+        name: "Futures Tablet",
+        des: "AGI logic notes in digital form."
+    },
+    "1002203": {
+        id: "1002203",
+        name: "Alpha Chip",
+        des: "Governance microchip by OpenAI."
+    },
 }; 

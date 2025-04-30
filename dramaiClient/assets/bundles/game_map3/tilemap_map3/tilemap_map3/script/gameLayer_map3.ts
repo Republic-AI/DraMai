@@ -101,6 +101,12 @@ export class gameLayer_map3 extends Component {
     trumpFoodNode: Node = null;
 
     @property(Node)
+    altmanFoodNode:Node = null;
+
+    @property(Node)
+    altmanAIEffect:Node = null;
+
+    @property(Node)
     meetingNode:Node = null;
 
     @property(Node)
@@ -242,6 +248,9 @@ export class gameLayer_map3 extends Component {
         else{
             //如果是由Banner进入的场景，则打开一次新闻
             tween(this.node).delay(0.1).call(()=>{
+                if(GlobalConfig.instance.isWebFrame){
+                    return;
+                }
                 let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
                 UILayerSrc.onBtnNews();
             }).start()
@@ -380,6 +389,10 @@ export class gameLayer_map3 extends Component {
                 }
                 else if(actionData.npcId == 10015){
                     //this.lunaFoodNode.active = false;
+                }
+                else if(actionData.npcId == 10022){
+                    this.altmanFoodNode.active = false;
+                    this.altmanAIEffect.active = false;
                 }
             }
             else if (actionData.actionId === NpcEventType.type) {
@@ -582,6 +595,12 @@ export class gameLayer_map3 extends Component {
                     // this.lunaFoodNode.children[1].active = false;
                     npcControl.setIdleStatus(KeyCode.KEY_D);
                 }
+                else if(actionData.npcId == 10022){
+                    this.altmanFoodNode.active = true;
+                    this.altmanFoodNode.children[0].active = true;
+                    this.altmanFoodNode.children[1].active = false;
+                    npcControl.setIdleStatus(KeyCode.KEY_D);
+                }
                 tween(npc).delay(5).call(()=>{
                     npcControl.showBubble(BubbleImgUrl.afterDinner);
                 }).start();
@@ -620,6 +639,11 @@ export class gameLayer_map3 extends Component {
                         // this.lunaFoodNode.active = true;
                         // this.lunaFoodNode.children[0].active = false;
                         // this.lunaFoodNode.children[1].active = true;
+                    }
+                    else if(actionData.npcId == 10022){
+                        this.altmanFoodNode.active = true;
+                        this.altmanFoodNode.children[0].active = false;
+                        this.altmanFoodNode.children[1].active = true;
                     }
                 }).start();
 
@@ -832,7 +856,13 @@ export class gameLayer_map3 extends Component {
                 if(actionData.params.oid.includes("left")){
                     npcControl.setIdleStatus(KeyCode.KEY_A)
                 }
-            }      
+            }   
+            else if(actionData.actionId === NpcEventType.toAI){
+                if(actionData.npcId == 10022){
+                    npcControl.playToAiAnimation();
+                    this.altmanAIEffect.active = true;
+                }
+            }   
             else {
                 console.log("error actionID======" + actionData.actionId);
                 if (actionData.params.oid) {

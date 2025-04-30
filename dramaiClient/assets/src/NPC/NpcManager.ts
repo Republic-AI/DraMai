@@ -831,6 +831,10 @@ export class NpcManager extends Component {
         this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("message",0);
     }
 
+    playToAiAnimation(){
+        this.npcNode.getComponent(dragonBones.ArmatureDisplay).playAnimation("speak",0);
+    }
+
     loadItemImage(itemId: number, callback: (spriteFrame: SpriteFrame) => void) {
         resources.load("common/image/item_" + itemId + "/spriteFrame",SpriteFrame,(err,spr:SpriteFrame)=>{
             if (!this._isValid) return;

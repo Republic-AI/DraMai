@@ -9,7 +9,7 @@ import { bulletMsgPrefab } from './bulletMsgPrefab';
 import WebUtils from '../../utils/WebUtils';
 import { npcDirPrefab } from './npcDirPrefab';
 import { NpcManager } from '../../NPC/NpcManager';
-import { NpcName } from '../../StaticUtils/NPCConfig';
+import { NpcName, NpcRoomIndex } from '../../StaticUtils/NPCConfig';
 import { alert_cb_status } from '../../common/alertPrefab';
 import { voteLayer } from '../voteLayer/voteLayer';
 import { chatRecordLayer } from '../chatRecord/chatRecordLayer';
@@ -493,17 +493,28 @@ export class UILayer extends Component {
         //     this.node.getChildByName("btnLayout").getChildByName("btnEditMap").active = false;
         //     this.node.getChildByName("btnEnterVote").active = false;
         // }
-        GlobalConfig.instance.roomDataList.forEach((scene,index)=>{
-            if(scene.id == GlobalConfig.instance.chooseScene){
-                scene.npcList.forEach(npcID=>{
-                    let npcHeadNode = instantiate(this.npcHeadPrefab);
-                    this.npcHeadLayout.addChild(npcHeadNode);
-                    npcHeadNode.getComponent(npcHeadPrefab).initData(npcID);
-                })
+        for(let i in NpcRoomIndex){
+            if(NpcRoomIndex[i] == GlobalConfig.instance.chooseScene){
+                let npcHeadNode = instantiate(this.npcHeadPrefab);
+                this.npcHeadLayout.addChild(npcHeadNode);
+                npcHeadNode.getComponent(npcHeadPrefab).initData(i);
             }
-        })
+        }
+        // GlobalConfig.instance.roomDataList.forEach((scene,index)=>{
+        //     if(scene.id == GlobalConfig.instance.chooseScene){
+        //         scene.npcList.forEach(npcID=>{
+        //             let npcHeadNode = instantiate(this.npcHeadPrefab);
+        //             this.npcHeadLayout.addChild(npcHeadNode);
+        //             npcHeadNode.getComponent(npcHeadPrefab).initData(npcID);
+        //         })
+        //     }
+        // })
 
         this.initVoteInfo()
+
+        if(GlobalConfig.instance.isWebFrame){
+            this.node.getChildByName("btnExit").active = false;
+        }
     }
 
     initVoteInfo(){

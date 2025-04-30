@@ -13,7 +13,7 @@ export const NPCSkillMap: { [key: string]: NPCSkillInfo } = {
     "10006": {
         skills: ["#LogicalDebate", "#TransparentLeadership"],
         MBTI: [0.4, 0.9, 0.15, 0.6],
-        itemIds: ["1000601", "1000602", "1000603", "1000604"]
+        itemIds: ["1000601", "1000602", "1000603"]
     },
     "10014": {
         skills: ["#MarketAnalysis", "#HighPressureCoaching"],
@@ -58,6 +58,11 @@ export const NPCSkillMap: { [key: string]: NPCSkillInfo } = {
     "10012": {
         skills: ["#PersuasiveSpeech", "#ConflictStirring"],
         MBTI: [0.9, 0.3, 0.75, 0.4],
-        itemIds: ["1001201", "1001202", "1001203", "1001204"]
-    }
+        itemIds: ["1001201", "1001202", "1001203"]
+    },
+    "10022": {
+        skills: ["#VisionaryLeadership", "#Technologist"],
+        MBTI: [0.5, 0.65, 0.8, 0.7],
+        itemIds: ["1002201", "1002202", "1002203"]
+    }   
 }; 

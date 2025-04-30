@@ -126,6 +126,7 @@ export class changeSkinPrefab extends Component {
     }
 
     initData(npcId){
+        this.lblTwitterTime.string = "";
         this.chatViewContent.getComponentsInChildren(chatPrefab).forEach(prefab=>{
             if(prefab._npcId == npcId || prefab.toNpcId == npcId){
                 prefab.node.active = true;
@@ -260,7 +261,7 @@ export class changeSkinPrefab extends Component {
             
         })
         tween(this.node).delay(0.1).call(()=>{
-            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 700){
+            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 900){
                 this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
             }
         }).start()
@@ -319,6 +320,8 @@ export class changeSkinPrefab extends Component {
         }
 
         this.hideHelpNode();
+
+        this.lblTwitterName.string = NpcName[this._npcId];
     }
 
     setGoldNum(coinNum){
@@ -388,7 +391,7 @@ export class changeSkinPrefab extends Component {
         chatPrefabNode.getComponent(chatPrefab).setToNpcId(this._npcId);
         this.chatViewContent.addChild(chatPrefabNode)
         tween(this.node).delay(0.1).call(()=>{
-            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 700){
+            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 900){
                 this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
             }
         }).start()
@@ -403,6 +406,10 @@ export class changeSkinPrefab extends Component {
             let chatTypeNode = instantiate(this.chatPrefab);
             chatTypeNode.getComponent(chatPrefab).initData(this._npcId,null)
             this.chatViewContent.addChild(chatTypeNode)
+        }).delay(0.1).call(()=>{
+            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 900){
+                this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
+            }
         }).start()
 
         
@@ -416,17 +423,16 @@ export class changeSkinPrefab extends Component {
         if(npcId != this._npcId){
             chatPrefabNode.active = false;
         }
-        tween(this.node).delay(0.1).call(()=>{
-            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 700){
-                this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
-            }
-        }).start()
-
         this.chatViewContent.getComponentsInChildren(chatPrefab).forEach(prefab=>{
             if(prefab._npcId == this._npcId && prefab.imgNpcTypeNode.active){
                 prefab.node.destroy();
             }
         })
+        tween(this.node).delay(0.1).call(()=>{
+            if(this.chatViewContent.getComponent(UITransform).contentSize.height > 900){
+                this.chatViewContent.parent.parent.getComponent(ScrollView).scrollToBottom();
+            }
+        }).start()
     }
 
     onEditBegin(){

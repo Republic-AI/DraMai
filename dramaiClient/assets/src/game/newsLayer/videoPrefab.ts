@@ -16,6 +16,7 @@ export class videoPrefab extends Component {
     @property(SpriteFrame)
     btnOffSpriteFrame: SpriteFrame = null;
 
+    _type = "news"
     start() {
         // 添加按钮点击事件监听
         this.btnOperate.node.active = false
@@ -98,6 +99,9 @@ export class videoPrefab extends Component {
 
     updateBtnState() {
         // 根据视频播放状态更新按钮图片
+        if(this.videoPlayer.isPlaying){
+            this.btnOperate.node.active = true;
+        }
         this.btnOperate.spriteFrame = this.videoPlayer.isPlaying ? this.btnOffSpriteFrame : this.btnOnSpriteFrame;
     }
 
@@ -106,7 +110,9 @@ export class videoPrefab extends Component {
     }
 
     protected onDestroy(): void {
-        AudioManager.instance.playMusic(true);
+        if(this._type == "news"){
+            AudioManager.instance.playMusic(true);
+        }
     }
 
     onVideoError(event) {
@@ -122,6 +128,15 @@ export class videoPrefab extends Component {
         
         // TODO: 可以在这里添加错误提示UI
         // this.showErrorUI("视频加载失败，请稍后重试");
+    }
+
+    initByUrl(url){
+        this._type = "url";
+        this.videoPlayer.resourceType = VideoPlayer.ResourceType.REMOTE;
+        this.videoPlayer.playOnAwake = true;
+        this.videoPlayer.remoteURL = url;
+        this.videoPlayer.play();
+        this.btnOperate.node.active = true;
     }
 }
 

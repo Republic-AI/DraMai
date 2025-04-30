@@ -223,6 +223,9 @@ export class gameLayer_map2 extends Component {
         else{
             //如果是由Banner进入的场景，则打开一次新闻
             tween(this.node).delay(0.1).call(()=>{
+                if(GlobalConfig.instance.isWebFrame){
+                    return;
+                }
                 let UILayerSrc = director.getScene().getComponentInChildren(UILayer);
                 UILayerSrc.onBtnNews();
             }).start()

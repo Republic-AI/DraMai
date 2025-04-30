@@ -6,6 +6,7 @@ import { commitItem } from './commitItem';
 import { EventType } from '../../../src/EventType';
 import { GlobalConfig } from '../../../src/game/config/GlobalConfig';
 import { lobbyScene } from './lobbyScene';
+import { videoPrefab } from '../../../src/game/newsLayer/videoPrefab';
 const { ccclass, property } = _decorator;
 
 @ccclass('twitterModeType_1')
@@ -52,6 +53,12 @@ export class twitterModeType_1 extends Component {
         
     @property(SpriteFrame)
     btnZan_2:SpriteFrame = null;
+
+    @property(Node)
+    btnVideo:Node = null;
+
+    @property(Prefab)
+    videoPrefab:Prefab = null;
 
     _data = null;
     _roomId = null;
@@ -178,6 +185,13 @@ export class twitterModeType_1 extends Component {
                     console.log("this.imgContent 为空");
                 }
             });
+
+            if(data.videoUrl){
+                this.btnVideo.active = true;
+            }
+            else{
+                this.btnVideo.active = false;
+            }
         }
         else{
             this.imgContent.node.active = false;
@@ -318,6 +332,15 @@ export class twitterModeType_1 extends Component {
             }
 
         }
+    }
+
+    onBtnVideo(){
+        console.log("onBtnVideo");
+        let videoPrefabNode = instantiate(this.videoPrefab);
+        videoPrefabNode.getComponent(videoPrefab).initByUrl(this._data.videoUrl);
+        let canvas = director.getScene().getChildByName("Canvas");
+        canvas.addChild(videoPrefabNode);
+
     }
 }
 

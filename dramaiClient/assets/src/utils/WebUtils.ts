@@ -325,6 +325,22 @@ export default class WebUtils {
     let secStr = sec < 10 ? ("0" + sec) : sec.toString();
     return minStr + ":" + secStr;
   }
+
+  public static showMaskNode(){
+    if(director.getScene().getChildByName("Canvas").getChildByName("maskNode")){
+      return;
+    }
+    resources.load("common/prefab/maskNode", Prefab, (error, mask: Prefab) => {
+      let maskNode = instantiate(mask);
+      director.getScene().getChildByName("Canvas").addChild(maskNode);
+    })
+  }
+
+  public static hideMaskNode(){
+    if(director.getScene().getChildByName("Canvas").getChildByName("maskNode")){
+      director.getScene().getChildByName("Canvas").getChildByName("maskNode").destroy();
+    }
+  }
 }
 
 
