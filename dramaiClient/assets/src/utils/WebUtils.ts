@@ -46,7 +46,7 @@ export default class WebUtils {
     callback: Function = null
   ) {
     if (!remoteUrl || typeof ("dd") != "string") {
-      Log.log(TAG, "getRemoteImg::remoteUrl错误:" + remoteUrl);
+      console.log(TAG, "getRemoteImg::remoteUrl错误:" + remoteUrl);
       return;
     }
     try {
@@ -68,7 +68,7 @@ export default class WebUtils {
               sprite.getComponent(Sprite).spriteFrame = spriteFrame;
             }
           } catch (error) {
-            Log.log(TAG, error)
+            console.log(TAG, error)
           }
         }
         if (callback) {
@@ -76,7 +76,7 @@ export default class WebUtils {
         }
       });
     } catch (err) {
-      Log.log(TAG, "getRemoteImg::remoteUrl错误:", err);
+      console.log(TAG, "getRemoteImg::remoteUrl错误:", err);
 
     }
 
@@ -97,11 +97,11 @@ export default class WebUtils {
           try {
             sprite.getComponent(Sprite).spriteFrame = spriteFrame;
           } catch (error) {
-            Log.log(TAG, error)
+            console.log(TAG, error)
           }
 
         } else {
-          Log.log(TAG, " or sprite 为空", remoteUrl);
+          console.log(TAG, " or sprite 为空", remoteUrl);
         }
         if (callback) {
           callback(err, spriteFrame);
@@ -125,7 +125,7 @@ export default class WebUtils {
 
         }
       } else {
-        Log.log(TAG, "sprite 为空");
+        console.log(TAG, "sprite 为空");
       }
       if (callback) {
         callback(err, newNode);

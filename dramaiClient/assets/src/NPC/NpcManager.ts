@@ -4,8 +4,7 @@ import { observer } from '../game/App';
 import { EventType } from '../EventType';
 import { FeelingImgUrl, NpcName } from '../StaticUtils/NPCConfig';
 import { GameScene } from '../game/scene/GameScene';
-import { spriteFrame } from './NPCControl';
-import { zhongbencongLayer } from '../town/zhongbencongLayer';
+//import { zhongbencongLayer } from '../town/zhongbencongLayer';
 import { JietuComponent } from '../manager/JietuComponent';
 import { PlayerManager } from './PlayerManager';
 import { GlobalConfig } from '../game/config/GlobalConfig';
@@ -476,13 +475,13 @@ export class NpcManager extends Component {
         // let testItemId = Math.random() > 0.5 ? "test01" : "test02";
         // this.playSendItemAction(testScale,testItemId);
         // return;
-        const currentUrl = window.location.href;
-        const url = new URL(currentUrl);
-        // 获取查询参数
-        let codeParam = url.searchParams.get("version");
-        if(codeParam == "live"){
-            return;
-        }
+        // const currentUrl = window.location.href;
+        // const url = new URL(currentUrl);
+        // // 获取查询参数
+        // let codeParam = url.searchParams.get("version");
+        // if(codeParam == "live"){
+        //     return;
+        // }
         let mapScript = director.getScene().getComponentInChildren(GameScene).getMapScript();
         if(mapScript && mapScript._myPlayerNode){
             observer.post(EventType.PLAYERCLICK,this.NpcID);

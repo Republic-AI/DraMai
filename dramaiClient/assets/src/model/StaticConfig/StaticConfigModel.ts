@@ -158,7 +158,7 @@ export default class StaticConfigModel extends BaseModel {
     public getItemByid(id: number): ItemCData {
         let item = this._commonConfigArr.items[id + ""];
         if (!item) {
-            Log.log("没有找到道具itemid:" + id);
+            console.log("没有找到道具itemid:" + id);
         }
         return item;
     }
@@ -181,7 +181,7 @@ export default class StaticConfigModel extends BaseModel {
     public getseriesConfigById(id: number) {
         let item = this._commonConfigArr.series[id + ""];
         if (!item) {
-            Log.log("没有找到系列:" + id);
+            console.log("没有找到系列:" + id);
             item = {};
         }
         return item;
@@ -190,7 +190,7 @@ export default class StaticConfigModel extends BaseModel {
     public getGrpsByName(name: string) {
         let grps = this._commonConfigArr[name];
         if (!grps) {
-            Log.log("没有找到组:" + name);
+            console.log("没有找到组:" + name);
             grps = [];
         }
         return grps;
@@ -205,12 +205,12 @@ export default class StaticConfigModel extends BaseModel {
     public getconfigByGrpAId(name: string, id: number) {//id==key
         let grps = this._commonConfigJson[name];
         if(!grps){
-            Log.log("没有找到组",name);
+            console.log("没有找到组",name);
             return;
         }
         let item = this._commonConfigJson[name][id]
         if (!item) {
-            Log.log("没有找到系列:" + id);
+            console.log("没有找到系列:" + id);
             item = {};
         }
         return item;

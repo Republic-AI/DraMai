@@ -171,7 +171,7 @@ export class JietuComponent extends Component {
             spriteFrame.texture = texture;
             this.base64HeadSpr.getComponent(Sprite).spriteFrame = spriteFrame;
             this.scheduleOnce(() => {
-                Log.log(TAG,this.base64HeadSpr)
+                console.log(TAG,this.base64HeadSpr)
             },)
         }
     }

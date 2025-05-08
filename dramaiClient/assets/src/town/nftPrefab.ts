@@ -6,7 +6,6 @@ import { socket } from '../game/App';
 import { GlobalConfig } from '../game/config/GlobalConfig';
 import { UILayer } from '../game/gameUI/UILayer';
 import WebUtils from '../utils/WebUtils';
-import { alert_cb_status } from '../common/alertPrefab';
 const { ccclass, property } = _decorator;
 const canTouchTile = {
     "2":[v2(40,19),v2(40,20),v2(40,21),v2(39,21),v2(38,21)

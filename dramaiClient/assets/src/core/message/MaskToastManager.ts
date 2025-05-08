@@ -111,7 +111,7 @@ export default class MessageManager {
                 s.showGroup.addChild(s.recovMessage);
             }
         } catch (err) {
-            Log.log(TAG, err)
+            console.log(TAG, err)
             
         }
 

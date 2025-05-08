@@ -778,16 +778,16 @@
     "premultipliedAlpha": false,
     "_defaultArmatureIndexValue": 0,
     "_dragonAsset": {
-      "__uuid__": "a4ed892e-9a81-4499-8bcc-9b550b66b825",
+      "__uuid__": "01f2c8ca-ba8f-405e-bcc7-b340b6508478",
       "__expectedType__": "dragonBones.DragonBonesAsset"
     },
     "_dragonAtlasAsset": {
-      "__uuid__": "84d1825d-f314-4584-8596-9b37b2146ac0",
+      "__uuid__": "3f6d2194-431b-4272-a1b1-72cacc75f03b",
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",
-    "_animationName": "down_walk",
-    "_animationIndexValue": 1,
+    "_animationName": "down_standby",
+    "_animationIndexValue": 2,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,
@@ -913,7 +913,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0
+      "z": -6.536500164824993
     },
     "_id": ""
   },
@@ -1014,8 +1014,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 63.4803781587224,
-      "height": 48.845000000000006
+      "width": 64.5853781587224,
+      "height": 50.14500000000001
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1054,11 +1054,11 @@
     "premultipliedAlpha": false,
     "_defaultArmatureIndexValue": 0,
     "_dragonAsset": {
-      "__uuid__": "a4ed892e-9a81-4499-8bcc-9b550b66b825",
+      "__uuid__": "01f2c8ca-ba8f-405e-bcc7-b340b6508478",
       "__expectedType__": "dragonBones.DragonBonesAsset"
     },
     "_dragonAtlasAsset": {
-      "__uuid__": "84d1825d-f314-4584-8596-9b37b2146ac0",
+      "__uuid__": "3f6d2194-431b-4272-a1b1-72cacc75f03b",
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
     "_armatureName": "normal",

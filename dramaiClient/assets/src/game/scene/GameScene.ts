@@ -86,8 +86,8 @@ export class GameScene extends Component {
         observer.on(EventType.POPCHANGEITEM,this.popChangeItem,this);
         observer.on(EventType.POPCHANGESKIN,this.popChangeSkin,this);
 
-        const currentUrl = window.location.href;
-        const url = new URL(currentUrl);
+        // const currentUrl = window.location.href;
+        // const url = new URL(currentUrl);
         // 获取查询参数
         // let codeParam = url.searchParams.get("version");
         // if(codeParam == "live"){

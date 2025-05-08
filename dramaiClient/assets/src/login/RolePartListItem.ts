@@ -55,7 +55,7 @@ export class RolePartListItem extends Component {
             if(da.icon_path === loginModel.currentType.iconValue){
                 this.on.active = true
             }
-            Log.log(TAG, da, loginModel)
+            console.log(TAG, da, loginModel)
         }
     }
 
@@ -72,7 +72,7 @@ export class RolePartListItem extends Component {
         //     this.buy_page.getComponent(ShopPurchaseComponent).setItemData(this._da)
 
         // }
-        // Log.log(TAG, 'click', this._da)
+        // console.log(TAG, 'click', this._da)
     }
 
     refreshRolePart(){

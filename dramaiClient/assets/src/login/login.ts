@@ -9,10 +9,8 @@ import { GlobalConfig } from "../../src/game/config/GlobalConfig";
 import { network } from "../../src/model/RequestData";
 import { EventType } from "../../src/EventType";
 import Log from '../../src/utils/LogUtils'
-import { NPCPartBaseDataMap } from "../NPC/NPCControl";
 import { RolePartIcon } from "../StaticUtils/NPCConfig";
 import loginModel from "../model/loginModel";
-import { alert_cb_status } from "../common/alertPrefab";
 export let Axios;
 export let NeteaseGame;
 export let yyygame;
@@ -129,15 +127,6 @@ export default class Index extends Component {
 
   cowBabyIndex: number = 0 //小牛的index
   cowBlackIndex: number = 0 //走路的奶牛的index
-  npcBasePartInfo: NPCPartBaseDataMap = {
-    body: 0,
-    hair: {
-      sexy: 'man',
-      index: 0
-    },
-    pants: 0,
-    shirt: 0
-  }
   rabbit_index: number = 0;
   addFrameRabbit: number = 0;
   _frameIndex: number = 0;
@@ -153,7 +142,7 @@ export default class Index extends Component {
   async start() {
     //this.loginview.active = true;
     let s = this;
-    const currentUrl = window.location.href;
+    //const currentUrl = window.location.href;
     // 创建 URL 对象
     // const url = new URL(currentUrl);
     // if(sys.isMobile && currentUrl.includes("satoshi-ai.live")){
@@ -367,7 +356,7 @@ export default class Index extends Component {
 
       // }, () => {
       //   this.scheduleOnce(() => {
-      //     Log.log(TAG, 'Enter Game HomePage')
+      //     console.log(TAG, 'Enter Game HomePage')
 
       //     tizhuanMgr.checkEntrance();
       //   }, 0);
@@ -392,7 +381,7 @@ export default class Index extends Component {
       let app = new App();
       app.init();
       appInit(app);
-      Log.log(TAG, 'main init start ...')
+      console.log(TAG, 'main init start ...')
       mduManger.start();
       modelMgr.configModel.loadResDir();
       //director.addPersistRootNode(this.worldNode);

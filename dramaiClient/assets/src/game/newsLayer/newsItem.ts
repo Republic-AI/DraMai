@@ -1,5 +1,4 @@
 import { _decorator, assetManager, Component, director, instantiate, Label, Node, Prefab, Sprite, SpriteFrame } from 'cc';
-import { spriteFrame } from '../../NPC/NPCControl';
 import { videoPrefab } from './videoPrefab';
 const { ccclass, property } = _decorator;
 

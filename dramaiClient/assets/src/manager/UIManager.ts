@@ -24,7 +24,7 @@ export default class UIManager {
     let s = this;
     if(!par){
         let scen = director.getScene().getChildByName("Canvas");
-        Log.log(TAG,"uimanager::poptoparent",scen);
+        console.log(TAG,"uimanager::poptoparent",scen);
         par = scen as unknown as Node;
     }
     s._curPar = par;
@@ -36,12 +36,12 @@ export default class UIManager {
         name = child;
     }
     if(s._curPar.getChildByName(name)){
-        Log.log(TAG,"已经添加child:"+name);
+        console.log(TAG,"已经添加child:"+name);
         return;
     }
     // s._curPar.addChild(child);
     if(s._isloadingArr.indexOf(name)!=-1){
-        Log.log(TAG,"正在加载"+name);
+        console.log(TAG,"正在加载"+name);
         return;
     }else{
         s._isloadingArr.push(name);
@@ -64,7 +64,7 @@ export default class UIManager {
     
           }
         }else{
-            Log.log(TAG,"预制体资源加载失败::"+err);
+            console.log(TAG,"预制体资源加载失败::"+err);
             showMsg2("Load resources failed!");
         }
     });
@@ -88,7 +88,7 @@ export default class UIManager {
         c.name = "";
         c.destroy();
     }else{
-        Log.log(TAG,"不存在弹窗"+child);
+        console.log(TAG,"不存在弹窗"+child);
     }
   }
   /**

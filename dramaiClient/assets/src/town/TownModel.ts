@@ -280,7 +280,7 @@ export default class TownModel extends BaseModel {
         if (repData.command == 99998) {
             mduManger.closeModu(ModuleID.TOWN);
             let load = director.loadScene("login", (error: Error, scene: any) => {
-                Log.log(TAG,error, scene);
+                console.log(TAG,error, scene);
             });
             if (load) {
                 //showMsg2(modelMgr.configModel.getStrById(99998));
@@ -392,18 +392,18 @@ export default class TownModel extends BaseModel {
         else if(repData.command == 10027){ //使用逗猫玩具
             //observer.post(EventType.SEND_BUY_SHOP_ITEM_SUCCESS_INFO, da.data)
             //this.checkplayerItems()
-            Log.log(TAG, da.data)
+            console.log(TAG, da.data)
         }
 
         else if(repData.command == 10026){ //抚摸猫
             //observer.post(EventType.SEND_BUY_SHOP_ITEM_SUCCESS_INFO, da.data)
             // //this.checkplayerItems()
-            // Log.log(TAG,'play with cat', da.data)
+            // console.log(TAG,'play with cat', da.data)
             // observer.post(EventType.UPDATE_CAT_CV, da.data)
         }
 
         else if(repData.command == 10028){ //创建打工活动
-            // Log.log(TAG,'create work active', da.data)
+            // console.log(TAG,'create work active', da.data)
             // if(da.data.code !== 0){
             //     observer.post(EventType.WORK_DEFAULT)
             // }
@@ -411,11 +411,11 @@ export default class TownModel extends BaseModel {
         }
 
         else if(repData.command == 10029){ //领取打工奖励
-            //Log.log(TAG,'work reward', da.data)
+            //console.log(TAG,'work reward', da.data)
         }
 
         else if(repData.command == 10030){ //打工数据推送
-            // Log.log(TAG,'work result', da.data)
+            // console.log(TAG,'work result', da.data)
             // observer.post(EventType.WORK_STATE_INFO, da.data)
         }
 

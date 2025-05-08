@@ -28,7 +28,6 @@ export class sceneItem extends Component {
     start() {
 
     }
-
     update(deltaTime: number) {
         
     }

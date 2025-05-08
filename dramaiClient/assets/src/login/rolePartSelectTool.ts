@@ -91,7 +91,7 @@ export class rolePartSelectTool extends Component {
         //         current_storeId_arr.push(element)
         //     }
         // });
-        Log.log(TAG, this._data)
+        console.log(TAG, this._data)
         this.showZhongziList(this._data);
     }
     protected onEnable(): void {

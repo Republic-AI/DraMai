@@ -10,7 +10,6 @@ import WebUtils from '../../utils/WebUtils';
 import { npcDirPrefab } from './npcDirPrefab';
 import { NpcManager } from '../../NPC/NpcManager';
 import { NpcName, NpcRoomIndex } from '../../StaticUtils/NPCConfig';
-import { alert_cb_status } from '../../common/alertPrefab';
 import { voteLayer } from '../voteLayer/voteLayer';
 import { chatRecordLayer } from '../chatRecord/chatRecordLayer';
 import { createPlayerLayer } from '../createPlayer/createPlayerLayer';
@@ -631,27 +630,27 @@ export class UILayer extends Component {
     }
 
     onBtnTwitterLogin(){
-        WebUtils.showToast("Function not open yet");
-        return;
-        const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for (let i = 0; i < 10; i++) {
-          const randomIndex = Math.floor(Math.random() * charset.length);
-          result += charset[randomIndex];
-        }
-        this._randomState = result;
-        const clientId = 'aWVBTTZKV2xGSURfbVFwYzBaWWQ6MTpjaQ';
-        const redirectUri = 'https://aitown.infinitytest.cc';
-        const scope = 'users.read';
-        const state = result;  // 推荐使用随机值以防止CSRF
-        const authUrl = "https://twitter.com/i/oauth2/authorize?client_id="+ encodeURIComponent(clientId) + "&redirect_uri=" + encodeURIComponent(redirectUri) + "&response_type=code" + "&scope=" + encodeURIComponent(scope) +"&state=" + encodeURIComponent(state);
+        // WebUtils.showToast("Function not open yet");
+        // return;
+        // const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        // let result = '';
+        // for (let i = 0; i < 10; i++) {
+        //   const randomIndex = Math.floor(Math.random() * charset.length);
+        //   result += charset[randomIndex];
+        // }
+        // this._randomState = result;
+        // const clientId = 'aWVBTTZKV2xGSURfbVFwYzBaWWQ6MTpjaQ';
+        // const redirectUri = 'https://aitown.infinitytest.cc';
+        // const scope = 'users.read';
+        // const state = result;  // 推荐使用随机值以防止CSRF
+        // const authUrl = "https://twitter.com/i/oauth2/authorize?client_id="+ encodeURIComponent(clientId) + "&redirect_uri=" + encodeURIComponent(redirectUri) + "&response_type=code" + "&scope=" + encodeURIComponent(scope) +"&state=" + encodeURIComponent(state);
 
-        // this.webNode.getComponentInChildren(WebView).url = authUrl;
-        // this.webNode.active = true;
-        // tween(this.webNode).repeatForever(tween(this.webNode).delay(0.01).call(()=>{
-        //     this.checkWebCallBack();
-        // }).start()).start()
-        window.location.href = authUrl;
+        // // this.webNode.getComponentInChildren(WebView).url = authUrl;
+        // // this.webNode.active = true;
+        // // tween(this.webNode).repeatForever(tween(this.webNode).delay(0.01).call(()=>{
+        // //     this.checkWebCallBack();
+        // // }).start()).start()
+        // window.location.href = authUrl;
     }
 
     onBTnWalletLogin(){
@@ -962,36 +961,20 @@ export class UILayer extends Component {
 
     async onBtnLink(){
         let linkBundle = assetManager.getBundle("linkLayer");
-        const currentUrl = window.location.href;
-        const url = new URL(currentUrl);
-        if(currentUrl.includes("aitown_pc")){
-            await linkBundle.load("linkLayer_pc",Prefab,(err,linkLayerPrefab:Prefab)=>{
-                if(err || !this._isValid){
-                    console.log("votelayer lode===" + err);
-                    return;
-                }
-                if(this.node.getComponentInChildren(linkLayer)){
-                    return;
-                }
-                let linkLayerNode = instantiate(linkLayerPrefab);
-                this.node.addChild(linkLayerNode);
-                return linkLayerNode;
-            })
-        }
-        else{
-            await linkBundle.load("linkLayer",Prefab,(err,linkLayerPrefab:Prefab)=>{
-                if(err || !this._isValid){
-                    console.log("votelayer lode===" + err);
-                    return;
-                }
-                if(this.node.getComponentInChildren(linkLayer)){
-                    return;
-                }
-                let linkLayerNode = instantiate(linkLayerPrefab);
-                this.node.addChild(linkLayerNode);
-                return linkLayerNode;
-            })
-        }
+        // const currentUrl = window.location.href;
+        // const url = new URL(currentUrl);
+        await linkBundle.load("linkLayer",Prefab,(err,linkLayerPrefab:Prefab)=>{
+            if(err || !this._isValid){
+                console.log("votelayer lode===" + err);
+                return;
+            }
+            if(this.node.getComponentInChildren(linkLayer)){
+                return;
+            }
+            let linkLayerNode = instantiate(linkLayerPrefab);
+            this.node.addChild(linkLayerNode);
+            return linkLayerNode;
+        })
         
     }
 

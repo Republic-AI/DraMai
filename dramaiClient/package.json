@@ -3,7 +3,7 @@
   "uuid": "5777ed4c-dc7b-41b1-9334-f3fc2b2f5317",
   "version": "3.8.1",
   "creator": {
-    "version": "3.8.3"
+    "version": "3.8.7"
   },
   "dependencies": {
     "@project-serum/anchor": "^0.26.0",

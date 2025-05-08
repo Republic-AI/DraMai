@@ -18,7 +18,7 @@ export class NetworkCtrl {
 
     private _reconnectCount = 0;
 
-    private _wsiSendBinary: ReconnectingWebSocket | null = null;
+    private _wsiSendBinary= null;
     private _sioClient: any = null;
 
     private tag: string = '';
@@ -29,40 +29,47 @@ export class NetworkCtrl {
 
     // use this for initialization
     constructor() {
-        const currentURL = window.location.href;
-        if(currentURL.includes("storyModel")){
-            return;
-        }
-        if (currentURL.indexOf("localhost") != -1||currentURL.indexOf("192.168") != -1) {
-            //this._url = "ws://192.168.1.100:8686";//本地
-            //this._url = "wss://13.214.33.171:8989"; //windows
-            //this._url = "wss://www.infinitytest.cc:8989"
-            //this._url = "ws://44.200.143.84:8989"; //linux
-            //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            //this._url = "ws://192.168.0.101:8686"; //张航本地
-            //this._url = "ws://54.159.82.155:8686"
-            //this._url = "wss://aitown.infinitytest.cc/api/ws"
-            this._url = "wss://dramai.world/api/ws"
-            //this._url = "wss://memerepublic.ai/api/ws"
-            GlobalConfig.instance.isDebug = true;
-            GlobalConfig.instance.testTools = true;
-            
-        } else {
-            //this._url = "wss://www.infinitytest.cc:8989"
-            //this._url = "wss://cat.infinityg.ai/api/ws"
-            //this._url = "wss://cat.infinitytest.cc/api/ws"
-            //this._url = "ws://192.168.0.102:8686"; //张航本地
-            // this._url = "wss://aitown.infinitytest.cc/api/ws"//测试服
-            // GlobalConfig.instance.isDebug = false;
-            //this._url = "wss://satoshi-ai.live/api/ws"
-            // this._url = "ws://192.168.0.100:8686"; //张航本地
-            //GlobalConfig.instance.isDebug = false;
+        if(sys.isNative){
             this._url = "wss://dramai.world/api/ws"
             GlobalConfig.instance.isDebug = true;
             GlobalConfig.instance.testTools = false
         }
+        else{
+            const currentURL = window.location.href;
+            if(currentURL.includes("storyModel")){
+                return;
+            }
+            if (currentURL.indexOf("localhost") != -1||currentURL.indexOf("192.168") != -1) {
+                //this._url = "ws://192.168.1.100:8686";//本地
+                //this._url = "wss://13.214.33.171:8989"; //windows
+                //this._url = "wss://www.infinitytest.cc:8989"
+                //this._url = "ws://44.200.143.84:8989"; //linux
+                //this._url = "wss://aitown.infinitytest.cc/api/ws"
+                //this._url = "ws://192.168.0.101:8686"; //张航本地
+                //this._url = "ws://54.159.82.155:8686"
+                //this._url = "wss://aitown.infinitytest.cc/api/ws"
+                this._url = "wss://dramai.world/api/ws"
+                //this._url = "wss://memerepublic.ai/api/ws"
+                GlobalConfig.instance.isDebug = true;
+                GlobalConfig.instance.testTools = true;
+                
+            } else {
+                //this._url = "wss://www.infinitytest.cc:8989"
+                //this._url = "wss://cat.infinityg.ai/api/ws"
+                //this._url = "wss://cat.infinitytest.cc/api/ws"
+                //this._url = "ws://192.168.0.102:8686"; //张航本地
+                // this._url = "wss://aitown.infinitytest.cc/api/ws"//测试服
+                // GlobalConfig.instance.isDebug = false;
+                //this._url = "wss://satoshi-ai.live/api/ws"
+                // this._url = "ws://192.168.0.100:8686"; //张航本地
+                //GlobalConfig.instance.isDebug = false;
+                this._url = "wss://dramai.world/api/ws"
+                GlobalConfig.instance.isDebug = true;
+                GlobalConfig.instance.testTools = false
+            }
+        }
         this._wsiSendBinary = null;
-        Log.log(TAG, "socket waiting...")
+        console.log(TAG, "socket waiting...")
 
         this.prepareWebSocket();
         this.startHeartbeat()
@@ -74,7 +81,7 @@ export class NetworkCtrl {
         // }
     
         this.heartbeatTimer = setInterval(() => {
-          Log.log(TAG, 'send heart pin')
+          console.log(TAG, 'send heart pin')
           this.sendWebSocketBinary({
             "requestId": 111110,
             "command": 99996,
@@ -107,26 +114,31 @@ export class NetworkCtrl {
         // }
         // We should pass the cacert to libwebsockets used in native platform, otherwise the wss connection would be closed.
         // @ts-ignore
-        this._wsiSendBinary = new ReconnectingWebSocket(url, [], {
-            maxReconnectionDelay: 10000,
-            minReconnectionDelay: 1000 + Math.random() * 4000,
-            reconnectionDelayGrowFactor: 1.3,
-            minUptime: 5000,
-            connectionTimeout: 4000,
-            maxRetries: Infinity,
-            maxEnqueuedMessages: Infinity,
-            startClosed: false,
-            debug: false,
-        });
-        this._wsiSendBinary.retryCount
-        let _wsiSend = this._wsiSendBinary
-        let redirectCode = 
+        if(sys.isNative){
+            console.log('websocket native')
+            this._wsiSendBinary = new WebSocket(url, []);
+        }
+        else{
+            this._wsiSendBinary = new ReconnectingWebSocket(url, [], {
+                maxReconnectionDelay: 10000,
+                minReconnectionDelay: 1000 + Math.random() * 4000,
+                reconnectionDelayGrowFactor: 1.3,
+                minUptime: 5000,
+                connectionTimeout: 4000,
+                maxRetries: Infinity,
+                maxEnqueuedMessages: Infinity,
+                startClosed: false,
+                debug: false,
+            });
+            this._wsiSendBinary.retryCount
+            let _wsiSend = this._wsiSendBinary
+        }
         // this._wsiSendBinary = new WebSocket('wss://echo.websocket.events', [], url);
         this._wsiSendBinary.binaryType = 'arraybuffer';
         this._wsiSendBinary.onopen = function (evt) {
             respLabel = 'Opened!';
             websocketLabel = 'WebSocket: onopen'
-            Log.log(TAG, websocketLabel)
+            console.log(TAG, websocketLabel)
             if(director.getScene().name != 'login'){
                 let json = new network.LoginRequest();
                 json.requestId = 0;
@@ -209,7 +221,7 @@ export class NetworkCtrl {
         // }
         var c: any = evt.data;
         binaryStr += c;
-        Log.log(TAG, binaryStr)
+        console.log(TAG, binaryStr)
         // c = c.replace(/\\/g, "");
         c = JSON.parse(c);
         if(c){
@@ -233,7 +245,7 @@ export class NetworkCtrl {
             req["requestId"] = Date.now() + Math.floor(Math.random() * 100);
 
             let buf = JSON.stringify(req);
-            Log.log(TAG, 'websocket::', buf)
+            console.log(TAG, 'websocket::', buf)
             //--------
             let arrData = new Uint16Array(buf.length);
             for (let i = 0; i < buf.length; i++) {
@@ -249,7 +261,7 @@ export class NetworkCtrl {
         else {
             let warningStr = 'send binary websocket instance wasn\'t ready...';
             websocketLabel = 'WebSocket: not ready';
-            Log.log(TAG, websocketLabel)
+            console.log(TAG, websocketLabel)
             // this.scheduleOnce(() => {
             //     this.sendWebSocketBinary();
             // }, 1);

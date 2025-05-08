@@ -28,7 +28,7 @@ export default class TiaozhuanMananger {
     this.initGroupRes = [];
     //添加预加载资源逻辑
 
-    Log.log(TAG,BoswerUtils.getQueryVariable("token"), "token");
+    console.log(TAG,BoswerUtils.getQueryVariable("token"), "token");
     this.visit = BoswerUtils.getQueryVariable("token");
   }
 
@@ -67,7 +67,7 @@ export default class TiaozhuanMananger {
     return new Promise((resolve, reject) => {
       getIslogin().then((res) => {
         res["data"];
-        Log.log(TAG,"defaultRequest:isLogin::", res["data"].isLogin);
+        console.log(TAG,"defaultRequest:isLogin::", res["data"].isLogin);
         resolve();
       }).catch((err) => {
 
@@ -103,7 +103,7 @@ export default class TiaozhuanMananger {
    * 默认打开模块
    */
   public defalutstart() {
-    Log.log(TAG,"in defalut start.")
+    console.log(TAG,"in defalut start.")
     //验证登录,成功后,打开默认界面
     // this.afterLogin();
     // mainModule.openModu();
@@ -158,7 +158,7 @@ export default class TiaozhuanMananger {
           resolve();
         } catch (err) {
           reject();
-          if (err) Log.log(TAG,err.toString());
+          if (err) console.log(TAG,err.toString());
         }
 
       });
